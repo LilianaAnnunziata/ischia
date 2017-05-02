@@ -1,0 +1,10 @@
+$balanced: #00C1A8;
+$link-color: $balanced;
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss";
+.sfondo {
+	background-color: transparent!important;
+	color: blue!important;
+	font-size: 50px!important;
+}
+

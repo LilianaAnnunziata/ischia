@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/ng-cordova.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+
+    <style type="text/css">
+      .platform-ios .manual-ios-statusbar-padding{
+        padding-top:20px;
+      }
+      .manual-remove-top-padding{
+        padding-top:0px;
+      }
+      .manual-remove-top-padding .scroll{
+        padding-top:0px !important;
+      }
+      ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+        margin-left:-10px;
+        margin-right:-10px;
+      }
+      ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+        border-radius:0px;
+        border-left:0px;
+        border-right: 0px;
+      }
+      .show-list-numbers-and-dots ul{
+        list-style-type: disc;
+        padding-left:40px;
+      }
+      .show-list-numbers-and-dots ol{
+        list-style-type: decimal;
+        padding-left:40px;
+      }
+    </style>
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/routes.js"></script>
+
+
+    <script src="js/directives.js"></script>
+
+    <script src="js/services.js"></script>
+
+
+    <!-- Only required for Tab projects w/ pages in multiple tabs
+    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+    -->
+
+  </head>
+  <body ng-app="app" animation="slide-left-right-ios7">
+  <div>
+  <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
+    <ion-side-menu-content>
+      <ion-nav-bar class="bar-balanced">
+        <ion-nav-back-button></ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+      <ion-nav-view></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu21">
+      <ion-header-bar class="bar-balanced">
+        <div class="title">Menu</div>
+      </ion-header-bar>
+      <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header ">
+        <div data-componentid="image1" style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
+          <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        </div>
+        <div id="menu-button-bar5" class="button-bar" data-componentid="button-bar5">
+          <button id="menu-button27" style="font-weight:500;" class="button button-positive  button-block icon ion-android-image" data-componentid="button27"></button>
+          <button id="menu-button29" class="button button-positive  button-block icon ion-earth" data-componentid="button29"></button>
+          <button id="menu-button30" style="font-weight:500;" class="button button-positive  button-block" data-componentid="button30">3D</button>
+        </div>
+        <form id="menu-form8" class="list" data-componentid="form8">
+          <a ui-sref="naviga" menu-close="" id="menu-button6" style="font-weight:500;" class="button button-positive  button-block icon-left ion-log-in" data-componentid="button6">Login</a>
+          <a ui-sref="naviga" menu-close="" id="menu-button20" style="font-weight:500;" class="button button-light  button-block" data-componentid="button20">Sign In</a>
+          <form id="menu-form10" class="list" data-componentid="form10">
+            <a ui-sref="yourTimeline" menu-close="" id="menu-button7" style="font-weight:500;" class="button button-balanced  button-block icon-left ion-map" data-componentid="button7">Your Timeline</a>
+            <a ui-sref="yourTimeline" menu-close="" id="menu-button21" style="font-weight:500;" class="button button-balanced  button-block icon-left ion-location" data-componentid="button21">Manage POI</a>
+            <a ui-sref="naviga" menu-close="" id="menu-button10" style="font-weight:500;" class="button button-assertive  button-block icon-left ion-log-out" data-componentid="button10">Logout</a>
+          </form>
+        </form>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
+</div>
+  </body>
+</html>
