@@ -7,53 +7,47 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
 
-      .state('searchPath', {
-    url: '/page14',
-    templateUrl: 'templates/searchPath.html',
-    controller: 'searchPathCtrl'
+
+
+      .state('cercaPercorso', {
+    url: '/cercaPercorso',
+    templateUrl: 'templates/cercaPercorso.html',
+    controller: 'cercaPercorsoCtrl'
   })
 
-  .state('viewPOI', {
-    url: '/page9',
-    templateUrl: 'templates/viewPOI.html',
-    controller: 'viewPOICtrl'
+  .state('percorso', {
+    url: '/percorso',
+    templateUrl: 'templates/percorso.html',
+    controller: 'percorsoCtrl'
   })
 
-  .state('tabsController', {
-    url: '/page1',
-    templateUrl: 'templates/tabsController.html',
-    abstract:true
+  .state('home', {
+    url: '/home',
+    templateUrl: 'templates/home.html',
+    controller: 'homeCtrl'
   })
 
-  .state('managePOI', {
-    url: '/page7',
-    templateUrl: 'templates/managePOI.html',
-    controller: 'managePOICtrl'
+  .state('iMieiPercorsi', {
+    url: '/mieiPercorsi',
+    templateUrl: 'templates/iMieiPercorsi.html',
+    controller: 'iMieiPercorsiCtrl'
   })
 
-  .state('yourTimeline', {
-    url: '/page11',
-    templateUrl: 'templates/yourTimeline.html',
-    controller: 'yourTimelineCtrl'
+  .state('nomePercorso', {
+    url: '/poi',
+    templateUrl: 'templates/nomePercorso.html',
+    controller: 'nomePercorsoCtrl'
   })
 
   .state('addPOI', {
-    url: '/page8',
+    url: '/addPOI',
     templateUrl: 'templates/addPOI.html',
     controller: 'addPOICtrl'
   })
 
-  .state('naviga', {
-    url: '/page10',
-    templateUrl: 'templates/naviga.html',
-    controller: 'navigaCtrl'
-  })
+$urlRouterProvider.otherwise('/home')
 
-$urlRouterProvider.otherwise('')
 
-  
 
 });

@@ -1,5 +1,18 @@
 <ion-view title="Add POI" id="page8">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-android-close"></button>
+  </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
-    <h1 id="addPOI-heading1" style="color:#000000;">Listencheck: Meritiamo di più... ma megaselfie 3posto +gopro (Raccomandato dalla quota rosa)</h1>
+    <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
+      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+    </div>
+    <form id="addPOI-form9" class="list">
+      <label class="item item-input" id="addPOI-input1">
+        <input type="text" placeholder="Nome POI">
+      </label>
+      <label class="item item-input" id="addPOI-textarea1">
+        <span class="input-label">Descrizione</span><textarea placeholder="Note"></textarea></label>
+    </form>
+    <a ui-sref="percorso" id="addPOI-button11" class="button button-positive  button-block">Aggiungi</a>
   </ion-content>
 </ion-view>
