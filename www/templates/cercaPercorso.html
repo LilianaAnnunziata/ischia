@@ -1,11 +1,14 @@
-<ion-view title="Cerca Percorso" id="page14">
+<ion-view title="Cerca Percorso" hide-back-button="true" id="page14">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-close"></button>
+  </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <div id="cercaPercorso-button-bar10" class="button-bar">
       <button id="cercaPercorso-button47" class="button button-positive  button-block icon-left ion-search">Cerca-segment</button>
       <button id="cercaPercorso-button48" class="button button-positive  button-block icon-right ion-location">POI</button>
     </div>
     <div id="cercaPercorso-button-bar7" class="button-bar">
-      <button id="cercaPercorso-button39" style="font-weight:500;" class="button button-calm  button-block icon ion-android-people"></button>
+      <button id="cercaPercorso-button39" style="font-weight:500;" class="button button-positive  button-block icon ion-android-people"></button>
       <button id="cercaPercorso-button40" class="button button-positive  button-block icon ion-android-stopwatch"></button>
       <button id="cercaPercorso-button41" class="button button-positive  button-block icon ion-arrow-graph-up-right"></button>
     </div>
@@ -34,6 +37,6 @@
       </label>
       <button id="cercaPercorso-button53" class="button button-positive  icon-right ion-android-delete">ResetPOI</button>
     </form>
-    <a ui-sref="home" id="cercaPercorso-button8" style="font-weight:500;" class="button button-positive  button-block">Cerca</a>
+    <a ui-sref="tabsController.home" id="cercaPercorso-button8" style="font-weight:500;" class="button button-positive  button-block">Cerca</a>
   </ion-content>
 </ion-view>
