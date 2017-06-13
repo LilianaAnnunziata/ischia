@@ -31,17 +31,51 @@ angular.module('app.controllers', [])
 
       // creating the view
       var view = new ol.View({
-        center: ol.proj.fromLonLat([5.8713, 45.6452]),
-        zoom: 19
+        center: ol.proj.fromLonLat([16.282508,38.644171]),
+        zoom: 5
       });
+     
+    /*funzione che visualizza un marker sulla mappa paramitri di input:
+    x,y=coordinate
+    name=nome marker
+    src=icona del marker
+         */
+    function posizionaPunto(x,y,name,src){
+        var iconFeature = new ol.Feature({
+          geometry: new ol.geom.Point(ol.proj.transform([y, x], 'EPSG:4326', 'EPSG:3857')),
+          name:name
+        });
 
+        var iconStyle = new ol.style.Style({
+          image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: src
+          }))
+        });
+
+        iconFeature.setStyle(iconStyle);
+
+        var vectorSource = new ol.source.Vector({
+          features: [iconFeature]
+        });
+
+        var vectorLayer = new ol.layer.Vector({
+          source: vectorSource
+        });
+        return vectorLayer;
+      }
+     
+    //Punto di prova
+      var a= posizionaPunto(38.644171, 16.282508,"dd",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
 // creating the map
       var map = new ol.Map({
         layers: [
           new ol.layer.Tile({
             source: new ol.source.OSM()
           })
-        ],
+        ,a],
         target: 'map',
         controls: ol.control.defaults({
           attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
