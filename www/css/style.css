@@ -6,6 +6,15 @@
   margin-top: 3%;
 }
 
+#info {
+  position: absolute;
+  font-size: 0.7em;
+  top: 10px;
+  right: 10px;
+  background-color: lightgrey;
+  padding: 4px;
+}
+
 ion-tabs{
 
 }

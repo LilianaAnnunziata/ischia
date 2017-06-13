@@ -5,9 +5,10 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    
-    
+
+
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -16,16 +17,18 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
-    
+
     <link href="css/ionic.app.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
         padding-top:20px;
       }
       .manual-remove-top-padding{
-        padding-top:0px; 
+        padding-top:0px;
       }
       .manual-remove-top-padding .scroll{
         padding-top:0px !important;
@@ -52,16 +55,16 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/routes.js"></script>
-    
-     
-    <script src="js/directives.js"></script>
-     
-    <script src="js/services.js"></script>
-    
 
-    
+
+    <script src="js/directives.js"></script>
+
+    <script src="js/services.js"></script>
+
+
+
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    
+
 
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
