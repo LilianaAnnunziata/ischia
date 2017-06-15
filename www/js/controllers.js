@@ -1,18 +1,14 @@
 angular.module('app.controllers', [])
 
-  .controller('percorsoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('percorsoCtrl', ['$scope', '$stateParams', 
     function ($scope, $stateParams) {
 
 
     }])
 
-  .controller('cercaPercorsoCtrl', ['$scope', '$stateParams','$state','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('cercaPercorsoCtrl', ['$scope', '$stateParams','$state','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, $stateParams,$state,$ionicPopup) {
-    console.log("dadsdf")
-
-      //POI
+        //POI
         //DA SOSTITUIRE CON INFOPOIS
         $scope.infoPois = [
             {id: '1', nom_poi: 'Option A'},
@@ -90,99 +86,96 @@ console.log($scope.newPoi)
 
     }])
 
-
-  .controller('homeCtrl', function($scope, $ionicModal) {
+.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window', '$ionicPopup', 'dati', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+function ($scope,$ionicModal,$http,$window,$ionicPopup,dati) {
+    dati.setInfo($http,$ionicPopup,$window);
+    
     //nome della pagina html che viene prodotta nel modal
-      $ionicModal.fromTemplateUrl('templates/cercaPercorso.html', {
+    $ionicModal.fromTemplateUrl('templates/cercaPercorso.html', {
         scope: $scope,
         animation: 'slide-in-up',
-      }).then(function(modal) {
+    }).then(function(modal) {
         $scope.modal = modal;
-      });
-
-      //apertura del modal
-      $scope.openModal = function() {
+    });
+    
+    //apertura del modal
+    $scope.openModal = function() {
         $scope.modal.show();
-      };
+    };
 
-      $scope.closeModal = function() {
+    $scope.closeModal = function() {
         $scope.modal.hide();
-      };
+    };
 
-      //Cleanup the modal when we're done with it!
-      $scope.$on('$destroy', function() {
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
         $scope.modal.remove();
-      });
+    });
 
-      // Execute action on hide modal
-      $scope.$on('modal.hidden', function() {
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
         // Execute action
-      });
+    });
 
-      // Execute action on remove modal
-      $scope.$on('modal.removed', function() {
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
         // Execute action
-      })
-  })
+    })
+}])
 
-  .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
+.controller('iMieiPercorsiCtrl', ['$scope', '$stateParams', 
     function ($scope, $stateParams) {
 
+}])
 
-    }])
-
-
-  .controller('addPOICtrl', ['$scope', '$stateParams','$cordovaCamera','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('addPOICtrl', ['$scope', '$stateParams','$cordovaCamera','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, $stateParams,$cordovaCamera,$ionicPopup) {
 
-    console.log("addPoi")
-      var newPoi = $scope.newPoi;
-      console.log(newPoi)
-    /*  $scope.savePOI = function (newPoi) {
-        console.log("B")
+        console.log("addPoi")
+          var newPoi = $scope.newPoi;
+          console.log(newPoi)
+        /*  $scope.savePOI = function (newPoi) {
+            console.log("B")
 
-        if ($scope.addPoiForm.$valid && $scope.imgURI) {
+            if ($scope.addPoiForm.$valid && $scope.imgURI) {
 
-         var description = newPoi.description;
-          if (!description)
-            description = "";
+             var description = newPoi.description;
+              if (!description)
+                description = "";
 
-          var objToSave = {
-            name: newPoi.name,
-            description: description,
-            coordinate:newPoi.coordinate
-          };
+              var objToSave = {
+                name: newPoi.name,
+                description: description,
+                coordinate:newPoi.coordinate
+              };
 
-          console.log(objToSave);
+              console.log(objToSave);
+            }
+            else
+              $ionicPopup.alert({
+                title: 'Error',
+                template: 'Input not valid'
+              });
+          };*/
+
+        $scope.choosePhoto = function () {
+            var imgRect = document.getElementById("addPoiId").getBoundingClientRect();
+            console.log("rect= " + imgRect.width + " " + imgRect.height + " " + imgRect.bottom + " " + imgRect.left);
+            var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
+            var options = setOptionsCamera(srcType, imgRect.width, imgRect.height);
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                $scope.imgURI = "data:image/jpeg;base64," + imageURI;
+            },function (err) {
+                console.log("error createSharedEventCtrl: " + err);
+            });
         }
-        else
-          $ionicPopup.alert({
-            title: 'Error',
-            template: 'Input not valid'
-          });
-      };*/
-
-      $scope.choosePhoto = function () {
-        var imgRect = document.getElementById("addPoiId").getBoundingClientRect();
-        console.log("rect= " + imgRect.width + " " + imgRect.height + " " + imgRect.bottom + " " + imgRect.left);
-        var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
-        var options = setOptionsCamera(srcType, imgRect.width, imgRect.height);
-
-        $cordovaCamera.getPicture(options).then(function (imageURI) {
-          $scope.imgURI = "data:image/jpeg;base64," + imageURI;
-        }, function (err) {
-          console.log("error createSharedEventCtrl: " + err);
-        });
-
-      }
-      $scope.takePhoto = function () {
-        $cordovaCamera.getPicture(setOptionsCamera(Camera.PictureSourceType.CAMERA)).then(function (imageData) {
-          $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        }, function (err) {
-          console.log("error eventInfoCtrl " + err)
-        });
-      };
-
-    }])
+        
+        $scope.takePhoto = function () {
+            $cordovaCamera.getPicture(setOptionsCamera(Camera.PictureSourceType.CAMERA)).then(function (imageData) {
+                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            }, function (err) {
+                console.log("error eventInfoCtrl " + err)
+            });
+        };
+}])
