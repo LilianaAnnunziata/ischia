@@ -1,8 +1,67 @@
-<ion-view title="Percorso" hide-back-button="true" id="page9">
-  <ion-nav-buttons side="right" scroll="false" class="has-header">
-    <button class="button button-icon icon ion-close"></button>
-  </ion-nav-buttons>
-  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false">
-    <a ui-sref="addPOI" id="percorso-button66" style="font-weight:500;border-radius:30px 30px 30px 30px;" class="button button-positive button-large icon ion-android-add">FAB</a>
+<ion-view ng-controller="percorsoCtrl" title="Percorso" hide-back-button="true" id="page9">
+  <ion-header-bar>
+    <button class = "button icon icon-left ion-ios-close-outline" ng-click = "closeModal()">Close Modal</button>
+  </ion-header-bar>
+
+  <ion-content>
+    <!-- Barra superiore -->
+  <ion-segment ng-model="categories" full="true"  assertive>
+    <ion-segment-button value="searchPath" class="icon ion-search">
+      Cerca Percorso
+    </ion-segment-button>
+    <ion-segment-button value="myPath">
+      I miei Percorsi
+    </ion-segment-button>
+    <ion-segment-button value="animation">
+      Animations
+    </ion-segment-button>
+  </ion-segment>
+
+    <!-- Contenuto barra -->
+  <div ng-switch="categories">
+
+    <ion-list ng-switch-when="searchPath">
+      <ion-item>
+        <form id="cercaPercorso-form11" class="list">
+          <ion-item class="range range-positive" id="cercaPercorso-range2">Difficoltà
+            <input type="range" value="1" min="1" max="3" step="1">
+          </ion-item>
+          <label>Ricerca Percorso per POI
+            <input type="search" placeholder="Cerca POI " ng-model="nomePOI">
+          </label>
+          <ion-list id="searchPOI-list">
+              <ion-item class="item-icon-right positive" id="searchPOI-item"
+                        ng-repeat="d in infoPois | filter:nomePOI"
+                        ng-model="data"
+                        ng-click="">{{d.nom_poi}}</ion-item>
+          </ion-list>
+          <button id="cercaPercorso-button53" class="button button-positive button-block icon-search">Cerca</button>
+        </form>
+      </ion-item>
+    </ion-list>
+
+    <ion-list ng-switch-when="myPath">
+      <ion-list id="percorsoMyPath-list" class="list">
+        <ion-item ui-sref="cercaPercorso"
+                  ng-repeat="path in pathList | orderBy:namePOI" class="item-thumbnail-left listItem" id="home-list-item9" ui-sref="eventInfo"
+                  ng-click="searchPath('{{event}}')">
+          <img src="{{path.src}}">
+          <h2>{{path.namePOI}}</h2>
+          <div style="color:#565656; font-size:0.8em; margin-bottom: -10px; white-space:normal;">{{path.description}} </div>
+          <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-minus-circled" ng-click="deletePath(path)" ></ion-option-button>
+          <ion-option-button class="button-positive">Modifica</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+
+    <ion-list ng-switch-when="animation">
+      <ion-item>
+        <button id="a-button53" class="button button-positive button-block icon-search"
+        ng-click="goTo()">Cerca</button>
+      </ion-item>
+      .....
+    </ion-list>
+
+  </div>
   </ion-content>
 </ion-view>

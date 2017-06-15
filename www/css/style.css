@@ -6,6 +6,11 @@
   margin-top: 3%;
 }
 
+.map {
+  height: 400px;
+  width: 100%;
+}
+
 #info {
   position: absolute;
   font-size: 0.7em;
@@ -15,6 +20,17 @@
   padding: 4px;
 }
 
-ion-tabs{
+button-bottom {
+  position: relative  !important;;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
+.submitted .ng-invalid{
+  border: 1px solid;
+  border-color: lightcoral;
+}
+.popup-container .popup {
+  width: 350px;
 }

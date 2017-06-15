@@ -1,14 +1,16 @@
-<ion-view title="Home" hide-back-button="true" id="page12">
-  <ion-content padding="false" class=" manual-remove-top-padding has-header" scroll="false">
+<ion-view title="Home"  hide-nav-bar="true" hide-back-button="true" id="page12">
+  <ion-content padding="false" class=" manual-remove-top-padding" scroll="false">
     <div id="home-button-bar12" class="button-bar">
       <button id="home-button16" class="button button-positive  button-block icon ion-home"></button>
       <button id="home-button59" class="button button-positive  button-block icon ion-waterdrop"></button>
       <button id="home-button60" class="button button-positive  button-block icon ion-android-restaurant"></button>
       <button id="home-button61" class="button button-positive  button-block icon ion-flag"></button>
     </div>
+
     <!-- bottone per la geolocalizzazione dell'utente <button id="geolocate" style="height: 40px">Geolocate Me!</button> -->
-    <div id="map" style="height: 100%;" class="map"></div>
-    <div id="info"></div>
-    <img id="geolocation_marker" src="img/geolocation_marker.png" />
+
+    <!--bottone per apertura del menu modale -->
+      <button class = "button button-positive  button-block icon ion-home"
+              ng-click = "openModal()"></button>
   </ion-content>
 </ion-view>

@@ -1,18 +1,27 @@
-<ion-view title="Add POI" hide-back-button="true" id="page8">
-  <ion-nav-buttons side="right" class="has-header">
-    <button class="button button-icon icon ion-close"></button>
-  </ion-nav-buttons>
-  <ion-content padding="true" class="has-header">
-    <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
-      <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-    </div>
-    <form id="addPOI-form9" class="list">
-      <label class="item item-input" id="addPOI-input1">
-        <input type="text" placeholder="Nome POI">
-      </label>
-      <label class="item item-input" id="addPOI-textarea1">
-        <span class="input-label">Descrizione</span><textarea placeholder="Note"></textarea></label>
-    </form>
-    <a ui-sref="percorso" id="addPOI-button11" class="button button-positive  button-block">Aggiungi</a>
-  </ion-content>
-</ion-view>
+<div ng-controller="addPOICtrl" >
+
+   <!-- Aggiunge immagine del POI -->
+      <div id="addPoiId" ng-click="choosePhoto()" class="sharedEventIcon">
+        <i ng-show="imgURI == undefined" class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        <img class="sharedEventIcon" ng-show="imgURI !== undefined" src="{{imgURI}}" width="100%" height="100%" style="vertical-align: middle;"/>
+      </div>
+      <!--Scatta foto del POI -->
+      <button type="submit" ng-click="takePhoto()"  id="takePhoto" class="button button-calm  button-block icon ion-camera"></button>
+
+  <!--Scatta foto del POI -->
+  <form style="margin-top: 5%" id="addPoi-form3" name="addPoiForm" ng-class="{'submitted':submitted}" novalidate>
+        <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input7" name="poiName">
+          <span class="input-label">Nome del POI:</span>
+          <input type="text" name="namePoi" ng-model="newPoi.name" required placeholder="">
+        </label>
+        <label class="item item-input form-transparent" id="addPoi-textarea2" name="description">
+          <span class="input-label">Description:</span>
+          <input type="text" name="descriptionPoi" ng-model="newPoi.description" placeholder="(optional)">
+        </label>
+        <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input8" name="poiCoordinate">
+          <span class="input-label">Coordinate</span>
+          <input ng-readonly="true" type="text" name="coordinate"
+                 ng-model="newPoi.coordinate" value="{{newPoi.coordinate}}">
+        </label>
+      </form>
+  </div>

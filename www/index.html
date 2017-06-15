@@ -12,16 +12,17 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="js/helpful.js"></script>
+    <script	src="js/ng-cordova.min.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <script src="lib/ionic-segment/dist/ionic.segment.js"></script>
+    <link rel="stylesheet" href="lib/ionic-segment/dist/ionic.segment.css">
+
 
 
     <link href="css/ionic.app.css" rel="stylesheet">
     <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
 
     <style type="text/css">
       .platform-ios .manual-ios-statusbar-padding{
@@ -62,41 +63,17 @@
     <script src="js/services.js"></script>
 
 
-
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-
-
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
   <div>
   <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
     <ion-side-menu-content>
       <ion-nav-bar class="bar-balanced">
-        <ion-nav-back-button></ion-nav-back-button>
-        <ion-nav-buttons side="left">
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        </ion-nav-buttons>
+
       </ion-nav-bar>
       <ion-nav-view></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left" id="side-menu21">
-      <ion-header-bar class="bar-balanced">
-        <div class="title">Menu</div>
-      </ion-header-bar>
-      <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header ">
-        <div data-componentid="image3" style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
-          <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-        </div>
-        <div id="menu-button-bar5" class="button-bar" data-componentid="button-bar5">
-          <button id="menu-button27" style="font-weight:500;" class="button button-positive  button-block icon ion-android-image" data-componentid="button27"></button>
-          <button id="menu-button29" class="button button-positive  button-block icon ion-earth" data-componentid="button29"></button>
-          <button id="menu-button30" style="font-weight:500;" class="button button-positive  button-block" data-componentid="button30">3D</button>
-        </div>
-        <a ui-sref="iMieiPercorsi" menu-close="" id="menu-button21" style="font-weight:500;" class="button button-balanced  button-block icon-left ion-flag" data-componentid="button21">I Miei Percorsi</a>
-        <a ui-sref="percorso" menu-close="" id="menu-button63" style="font-weight:500;" class="button button-dark  button-block" data-componentid="button63">DaNascondere</a>
-        <a ui-sref="tabsController.home_tab3" menu-close="" id="menu-button68" style="font-weight:500;" class="button button-dark  button-block" data-componentid="button68">DaNascondere</a>
-      </ion-content>
-    </ion-side-menu>
+
   </ion-side-menus>
 </div>
   </body>
