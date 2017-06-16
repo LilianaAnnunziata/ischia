@@ -86,10 +86,39 @@ console.log($scope.newPoi)
 
     }])
 
-.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window', '$ionicPopup', 'dati', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-function ($scope,$ionicModal,$http,$window,$ionicPopup,dati) {
+.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window', '$ionicPopup', 'dati','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer) {
     dati.setInfo($http,$ionicPopup,$window);
+    var map,view,vectorLayer,layer,geosec,array;
     
+    view = new ol.View({
+      center: ol.proj.fromLonLat([13.905190,40.722581]),
+      zoom: 12
+    });
+    // Creating the map
+     map = new ol.Map({
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      target: 'map',
+      controls: ol.control.defaults({
+        attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+          collapsible: false
+        })
+      }),
+      view: view
+    });
+    
+    $scope.poiGeosec=function(){
+        if(!geosec){
+            geosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(geosec);
+        }else{
+            Layer.viewLayer(geosec);
+        }
+    }
     //nome della pagina html che viene prodotta nel modal
     $ionicModal.fromTemplateUrl('templates/cercaPercorso.html', {
         scope: $scope,
