@@ -104,6 +104,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
       ],
       target: 'map',
       controls: ol.control.defaults({
+          zoom:false,
         attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
           collapsible: false
         })

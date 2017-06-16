@@ -36,7 +36,7 @@ angular.module('app.services', [])
  .factory('posizionaPunto', function() {
     return function(array,src){
         if(array=="1"){
-            array=Window.infoPois;
+            array=window.infoPois;
         }
         var iconFeature= new Array();
         
@@ -73,13 +73,13 @@ angular.module('app.services', [])
 }})
 
 .service('dati', function() {
-    Window.infoPois = new Array();
-    Window.infoPaths = new Array();
+    window.infoPois = new Array();
+    window.infoPaths = new Array();
     
     this.setInfo = function($http,$ionicPopup,$window){
-        var urlPoi = "datiTest/POI.json";
-        var urlPathInfo = "datiTest/PATH.json";
-        var urlPathLine = "datiTest/PATH.xml";
+        var urlPoi = "datiPoi/POI.json";
+        var urlPathInfo = "datiPoi/PATH.json";
+        var urlPathLine = "datiPoi/PATH.xml";
         /*
          * Da decommentare alla fine
         var urlPoi = 'http://www.geosec.cnr.it/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=Ischia:CiroRomano_shp_poi&maxFeatures=1000000&outputFormat=json';
@@ -166,13 +166,14 @@ angular.module('app.services', [])
         var features = JSON.parse(localStorage.getItem('POI')).features;
         features.forEach(function(record){
             var obj= {
+                "id": record.id,
                 "nom_poi": record.properties.NOM_POI,
                 "coordinates": record.geometry.coordinates,
                 "nom_itiner": record.properties.NOM_ITINER,
                 "percorso": record.properties.PERCORSO,
                 "tipo_perc": record.properties.TIPO_PERC
             };
-            Window.infoPois.push(obj);
+            window.infoPois.push(obj);
         });
     }
     
@@ -180,13 +181,14 @@ angular.module('app.services', [])
         var features = JSON.parse(localStorage.getItem('PATH_INFO')).features;
         features.forEach(function(record){
             var obj= {
+                "id": record.id,
                 "percorso": record.properties.PERCORSO,
                 "nom_itiner": record.properties.NOM_ITINER,
                 "coordinates": null, 
                 "tipo_perc": record.properties.TIPO_PERC
             };
-            Window.infoPaths.push(obj);
-        }); 
+            window.infoPaths.push(obj);
+        });
     }
            
     setPathLine = function(){   
@@ -205,7 +207,7 @@ angular.module('app.services', [])
                 app = [coors[i+1],coors[i]];
                 path.push(app); 
             }
-            Window.infoPaths[j].coordinates = path;        
+            window.infoPaths[j].coordinates = path;        
         }
     }
 })

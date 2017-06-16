@@ -1,19 +1,17 @@
-<ion-view title="Home" hide-back-button="true" id="page12" >
-  <ion-content padding="false" class=" manual-remove-top-padding" scroll="false">
-    <div id="home-button-bar12" class="button-bar">
-      <button id="home-button16" class="button button-positive  button-block icon ion-home" ng-click="poiGeosec()"></button>
-      <button id="home-button59" class="button button-positive  button-block icon ion-waterdrop"></button>
-      <button id="home-button60" class="button button-positive  button-block icon ion-android-restaurant"></button>
-      <button id="home-button61" class="button button-positive  button-block icon ion-flag"></button>
-    </div>
+<ion-view title="Home" hide-nav-bar="true" id="page12">
+    <ion-content id="home" padding="false" class=" manual-remove-top-padding" scroll="false">
+        <div id="map" class="map"></div>
+        <div id="barra_Poi" class="button-bar">
+            <button class="noBorder button button-positive  button-block icon ion-location" ng-click="poiGeosec()"></button>
+            <button class="noBorder button button-positive  button-block icon ion-ios-partlysunny"></button>
+            <button class="noBorder button button-positive  button-block icon ion-leaf"></button>
+            <button class="noBorder button button-positive  button-block icon ion-ios-home"></button>
+            <button class="noBorder button button-positive  button-block icon ion-pin"></button>
+        </div>
+     
+        <!-- bottone per la geolocalizzazione dell'utente <button id="geolocate" style="height: 40px">Geolocate Me!</button> -->
 
-
-    <!-- bottone per la geolocalizzazione dell'utente <button id="geolocate" style="height: 40px">Geolocate Me!</button> -->
-
-    <!--bottone per apertura del menu modale -->
-      <button class = "button button-positive  button-block icon ion-home"
-              ng-click = "openModal()"></button>
-              <div id="map" style="height: 100%;" class="map"></div>
-
-  </ion-content>
+        <button id="menu_home" class = "button button-positive  button-block icon ion-chevron-up" ng-click = "openModal()"></button>
+    
+    </ion-content>
 </ion-view>
