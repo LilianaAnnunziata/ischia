@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-.controller('percorsoCtrl', ['$scope', '$stateParams', 
+.controller('percorsoCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
 
 
@@ -10,23 +10,24 @@ angular.module('app.controllers', [])
     function ($scope, $stateParams,$state,$ionicPopup) {
         //POI
         //DA SOSTITUIRE CON INFOPOIS
-        $scope.infoPois = [
-            {id: '1', nom_poi: 'Option A'},
-            {id: '2', nom_poi: 'Option B'},
-            {id: '3', nom_poi: 'Option C'}
-          ];
 
+        $scope.poiList = window.infoPois;
+console.log($scope.infoPois)
       $scope.cercaPercorso = function () {
 
       }
 
       //PERCORSI
+      $scope.pathList = window.infoPaths;
+      console.log($scope.pathList)
     //DA SOSTITUIRE CON LA LISTA DEI PERCORSI
-      $scope.pathList = [
-        {src: '1', namePOI:'paooaa' ,namePath:'path', description: 'Option A'},
-        {src: '2', namePOI:'afsdfas',namePath:'path2' , description: 'Option A'}
-      ];
 
+
+      $scope.myPathList =[{
+        namePath : "dasdas",
+        namePOI :"ssadsads",
+        description :" RREre"
+      }];
       $scope.goToMyPersonalPath = function (path) {
         console.log("search")
       };
@@ -38,6 +39,11 @@ angular.module('app.controllers', [])
       $scope.editPath = function (path) {
         console.log("edit")
       };
+
+      $scope.slideChange = function (difficoltaPercorso) {
+        ;
+        console.log(difficoltaPercorso)
+      }
 
 
 
@@ -90,7 +96,7 @@ console.log($scope.newPoi)
 function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer) {
     dati.setInfo($http,$ionicPopup,$window);
     var map,view,vectorLayer,layer,geosec,array;
-    
+
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
       zoom: 12
@@ -111,7 +117,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
       }),
       view: view
     });
-    
+
     $scope.poiGeosec=function(){
         if(!geosec){
             geosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
@@ -127,7 +133,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     }).then(function(modal) {
         $scope.modal = modal;
     });
-    
+
     //apertura del modal
     $scope.openModal = function() {
         $scope.modal.show();
@@ -153,7 +159,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     })
 }])
 
-.controller('iMieiPercorsiCtrl', ['$scope', '$stateParams', 
+.controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
 
 }])
@@ -200,7 +206,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
                 console.log("error createSharedEventCtrl: " + err);
             });
         }
-        
+
         $scope.takePhoto = function () {
             $cordovaCamera.getPicture(setOptionsCamera(Camera.PictureSourceType.CAMERA)).then(function (imageData) {
                 $scope.imgURI = "data:image/jpeg;base64," + imageData;

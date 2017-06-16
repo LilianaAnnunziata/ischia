@@ -3,16 +3,16 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-    
-    this.viewLayer=function(object){       
+
+    this.viewLayer=function(object){
         if(object.getVisible())
             object.setVisible(false);
         else
-            object.setVisible(true);    
-       };  
-      
+            object.setVisible(true);
+       };
+
     this.lineLayer=function(lineString){
-        lineString.transform('EPSG:4326', 'EPSG:3857');       
+        lineString.transform('EPSG:4326', 'EPSG:3857');
         var lineLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
                 features: [new ol.Feature({
@@ -26,8 +26,8 @@ angular.module('app.services', [])
         });
         return(lineLayer);
     }
-    
-})    
+
+})
          /*funzione che visualizza un marker sulla mappa paramitri di input:
             x,y=coordinate
             name=nome marker
@@ -39,26 +39,26 @@ angular.module('app.services', [])
             array=window.infoPois;
         }
         var iconFeature= new Array();
-        
+
         var iconStyle = new ol.style.Style({
           image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
             anchor: [0.5, 46],
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
             src: src
-          }))         
+          }))
         });
-     
-        array.forEach(function(record){ 
+
+        array.forEach(function(record){
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
                 name:record.nom_poi
-                
+
             });
-            obj.setStyle(iconStyle);  
-            iconFeature.push(obj);            
+            obj.setStyle(iconStyle);
+            iconFeature.push(obj);
         });
-         
+
          //Vettore che contiene le features dei marker
         var vectorSource = new ol.source.Vector({
           features: iconFeature
@@ -68,7 +68,7 @@ angular.module('app.services', [])
          vectorLayer = new ol.layer.Vector({
           source: vectorSource
         });
-        
+
         return vectorLayer;
 }})
 
@@ -86,13 +86,13 @@ angular.module('app.services', [])
         var urlPathInfo = 'http://www.geosec.cnr.it/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=Ischia:CiroRomano_shp_sentieri&maxFeatures=1000000&outputFormat=json';
         var urlPathLine = 'http://www.geosec.cnr.it/geoserver/wms/reflect?&layers=Ischia:CiroRomano_shp_sentieri&format=rss';
         */
-       
+
         dataDownload = new Date(localStorage.getItem('Data'));
         app = new Date();
         var dataUpgrade = new Date(app.getFullYear(),app.getMonth(),app.getDate());
-        
+
         //Da decommentare alla fine
-        //if((navigator.connection.type.toLowerCase() != 'none')&&(dataUpgrade > dataDownload)){ 
+        //if((navigator.connection.type.toLowerCase() != 'none')&&(dataUpgrade > dataDownload)){
         if(1){
             $http.get(urlPoi)
             .success(function(data, status, headers, config){
@@ -107,12 +107,12 @@ angular.module('app.services', [])
                 });
                 alert.then(function() {
                     $window.location.reload();
-                }); 
+                });
             });
-            
+
             $http.get(urlPathInfo)
             .success(function(data, status, headers, config){
-                localStorage.setItem('PATH_INFO', JSON.stringify(data));  
+                localStorage.setItem('PATH_INFO', JSON.stringify(data));
                 setPathInfo();
             })
             .error(function(status)
@@ -123,12 +123,12 @@ angular.module('app.services', [])
                 });
                 alert.then(function() {
                     $window.location.reload();
-                }); 
+                });
             });
-            
+
             $http.get(urlPathLine)
             .success(function(data, status, headers, config){
-                localStorage.setItem('PATH_LINE', data);  
+                localStorage.setItem('PATH_LINE', data);
                 setPathLine();
             })
             .error(function(status)
@@ -139,10 +139,10 @@ angular.module('app.services', [])
                 });
                 alert.then(function() {
                     $window.location.reload();
-                }); 
+                });
             });
-            
-            localStorage.setItem('Data', dataUpgrade);            
+
+            localStorage.setItem('Data', dataUpgrade);
         }
         else {
             if((localStorage.getItem('POI') == null)||(localStorage.getItem('PATH_INFO') == null)||(localStorage.getItem('PATH_LINE') == null)){
@@ -152,7 +152,7 @@ angular.module('app.services', [])
                 });
                 alert.then(function() {
                     $window.location.reload();
-                });                
+                });
             }
             else{
                 setPoi();
@@ -161,7 +161,7 @@ angular.module('app.services', [])
             }
         }
     }
-    
+
     setPoi = function(){
         var features = JSON.parse(localStorage.getItem('POI')).features;
         features.forEach(function(record){
@@ -176,7 +176,7 @@ angular.module('app.services', [])
             window.infoPois.push(obj);
         });
     }
-    
+
     setPathInfo = function(){
         var features = JSON.parse(localStorage.getItem('PATH_INFO')).features;
         features.forEach(function(record){
@@ -184,14 +184,14 @@ angular.module('app.services', [])
                 "id": record.id,
                 "percorso": record.properties.PERCORSO,
                 "nom_itiner": record.properties.NOM_ITINER,
-                "coordinates": null, 
+                "coordinates": null,
                 "tipo_perc": record.properties.TIPO_PERC
             };
             window.infoPaths.push(obj);
         });
     }
-           
-    setPathLine = function(){   
+
+    setPathLine = function(){
         var path;
         parser = new DOMParser();
         xmlDoc = parser.parseFromString(localStorage.getItem('PATH_LINE'),"text/xml");
@@ -205,11 +205,10 @@ angular.module('app.services', [])
                 coors[i]=parseFloat(coors[i]);
                 coors[i+1]=parseFloat(coors[i+1]);
                 app = [coors[i+1],coors[i]];
-                path.push(app); 
+                path.push(app);
             }
             window.infoPaths[j].coordinates = path;        
         }
     }
 })
-        
-   
+

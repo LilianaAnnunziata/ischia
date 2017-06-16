@@ -19,40 +19,66 @@
 
     <!-- Contenuto barra -->
     <div ng-switch="categories">
-
       <!-- Contenuto Cerca Percorso -->
-      <ion-list ng-switch-when="searchPath">
-        <ion-item>
-          <form id="cercaPercorso" class="list">
-            <!-- Range Difficolta-->
-            <ion-item class="range range-positive" id="cercaPercorso-range2">Difficoltà
-              <input type="range" value="1" min="1" max="3" step="1">
-            </ion-item>
+      <div ng-switch-when="searchPath">
+        <ion-segment ng-model="cercaTipologie" full="true"  assertive>
+           <ion-segment-button value="cercaPOI">
+                Cerca per POI
+           </ion-segment-button>
+           <ion-segment-button value="cercaNomePath">
+                Cerca per Nome Percorso
+           </ion-segment-button>
+        </ion-segment>
 
-            <!-- ricerca per nome del poi-->
-            <label>
-              <!-- nomePoi usato sotto per filter -->
-              <i class="icon ion-android-search"></i>
-              <input type="text" placeholder="Ricerca Percorso per POI" ng-model="nomePOI">
-            </label>
-            <ion-list id="searchPOI-list">
-              <ion-item class="item-icon-right positive" id="searchPOI-item"
-                        ng-repeat="poi in infoPois | filter:nomePOI"
-                        ng-click="">{{poi.nom_poi}}</ion-item>
-            </ion-list>
-            <button id="cercaPercorsoBottone" class="button button-positive button-block icon-search"
-              ng-click="cercaPercorso()">Cerca</button>
-          </form>
-        </ion-item>
-      </ion-list>
+        <div ng-switch="cercaTipologie">
+
+              <div ng-switch-when="cercaPOI">
+                <!-- ricerca per nome del poi-->
+                <!-- nomePoi usato sotto per filter -->
+                <ion-item class="range range-positive" id="difficoltaPOIRange">
+                  <input type="range" value="1" min="1" max="3" step="1">
+                </ion-item>
+                <input type="text" placeholder="Ricerca Percorso per POI" ng-model="nomePOI">
+
+                <ion-list id="searchPOI-list">
+                   <ion-item class="item-icon-right positive" id="searchPOI-item"
+                          ng-repeat="poi in poiList | filter:nomePOI"
+                          ng-click="">{{poi.nom_poi}}</ion-item>
+                </ion-list>
+                <button id="cercaPercorsoPOIBottone" class="button button-positive button-block icon-search"
+                        ng-click="cercaPercorso()">Cerca</button>
+              </div>
+
+              <div ng-switch-when="cercaNomePath">
+                <!-- ricerca per nome del poi-->
+                <!-- nomePoi usato sotto per filter -->
+
+                <ion-item style="border-radius: 0 0 5px 5px;" class="range range-positive" id="difficoltaPathRange">Difficoltà:
+                  <input type="range" value="1" min="1" max="4" step="1"
+                         ng-change="slideChange(difficoltaPercorso)"
+                         ng-model="difficoltaPercorso">
+                  {{difficoltaPercorso}}
+                </ion-item>
+
+                <input type="text" placeholder="Ricerca Percorso per Percorso" ng-model="nomePath">
+                <ion-list id="searchPath-list">
+                  <ion-item class="item-icon-right positive" id="searchPath-item"
+                            ng-repeat="path in pathList | filter:nomePath"
+                            ng-click="">{{path.percorso}}</ion-item>
+                </ion-list>
+                <button id="cercaPercorsoPathBottone" class="button button-positive button-block icon-search"
+                        ng-click="cercaPercorso()">Cerca</button>
+              </div>
+            </div>
+      </div>
 
       <!-- Contenuto I miei Percorsi -->
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
           <ion-item class="item-thumbnail-left listItem" id="home-list-item9"
-                    ng-repeat="path in pathList | orderBy:namePOI"
+                    ng-repeat="path in myPathList | orderBy:namePOI"
                     ng-click="goToMyPersonalPath('{{path}}')">
-         <!--   <img src="{{path.src}}"> -->
+            <!--<img src="{{path.src}}">-->
             <h1>{{path.namePath}}</h1>
             <h2>{{path.namePOI}}</h2>
             <div style="color:#565656; font-size:0.8em; margin-bottom: -10px; white-space:normal;">{{path.description}} </div>
