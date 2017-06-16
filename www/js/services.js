@@ -1,5 +1,77 @@
 angular.module('app.services', [])
 
+
+//funzione che ritorna il layer contenente il tragitto
+.service('Layer', function(){
+
+    this.viewLayer=function(object){
+        if(object.getVisible())
+            object.setVisible(false);
+        else
+            object.setVisible(true);
+       };
+
+    this.lineLayer=function(lineString){
+        lineString.transform('EPSG:4326', 'EPSG:3857');
+        var lineLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [new ol.Feature({
+                    geometry: lineString,
+                    name: 'Line'
+                })]
+            }),
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({color: 'red', width: 3}),
+            })
+        });
+        return(lineLayer);
+    }
+
+})
+         /*funzione che visualizza un marker sulla mappa paramitri di input:
+            x,y=coordinate
+            name=nome marker
+            src=icona del marker
+         */
+ .factory('posizionaPunto', function() {
+    return function(array,src){
+        if(array=="1"){
+            array=Window.infoPois;
+        }
+        var iconFeature= new Array();
+
+        var iconStyle = new ol.style.Style({
+          image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: src
+          }))
+        });
+
+        array.forEach(function(record){
+            var obj = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
+                name:record.nom_poi
+
+            });
+            obj.setStyle(iconStyle);
+            iconFeature.push(obj);
+        });
+
+         //Vettore che contiene le features dei marker
+        var vectorSource = new ol.source.Vector({
+          features: iconFeature
+        });
+
+      // Layer per la visualizzazione dei vettori dei marker
+         vectorLayer = new ol.layer.Vector({
+          source: vectorSource
+        });
+
+        return vectorLayer;
+}})
+
 .service('dati', function() {
     Window.infoPois = new Array();
     Window.infoPaths = new Array();
@@ -95,7 +167,7 @@ angular.module('app.services', [])
         features.forEach(function(record){
             var obj= {
                 "nom_poi": record.properties.NOM_POI,
-                "cordinates": record.geometry.coordinates,
+                "coordinates": record.geometry.coordinates,
                 "nom_itiner": record.properties.NOM_ITINER,
                 "percorso": record.properties.PERCORSO,
                 "tipo_perc": record.properties.TIPO_PERC
@@ -110,7 +182,7 @@ angular.module('app.services', [])
             var obj= {
                 "percorso": record.properties.PERCORSO,
                 "nom_itiner": record.properties.NOM_ITINER,
-                "cordinates": null,
+                "coordinates": null,
                 "tipo_perc": record.properties.TIPO_PERC
             };
             Window.infoPaths.push(obj);
@@ -133,7 +205,7 @@ angular.module('app.services', [])
                 app = [coors[i+1],coors[i]];
                 path.push(app);
             }
-            Window.infoPaths[j].cordinates = path;
+            Window.infoPaths[j].coordinates = path;
         }
     }
 })
