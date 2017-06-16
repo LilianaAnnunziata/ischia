@@ -33,4 +33,20 @@
 .noBorder{
     border: none!important;
 }
+.range_Map{
+    position: absolute;
+    z-index: 2;
+    left: -5%;
+    right: -5%; 
+    bottom: 6%;  
+    width: 110%;
+}
+.back_range{
+    position: absolute;
+    z-index: 1;
+    height: 24%; 
+    bottom: 37.5%;
+    background: white;  
+    opacity: 0.5;
+}
 

@@ -12,14 +12,14 @@ angular.module('app.controllers', [])
         //DA SOSTITUIRE CON INFOPOIS
 
         $scope.poiList = window.infoPois;
-console.log($scope.infoPois)
+
       $scope.cercaPercorso = function () {
 
       }
 
       //PERCORSI
       $scope.pathList = window.infoPaths;
-      console.log($scope.pathList)
+     
     //DA SOSTITUIRE CON LA LISTA DEI PERCORSI
 
 
@@ -99,15 +99,24 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
-      zoom: 12
+      zoom: 12,
+      minZoom: 11,
+      maxZoom: 19
     });
     // Creating the map
-     map = new ol.Map({
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
+    
+    var osm = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+    var bing = new ol.layer.Tile({
+        source: new ol.source.BingMaps({
+          key: '71rqXKbkWBsxf2MExapX~Ox5OhkC_T_uOnwVVdTvycQ~ApfQiyY8xedZ7IsN8T6QxKTCcIhFP-40NSpOGDXtVm-UifKxHWqC3OuF_d72tc46',
+          imagerySet: 'AerialWithLabels'
         })
-      ],
+      });
+      
+     map = new ol.Map({
+      layers: [osm,bing],
       target: 'map',
       controls: ol.control.defaults({
           zoom:false,
@@ -157,6 +166,24 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     $scope.$on('modal.removed', function() {
         // Execute action
     })
+        
+    //Dedicato allo Swipe della mappa tra i due diversi layer
+    var swipe = document.getElementById('swipe');
+    bing.on('precompose', function(event) {
+       var ctx = event.context;
+       var width = ctx.canvas.width * (swipe.value / 100);
+       ctx.save();
+       ctx.beginPath();
+       ctx.rect(width, 0, ctx.canvas.width - width, ctx.canvas.height);
+       ctx.clip();
+    });
+    bing.on('postcompose', function(event) {
+      var ctx = event.context;
+      ctx.restore();
+    });
+    swipe.addEventListener('input', function() {
+      map.render();
+    }, false);
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',
