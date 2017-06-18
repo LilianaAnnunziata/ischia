@@ -1,19 +1,18 @@
 .submitted .ng-invalid{
-  border: 1px solid;
-  border-color: lightcoral;
+  border: 1px solid red;
 }
 .popup-container .popup {
   width: 350px;
 }
 #home{
     position: fixed;
-    height:100%;   
+    height:100%;
     width: 100%;
 }
 #map{
     position: absolute;
     z-index: 0;
-    height:100%;   
+    height:100%;
     width: 100%;
 }
 #barra_Poi{
@@ -27,7 +26,7 @@
     position: absolute;
     z-index: 1;
     left: 0px;
-    right: 0px; 
+    right: 0px;
     bottom: -11px;
 }
 .noBorder{
@@ -37,16 +36,16 @@
     position: absolute;
     z-index: 2;
     left: -5%;
-    right: -5%; 
-    bottom: 6%;  
+    right: -5%;
+    bottom: 6%;
     width: 110%;
 }
 .back_range{
     position: absolute;
     z-index: 1;
-    height: 24%; 
+    height: 24%;
     bottom: 37.5%;
-    background: white;  
+    background: white;
     opacity: 0.5;
 }
 

@@ -6,23 +6,24 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', '$stateParams','$state','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, $stateParams,$state,$ionicPopup) {
-        //POI
-        //DA SOSTITUIRE CON INFOPOIS
-
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData) {
+    //POI
         $scope.poiList = window.infoPois;
 
-      $scope.cercaPercorso = function () {
+        /*Visualizza il percorso cercato sulla mappa*/
+        $scope.visualizzaPercorso = function (path) {
+          console.log("cercaP");
+          //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
+          shareData.setData(path);
+          $scope.closeModal()
+        }
 
-      }
-
-      //PERCORSI
+    //PERCORSI
       $scope.pathList = window.infoPaths;
-     
+
+
     //DA SOSTITUIRE CON LA LISTA DEI PERCORSI
-
-
       $scope.myPathList =[{
         namePath : "dasdas",
         namePOI :"ssadsads",
@@ -40,60 +41,28 @@ angular.module('app.controllers', [])
         console.log("edit")
       };
 
-      $scope.slideChange = function (difficoltaPercorso) {
-        ;
-        console.log(difficoltaPercorso)
+      var difficoltaPercorso = "";
+
+      $scope.slideChange = function (difficolta) {
+
+        if(difficolta == 0)
+          difficoltaPercorso = ""
+        else if(difficolta == 1)
+          difficoltaPercorso = "Turistico"
+          else  if(difficolta == 2)
+          difficoltaPercorso = "Escursionistico"
+          else  if(difficolta == 3)
+          difficoltaPercorso = "Escursionistico per esperti"
+
+        return difficoltaPercorso;
       }
-
-
-
-      //ADD POI DA SPOSTARE
-      $scope.newPoi={
-        coordinate:"cooo"
-      }
-      $scope.addPoi = function () {
-        var alertPopup = $ionicPopup.show({
-          scope: $scope,
-          title: 'Aggiungi POI',
-          subTitle: 'Inserisci le informazioni',
-          templateUrl: 'templates/addPOI.html',
-          buttons: [{
-            text: 'Cancel',
-            type: 'button-positive',
-            onTap: function(e) {
-return true;
-            }
-          }, {
-            text: '<b>Save</b>',
-            type: 'button-positive',
-            onTap: function (e) {
-return false;
-              var newPoi = $scope.newPoi;
-console.log($scope.newPoi)
-              if (newPoi.name && $scope.imgURI) {
-
-                var description = newPoi.description;
-                if (!description)
-                  description = "";
-
-                var objToSave = {
-                  name: newPoi.name,
-                  description: description,
-                  coordinate:newPoi.coordinate
-                };
-
-                console.log(objToSave);
-              }
-             }
-          }]
-        });
-      };
-
 
     }])
 
-.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window', '$ionicPopup', 'dati','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer) {
+.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window',
+  '$ionicPopup', 'dati','posizionaPunto','Layer','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+function ($scope,$ionicModal,$http,$window,
+          $ionicPopup,dati,posizionaPunto,Layer,shareData) {
     dati.setInfo($http,$ionicPopup,$window);
     var map,view,vectorLayer,layer,geosec,array;
 
@@ -104,7 +73,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
       maxZoom: 19
     });
     // Creating the map
-    
+
     var osm = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
@@ -114,7 +83,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
           imagerySet: 'AerialWithLabels'
         })
       });
-      
+
      map = new ol.Map({
       layers: [osm,bing],
       target: 'map',
@@ -149,6 +118,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     };
 
     $scope.closeModal = function() {
+      $scope.path = shareData.getData();
         $scope.modal.hide();
     };
 
@@ -166,7 +136,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     $scope.$on('modal.removed', function() {
         // Execute action
     })
-        
+
     //Dedicato allo Swipe della mappa tra i due diversi layer
     var swipe = document.getElementById('swipe');
     bing.on('precompose', function(event) {
@@ -184,6 +154,61 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     swipe.addEventListener('input', function() {
       map.render();
     }, false);
+
+
+
+
+  //ADD POI
+
+  $scope.newPoi={
+    coordinate:"cooo"
+  }
+
+  $scope.exit = function () {
+    shareData.setData(null);
+    $scope.path = shareData.getData();
+  }
+
+  $scope.addPOI = function () {
+    console.log(shareData.getData())
+
+    $scope.date = {}
+    $scope.showError = false;
+    var createPOIPopup = $ionicPopup.show({
+      scope: $scope,
+      title: 'Aggiungi POI',
+      subTitle: 'Inserisci le informazioni',
+      templateUrl: 'templates/addPOI.html',
+      buttons: [{
+        text: 'Cancel',
+        type: 'button-positive',
+        onTap: function(e) {
+
+        }
+      }, {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+        attr: 'data-ng-disabled="!newPoi.name"',
+        onTap: function (e) {
+          if (!$scope.newPoi.name) {
+            //don't allow the user to close unless he enters wifi password
+            e.preventDefault();
+            console.log($scope.showError)
+            $scope.showError = true;
+          } else {
+            //  $localStorage.myPoi = $scope.newPoi;
+            // console.log($localStorage.myPoi)
+            return $scope.newPoi;
+          }
+        }
+      }]
+
+    });
+    createPOIPopup.then(function(res) {
+      $scope.showError = false;
+    });
+  };
+
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',
@@ -193,10 +218,6 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
 
 .controller('addPOICtrl', ['$scope', '$stateParams','$cordovaCamera','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, $stateParams,$cordovaCamera,$ionicPopup) {
-
-        console.log("addPoi")
-          var newPoi = $scope.newPoi;
-          console.log(newPoi)
         /*  $scope.savePOI = function (newPoi) {
             console.log("B")
 

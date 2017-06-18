@@ -1,5 +1,21 @@
 angular.module('app.services', [])
 
+  /*service per condividere i dati tra le varie pagine*/
+  .service('shareData', function () {
+    return {
+      setData: setData,
+      getData: getData,
+      shared_data: null
+    };
+
+    function setData(data) {
+      this.shared_data = data
+    }
+
+    function getData() {
+      return this.shared_data
+    }
+  })
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
@@ -75,7 +91,7 @@ angular.module('app.services', [])
 .service('dati', function() {
     window.infoPois = new Array();
     window.infoPaths = new Array();
-    
+
     this.setInfo = function($http,$ionicPopup,$window){
         var urlPoi = "datiPoi/POI.json";
         var urlPathInfo = "datiPoi/PATH.json";
@@ -207,7 +223,7 @@ angular.module('app.services', [])
                 app = [coors[i+1],coors[i]];
                 path.push(app);
             }
-            window.infoPaths[j].coordinates = path;        
+            window.infoPaths[j].coordinates = path;
         }
     }
 })

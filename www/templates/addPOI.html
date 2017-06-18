@@ -8,12 +8,12 @@
       <!--Scatta foto del POI -->
       <button type="submit" ng-click="takePhoto()"  id="takePhoto" class="button button-calm  button-block icon ion-camera"></button>
 
-  <!--Scatta foto del POI -->
-  <form style="margin-top: 5%" id="addPoi-form3" name="addPoiForm" ng-class="{'submitted':submitted}" novalidate>
+      <form style="margin-top: 5%" id="addPoi-form3" name="addPoiForm" novalidate>
         <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input7" name="poiName">
           <span class="input-label">Nome del POI:</span>
-          <input type="text" name="namePoi" ng-model="newPoi.name" required placeholder="">
+          <input type="text" name="namePoi" ng-model="newPoi.name" required placeholder="Nome POI">
         </label>
+
         <label class="item item-input form-transparent" id="addPoi-textarea2" name="description">
           <span class="input-label">Description:</span>
           <input type="text" name="descriptionPoi" ng-model="newPoi.description" placeholder="(optional)">

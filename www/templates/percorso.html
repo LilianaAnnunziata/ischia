@@ -4,7 +4,41 @@
   </ion-header-bar>
 
   <ion-content>
-    <ion-floating-button click="myEvent()" has-footer="false" button-color="#2AC9AA" icon="ion-plus" icon-color="#fff">
-    </ion-floating-button>
+
   </ion-content>
 </ion-view>
+
+$$scope.showPopup = function() {
+$scope.data = {}
+$scope.showError = false;
+// An elaborate, custom popup
+var myPopup = $ionicPopup.show({
+templateUrl: 'popup-template.html',
+title: 'Enter Wi-Fi Password',
+subTitle: 'Please use normal things',
+scope: $scope,
+buttons: [
+{
+text: '<b>Save</b>',
+type: 'button-positive',
+attr: 'data-ng-disabled="!data.wifi"',
+onTap: function(e) {
+if (!$scope.data.wifi) {
+//don't allow the user to close unless he enters wifi password
+e.preventDefault();
+$scope.showError = true;
+} else {
+return $scope.data.wifi;
+}
+}
+},
+]
+});
+myPopup.then(function(res) {
+console.log('Tapped!', res);
+$scope.showError = false;
+});
+/* $timeout(function() {
+myPopup.close(); //close the popup after 3 seconds for some reason
+}, 3000);*/
+};

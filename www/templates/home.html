@@ -7,10 +7,10 @@
             <button class="noBorder button button-positive  button-block icon ion-leaf"></button>
             <button class="noBorder button button-positive  button-block icon ion-ios-home"></button>
             <button class="noBorder button button-positive  button-block icon ion-pin"></button>
-            
+
         </div>
-        
-        
+
+
             <div class="range_Map">
                 <ion-item style="background: transparent;" class="noBorder range range-calm">
                      <!--<input id="swipe" type="range" value="0" min="0" max="100" step="1"> -->
@@ -18,11 +18,18 @@
                 </ion-item>
                 <div class="back_range range_Map"></div>
             </div>
-        
-     
+
+
+      <ion-floating-menu   ng-show="path != null">
+        <ion-floating-item icon="ion-plus" ng-click="addPOI()" text="aggiungi POI"></ion-floating-item>
+        <ion-floating-item icon="ion-close" ng-click="exit()" text="Esci"></ion-floating-item>
+      </ion-floating-menu>
+
+
+
         <!-- bottone per la geolocalizzazione dell'utente <button id="geolocate" style="height: 40px">Geolocate Me!</button> -->
 
         <button id="menu_home" class = "button button-positive  button-block icon ion-chevron-up" ng-click = "openModal()"></button>
-    
+
     </ion-content>
 </ion-view>
