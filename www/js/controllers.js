@@ -193,6 +193,7 @@ function ($scope,$ionicModal,$http,$window,
           if (!$scope.newPoi.name) {
             //don't allow the user to close unless he enters wifi password
             e.preventDefault();
+            $scope.submitted=true;
             console.log($scope.showError)
             $scope.showError = true;
           } else {

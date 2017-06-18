@@ -8,7 +8,7 @@
       <!--Scatta foto del POI -->
       <button type="submit" ng-click="takePhoto()"  id="takePhoto" class="button button-calm  button-block icon ion-camera"></button>
 
-      <form style="margin-top: 5%" id="addPoi-form3" name="addPoiForm" novalidate>
+      <form style="margin-top: 5%" id="addPoi-form3" ng-class="{'submitted':submitted}" name="addPoiForm" novalidate>
         <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input7" name="poiName">
           <span class="input-label">Nome del POI:</span>
           <input type="text" name="namePoi" ng-model="newPoi.name" required placeholder="Nome POI">
@@ -23,5 +23,6 @@
           <input ng-readonly="true" type="text" name="coordinate"
                  ng-model="newPoi.coordinate" value="{{newPoi.coordinate}}">
         </label>
+
       </form>
   </div>
