@@ -66,7 +66,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     dati.setInfo($http,$ionicPopup,$window);
     datiJson.load($http);
     var map,view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature;
-
+    
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
       zoom: 12,
@@ -97,8 +97,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
       view: view
     });
     
-    
-  
+    //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
         if(!poigeosec){
             poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
@@ -108,6 +107,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
         }
     }
     
+    //visualizza i "poi spiaggia" locali
     $scope.poiSpiaggia=function(){
         if(!poispiaggia){
             poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
@@ -117,7 +117,8 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
         }
     }
     
-    $scope.poiVari=function(){
+    //visualizza i "poi vari" locali
+    $scope.poiVari=function(){      
         if(!poivari){
             poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
             map.addLayer(poivari);
@@ -141,7 +142,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     
     //Visualizza informazioni poi
     map.getViewport().addEventListener("click", function(e) {
-        if (feature) {
+        if (feature && feature.get('nom_poi')) {
             var stringa="";
             if(feature.get('nom_itiner'))
                  stringa="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
@@ -181,7 +182,7 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     // Execute action on remove modal
     $scope.$on('modal.removed', function() {
         // Execute action
-    })
+    });
 
     //Dedicato allo Swipe della mappa tra i due diversi layer 
     var swipe = document.getElementById('swipe');
@@ -193,10 +194,12 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
        ctx.rect(width, 0, ctx.canvas.width - width, ctx.canvas.height);
        ctx.clip();
     });
+    
     bing.on('postcompose', function(event) {
       var ctx = event.context;
       ctx.restore();
     });
+    
     swipe.addEventListener('input', function() {
       map.render();
     }, false);
@@ -257,6 +260,50 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     });
   };
 
+    //geolocalizzazione utente
+    var geolocation = new ol.Geolocation({
+        projection: view.getProjection()
+      });
+
+      geolocation.setTracking(true);
+     
+      geolocation.on('error', function(error) {
+        var info = document.getElementById('info');
+        info.innerHTML = error.message;
+        info.style.display = '';
+      });
+
+      var accuracyFeature = new ol.Feature();
+      geolocation.on('change:accuracyGeometry', function() {
+        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+      });
+
+      var positionFeature = new ol.Feature();
+      positionFeature.setStyle(new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 6,
+          fill: new ol.style.Fill({
+            color: '#3399CC'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#fff',
+            width: 2
+          })
+        })
+      }));
+
+      geolocation.on('change:position', function() {
+        var coordinates = geolocation.getPosition();
+        positionFeature.setGeometry(coordinates ?
+            new ol.geom.Point(coordinates) : null);
+      });
+
+      new ol.layer.Vector({
+        map: map,
+        source: new ol.source.Vector({
+          features: [accuracyFeature, positionFeature]
+        })
+      });       
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',

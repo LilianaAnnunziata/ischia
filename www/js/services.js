@@ -19,7 +19,18 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-
+    
+    //funzione ritorna coordinate gps in un array
+    this.GpsPosition=function(){
+    window.posizione=new Array();
+    
+    var onSuccess = function(position) {
+          window.posizione.push(position.coords.longitude);        
+          window.posizione.push(position.coords.latitude);
+    };
+    navigator.geolocation.getCurrentPosition(onSuccess);
+    }
+        
     this.viewLayer=function(object){
         if(object.getVisible())
             object.setVisible(false);
