@@ -1,0 +1,49 @@
+{
+	"tipo": "vari",
+	"icona": "svg/edificiMarker.svg",
+	"lista": [{
+		"nome": "Negombo ",
+		"lat": 40.75631,
+		"lon": 13.87833
+	},
+	{
+		"nome": "Pineta Mirtina ",
+		"lat": 40.73714,
+		"lon": 13.95263
+	},
+	{
+		"nome": "Pineta degli Atleti",
+		"lat": 40.73209,
+		"lon": 13.94656
+	},
+	{
+		"nome": "Di Iorio Aniello trekking",
+		"lat": 40.7201,
+		"lon": 13.9204
+	},
+	{
+		"nome": "Pietra Nera",
+		"lat": 40.71667,
+		"lon": 13.86667
+	},
+	{
+		"nome": "Monte Epomeo",
+		"lat": 40.73122,
+		"lon": 13.89672
+	},
+	{
+		"nome": "Casamicciola Port ",
+		"lat": 40.74923,
+		"lon": 13.90541
+	},
+	{
+		"nome": "Ischia Port ",
+		"lat": 40.74597,
+		"lon": 13.93865
+	},
+	{
+		"nome": "Marina Del Raggio Verde",
+		"lat": 40.73947,
+		"lon": 13.85966
+	}]
+}

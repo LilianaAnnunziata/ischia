@@ -64,7 +64,7 @@ angular.module('app.services', [])
             src: src
           }))
         });
-
+        
         array.forEach(function(record){
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
@@ -90,6 +90,32 @@ angular.module('app.services', [])
         return vectorLayer;
 }})
 
+.service('datiJson', function() {    
+    window.myJson=new Array();
+    var urlPathJson= new Array();
+    urlPathJson[0]="datiPoi/spiaggia.json";
+    urlPathJson[1]="datiPoi/vari.json"; 
+    this.load=function($http){ 
+       urlPathJson.forEach(function(url){
+        var array=new Array();
+        $http.get(url)
+             .success(function(data, status, headers, config){
+                 data.lista.forEach(function(record){
+                 var obj= {
+                    "id": "",
+                    "nom_poi": record.nome,
+                    "coordinates": [record.lon,record.lat],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": ""
+                 };
+                 array.push(obj);
+                 });
+             window.myJson.push(array);
+            })
+        })
+    }   
+})
 .service('dati', function() {
     window.infoPois = new Array();
     window.infoPaths = new Array();

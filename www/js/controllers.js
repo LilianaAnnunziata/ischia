@@ -61,10 +61,11 @@ angular.module('app.controllers', [])
     }])
 
 .controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window',
-  '$ionicPopup', 'dati','posizionaPunto','Layer','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer,shareData) {
+  '$ionicPopup', 'dati','posizionaPunto','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
     dati.setInfo($http,$ionicPopup,$window);
-    var map,view,vectorLayer,layer,geosec, feature;
+    datiJson.load($http);
+    var map,view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature;
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
@@ -99,11 +100,29 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     
   
     $scope.poiGeosec=function(){
-        if(!geosec){
-            geosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
-            map.addLayer(geosec);
+        if(!poigeosec){
+            poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poigeosec);
         }else{
-            Layer.viewLayer(geosec);
+            Layer.viewLayer(poigeosec);
+        }
+    }
+    
+    $scope.poiSpiaggia=function(){
+        if(!poispiaggia){
+            poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poispiaggia);
+        }else{
+            Layer.viewLayer(poispiaggia);
+        }
+    }
+    
+    $scope.poiVari=function(){
+        if(!poivari){
+            poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poivari);
+        }else{
+            Layer.viewLayer(poivari);
         }
     }
     //nome della pagina html che viene prodotta nel modal
@@ -123,9 +142,12 @@ function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer
     //Visualizza informazioni poi
     map.getViewport().addEventListener("click", function(e) {
         if (feature) {
+            var stringa="";
+            if(feature.get('nom_itiner'))
+                 stringa="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
             var createPOIPopup = $ionicPopup.show({
               title: "<h4>"+feature.get('nom_poi')+"</h2>", 
-              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ "<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner'),
+              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ stringa,
               buttons: [{
                 text: 'OK',
                 type: 'button-positive',
