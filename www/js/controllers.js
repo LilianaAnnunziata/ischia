@@ -95,7 +95,9 @@ function ($scope,$ionicModal,$http,$window,
       }),
       view: view
     });
-
+    
+    
+  
     $scope.poiGeosec=function(){
         if(!geosec){
             geosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
@@ -111,7 +113,27 @@ function ($scope,$ionicModal,$http,$window,
     }).then(function(modal) {
         $scope.modal = modal;
     });
-
+    
+    
+    //Visualizza informazioni poi
+    map.on('click', function(evt) {
+        var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                  return feature;
+        });
+        if (feature) {
+            var createPOIPopup = $ionicPopup.show({
+              title: "<h4>"+feature.get('nom_poi')+"</h2>", 
+              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ "<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner'),
+              buttons: [{
+                text: 'OK',
+                type: 'button-positive',
+                onTap: function(e) {
+                }       
+              }]
+            });
+        };   
+    });
+    
     //apertura del modal
     $scope.openModal = function() {
         $scope.modal.show();

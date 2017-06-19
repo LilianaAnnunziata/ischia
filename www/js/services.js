@@ -68,8 +68,10 @@ angular.module('app.services', [])
         array.forEach(function(record){
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
-                name:record.nom_poi
-
+                nom_poi: record.nom_poi,
+                coordinates: record.coordinates,
+                nom_itiner: record.nom_itiner,
+                percorso: record.percorso,                
             });
             obj.setStyle(iconStyle);
             iconFeature.push(obj);
