@@ -10,9 +10,10 @@ angular.module('app.controllers', [])
     function ($scope, shareData) {
     //POI
         $scope.poiList = window.infoPois;
-
+ 
         /*Visualizza il percorso cercato sulla mappa*/
         $scope.visualizzaPercorso = function (path) {
+          document.getElementById('range_Map').style.bottom = "7px";
           console.log("cercaP");
           //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
           shareData.setData(path);
@@ -61,11 +62,10 @@ angular.module('app.controllers', [])
 
 .controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window',
   '$ionicPopup', 'dati','posizionaPunto','Layer','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-function ($scope,$ionicModal,$http,$window,
-          $ionicPopup,dati,posizionaPunto,Layer,shareData) {
+function ($scope,$ionicModal,$http,$window,$ionicPopup,dati,posizionaPunto,Layer,shareData) {
     dati.setInfo($http,$ionicPopup,$window);
     var map,view,vectorLayer,layer,geosec,array;
-
+    
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
       zoom: 12,
@@ -137,7 +137,7 @@ function ($scope,$ionicModal,$http,$window,
         // Execute action
     })
 
-    //Dedicato allo Swipe della mappa tra i due diversi layer
+    //Dedicato allo Swipe della mappa tra i due diversi layer 
     var swipe = document.getElementById('swipe');
     bing.on('precompose', function(event) {
        var ctx = event.context;
@@ -165,6 +165,7 @@ function ($scope,$ionicModal,$http,$window,
   }
 
   $scope.exit = function () {
+    document.getElementById('range_Map').style.bottom = "6%";
     shareData.setData(null);
     $scope.path = shareData.getData();
   }

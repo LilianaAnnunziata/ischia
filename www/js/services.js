@@ -103,8 +103,8 @@ angular.module('app.services', [])
         var urlPathLine = 'http://www.geosec.cnr.it/geoserver/wms/reflect?&layers=Ischia:CiroRomano_shp_sentieri&format=rss';
         */
 
-        dataDownload = new Date(localStorage.getItem('Data'));
-        app = new Date();
+        var dataDownload = new Date(localStorage.getItem('Data'));
+        var app = new Date();
         var dataUpgrade = new Date(app.getFullYear(),app.getMonth(),app.getDate());
 
         //Da decommentare alla fine
@@ -209,18 +209,18 @@ angular.module('app.services', [])
 
     setPathLine = function(){
         var path;
-        parser = new DOMParser();
+        var parser = new DOMParser();
         xmlDoc = parser.parseFromString(localStorage.getItem('PATH_LINE'),"text/xml");
-        item = xmlDoc.getElementsByTagName("item");
+        var item = xmlDoc.getElementsByTagName("item");
         for(var j=0;j<item.length;j++)
         {
-            line = item[j].childNodes[4].innerHTML;
+            var line = item[j].childNodes[4].innerHTML;
             var coors = line.split(" ");
             path = new Array();
             for(var i=0;i<(coors.length);i+=2){
                 coors[i]=parseFloat(coors[i]);
                 coors[i+1]=parseFloat(coors[i+1]);
-                app = [coors[i+1],coors[i]];
+                var app = [coors[i+1],coors[i]];
                 path.push(app);
             }
             window.infoPaths[j].coordinates = path;
