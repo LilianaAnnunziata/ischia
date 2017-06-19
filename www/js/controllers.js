@@ -64,7 +64,7 @@ angular.module('app.controllers', [])
 function ($scope,$ionicModal,$http,$window,
           $ionicPopup,dati,posizionaPunto,Layer,shareData) {
     dati.setInfo($http,$ionicPopup,$window);
-    var map,view,vectorLayer,layer,geosec,array;
+    var map,view,vectorLayer,layer,geosec, feature;
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
@@ -114,12 +114,14 @@ function ($scope,$ionicModal,$http,$window,
         $scope.modal = modal;
     });
     
+   //Trova le feature mentre si naviga sulla mappa
+   map.on('pointermove', function(evt) {
+         feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                  return feature;
+        })});
     
     //Visualizza informazioni poi
-    map.on('click', function(evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-                  return feature;
-        });
+    map.getViewport().addEventListener("click", function(e) {
         if (feature) {
             var createPOIPopup = $ionicPopup.show({
               title: "<h4>"+feature.get('nom_poi')+"</h2>", 
