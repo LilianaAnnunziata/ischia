@@ -154,13 +154,6 @@ function ($scope,$ionicModal,$http,$window,
       view: view
     });
 
-var layer;
-console.log(map.getLayers().getArray());
-        map.getLayers().forEach(function (lyr) {
-            if(lyr!=osm && lyr!=bing)
-                console.log(lyr.setVisible(false));
-                       
-        });
     //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
         if(!poigeosec){
