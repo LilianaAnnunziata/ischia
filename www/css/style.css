@@ -48,4 +48,29 @@
     background: white;
     opacity: 0.5;
 }
-
+#cera{
+    position: fixed;
+    height:100%;
+    width: 100%;
+}
+.menuA{
+    margin-bottom: 10px;
+}
+.text{
+    font-size: 15px;
+    font-weight: bold;  
+}
+.menuB{
+   padding-left: 1%;
+   padding-right: 1%;
+}
+.corpoMenu{
+    margin-bottom: 12px; 
+    padding-left: 2%;
+    padding-right: 2%;
+}
+#stella{
+    padding-left: 2px;
+    margin-right: 2%;
+    margin-top: -8px;
+}

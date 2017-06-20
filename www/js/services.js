@@ -237,7 +237,8 @@ angular.module('app.services', [])
                 "coordinates": record.geometry.coordinates,
                 "nom_itiner": record.properties.NOM_ITINER,
                 "percorso": record.properties.PERCORSO,
-                "tipo_perc": record.properties.TIPO_PERC
+                "tipo_perc": record.properties.TIPO_PERC,
+                "cod_tipo": record.properties.COD_TIPO
             };
             window.infoPois.push(obj);
         });
@@ -251,7 +252,8 @@ angular.module('app.services', [])
                 "percorso": record.properties.PERCORSO,
                 "nom_itiner": record.properties.NOM_ITINER,
                 "coordinates": null,
-                "tipo_perc": record.properties.TIPO_PERC
+                "tipo_perc": record.properties.TIPO_PERC,
+                "cod_tipo": record.properties.COD_TIPO
             };
             window.infoPaths.push(obj);
         });

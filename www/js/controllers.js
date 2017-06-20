@@ -30,7 +30,7 @@ angular.module('app.controllers', [])
       })
       var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
-      //shareData.setData(poi);
+      shareData.setData(poi);
       $scope.closeModal()
     }
 
@@ -43,7 +43,7 @@ angular.module('app.controllers', [])
       var geosec = Layer.lineLayer(path.coordinates,difficolta);
       map.addLayer(geosec);
       //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
-      //shareData.setData(path);
+      shareData.setData(path);
       $scope.closeModal()
     }
 

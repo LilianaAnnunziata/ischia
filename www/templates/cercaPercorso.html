@@ -1,32 +1,28 @@
-<ion-view ng-controller="cercaPercorsoCtrl" title="Percorso" hide-back-button="true" id="page9">
+<ion-view ng-controller="cercaPercorsoCtrl" title="Percorso" id="page9">
   <ion-header-bar>
-    <button class = "button icon icon-left ion-ios-close-outline" ng-click = "closeModal()">Close Modal</button>
+    <button class = "button button-icon icon ion-close-round assertive noBorder" ng-click = "closeModal()"></button>
   </ion-header-bar>
 
   <ion-content>
-    <!-- Barra superiore: CercaPercorso - Imiei Percorsi  -->
-    <ion-segment ng-model="categories" full="true"  assertive>
-      <ion-segment-button value="searchPath" class="icon ion-search">
-        Cerca Percorso
+    <ion-segment ng-model="categories" full="true" class="menuA" positive>
+      <ion-segment-button value="searchPath">
+        <span class="text">Cerca Percorso</span>
       </ion-segment-button>
       <ion-segment-button value="myPath" ng-click="visualizzaIMieiPercorsi()">
-        I miei Percorsi
-      </ion-segment-button>
-      <ion-segment-button value="animation">
-        Animations
+        <span class="text">I miei Percorsi</span>
       </ion-segment-button>
     </ion-segment>
 
     <!-- Contenuto barra -->
     <div ng-switch="categories">
       <!-- Contenuto Cerca Percorso -->
-      <div ng-switch-when="searchPath">
-        <ion-segment ng-model="cercaTipologie" full="true"  assertive>
+      <div ng-switch-when="searchPath" class="menuB">
+        <ion-segment ng-model="cercaTipologie" full="true" class="corpoMenu" Balanced>
            <ion-segment-button value="cercaPOI">
-                Cerca per POI
+                <span class="text">Per POI</span>
            </ion-segment-button>
            <ion-segment-button value="cercaNomePath">
-                Cerca per Nome Percorso
+                <span class="text">Per Percorso</span>
            </ion-segment-button>
         </ion-segment>
 
@@ -35,11 +31,14 @@
               <div ng-switch-when="cercaPOI">
                 <!-- ricerca per nome del poi-->
                 <!-- nomePoi usato sotto per filter -->
-                <ion-item class="range range-positive" id="difficoltaPOIRange">
-                  <span>Difficoltà:</span>
-                  <input type="range" value="1" min="0" max="3" step="1"
-                         ng-model="difficolta">
-                  <span>{{slideChange(difficolta)}}</span>
+                <ion-item class="range range-positive noBorder" id="difficoltaPOIRange">
+                    <span><b>Difficoltà:</b></span>
+                  <input id="swipeDifficolta" type="range" value="1" min="0" max="3" step="1" ng-model="difficolta">
+                   <i id="semaforo" ng-if="difficolta == 0" style="font-size: 40px;" class="icon ion-more"></i>
+                   <i id="semaforo" ng-if="difficolta == 1" style="font-size: 40px; color:green;" class="icon ion-ios-star-outline"></i>
+                   <i id="semaforo" ng-if="difficolta == 2" style="font-size: 40px; color:yellow;" class="icon ion-ios-star-half"></i>
+                   <i id="semaforo" ng-if="difficolta == 3" style="font-size: 40px; color:red;" class="icon ion-ios-star"></i>
+                  <!--<span>{{slideChange(difficolta)}}</span>-->
                 </ion-item>
                 <!-- ricerca per nome del poi nomePoi usato sotto per filter -->
                 <input type="text" placeholder="Ricerca Percorso per POI" ng-model="nomePOI">
@@ -87,14 +86,6 @@
                                ng-click="editPath()" >Modifica</ion-option-button>
           </ion-item>
         </ion-list>
-      </ion-list>
-
-      <!-- Contenuto addPOI -->
-      <ion-list ng-switch-when="animation">
-        <ion-item>
-          <button id="a-button53" class="button button-positive button-block icon-search"
-                  ng-click="">Cerca</button>
-        </ion-item>
       </ion-list>
 
     </div>
