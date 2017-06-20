@@ -67,11 +67,12 @@
     width: 100%;
 }
 .menuA{
-    margin-bottom: 10px;
+    margin-bottom: 13px;
 }
 .text{
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;  
+    padding: 5px!important;
 }
 .menuB{
    padding-left: 1%;
@@ -79,11 +80,24 @@
 }
 .corpoMenu{
     margin-bottom: 12px; 
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
 }
-#stella{
+.scala{
     padding-left: 2px;
-    margin-right: 2%;
-    margin-top: -8px;
+    margin-right: 2px;
+    margin-top: -7px;
+}
+.ricerche{
+    border: none!important;
+    margin-top: -2px!important;
+    margin-bottom: 8px!important;    
+}
+.ricerche span{
+    margin-right: 15px;
+    margin-left: 10px; 
+}
+ul#ion-segment li{
+    max-height: 34px!important;
+    min-height: 34px!important;
 }

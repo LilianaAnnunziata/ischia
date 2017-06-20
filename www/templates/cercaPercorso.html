@@ -5,10 +5,10 @@
 
   <ion-content>
     <ion-segment ng-model="categories" full="true" class="menuA" positive>
-      <ion-segment-button value="searchPath">
+      <ion-segment-button value="searchPath" style="padding:4px!important;">
         <span class="text">Cerca Percorso</span>
       </ion-segment-button>
-      <ion-segment-button value="myPath" ng-click="visualizzaIMieiPercorsi()">
+      <ion-segment-button value="myPath" style="padding:4px!important;" ng-click="visualizzaIMieiPercorsi()">
         <span class="text">I miei Percorsi</span>
       </ion-segment-button>
     </ion-segment>
@@ -18,10 +18,10 @@
       <!-- Contenuto Cerca Percorso -->
       <div ng-switch-when="searchPath" class="menuB">
         <ion-segment ng-model="cercaTipologie" full="true" class="corpoMenu" Balanced>
-           <ion-segment-button value="cercaPOI">
+           <ion-segment-button value="cercaPOI" style="padding:4px!important;">
                 <span class="text">Per POI</span>
            </ion-segment-button>
-           <ion-segment-button value="cercaNomePath">
+           <ion-segment-button value="cercaNomePath" style="padding:4px!important;">
                 <span class="text">Per Percorso</span>
            </ion-segment-button>
         </ion-segment>
@@ -33,15 +33,18 @@
                 <!-- nomePoi usato sotto per filter -->
                 <ion-item class="range range-positive noBorder" id="difficoltaPOIRange">
                     <span><b>Difficoltà:</b></span>
-                  <input id="swipeDifficolta" type="range" value="1" min="0" max="3" step="1" ng-model="difficolta">
-                   <i id="semaforo" ng-if="difficolta == 0" style="font-size: 40px;" class="icon ion-more"></i>
-                   <i id="semaforo" ng-if="difficolta == 1" style="font-size: 40px; color:green;" class="icon ion-ios-star-outline"></i>
-                   <i id="semaforo" ng-if="difficolta == 2" style="font-size: 40px; color:yellow;" class="icon ion-ios-star-half"></i>
-                   <i id="semaforo" ng-if="difficolta == 3" style="font-size: 40px; color:red;" class="icon ion-ios-star"></i>
-                  <!--<span>{{slideChange(difficolta)}}</span>-->
+                  <input type="range" min="1" max="3" step="1" ng-model="difficoltaPOI">
+                   <img src="img/1.png" class="scala" ng-if="difficoltaPOI == 1" height="35"></img>
+                   <img src="img/2.png" class="scala" ng-if="difficoltaPOI == 2" height="35"></img>
+                   <img src="img/3.png" class="scala" ng-if="difficoltaPOI == 3" height="35"></img>
+                   <span ng-show="false">{{slideChange(difficoltaPOI)}}</span>
                 </ion-item>
                 <!-- ricerca per nome del poi nomePoi usato sotto per filter -->
-                <input type="text" placeholder="Ricerca Percorso per POI" ng-model="nomePOI">
+                <label class="item item-input ricerche">
+                    <i style="font-size: 24px;" class="icon ion-search"></i><span><b> POI:</b></span>
+                    <input type="text" placeholder="Inserisci nome" ng-model="nomePOI">
+                </label>
+                
 
                 <ion-list id="searchPOI-list">
                    <ion-item class="item-icon-right positive" id="searchPOI-item"
@@ -51,18 +54,25 @@
               </div>
 
               <div ng-switch-when="cercaNomePath">
-                <ion-item style="border-radius: 0 0 5px 5px;" class="range range-positive" id="difficoltaPathRange">
-                  <span>Difficoltà:</span>
-                  <input type="range" value="0" min="0" max="3" step="1"
-                         ng-model="difficolta">
-                  <span>{{slideChange(difficolta)}}</span>
+                
+                <ion-item class="range range-positive noBorder" id="difficoltaPOIRange">
+                    <span><b>Difficoltà:</b></span>
+                  <input type="range" min="1" max="3" step="1" ng-model="difficoltaPATH">
+                   <img src="img/1.png" class="scala" ng-if="difficoltaPATH == 1" height="35"></img>
+                   <img src="img/2.png" class="scala" ng-if="difficoltaPATH == 2" height="35"></img>
+                   <img src="img/3.png" class="scala" ng-if="difficoltaPATH == 3" height="35"></img>
+                   <span ng-show="false">{{slideChange(difficoltaPATH)}}</span>
                 </ion-item>
                 <!-- ricerca per nome del poi nomePath usato sotto per filter -->
-                <input type="text" placeholder="Ricerca Percorso per Percorso" ng-model="nomePath">
+                <label class="item item-input ricerche">
+                    <i style="font-size: 24px;" class="icon ion-search"></i><span><b> Percorso:</b></span>
+                    <input type="text" placeholder="Inserisci nome" ng-model="nomePath">
+                </label>
+                
                 <ion-list id="searchPath-list">
                   <ion-item class="item-icon-right positive" id="searchPath-item"
                             ng-repeat="path in pathList | filter:{percorso:nomePath, tipo_perc : slideChange(difficolta)}"
-                            ng-click="visualizzaPercorso(path,path.tipo_perc)">{{path.percorso}}  {{path.tipo_perc}}</ion-item>
+                            ng-click="visualizzaPercorso(path,path.tipo_perc)">{{path.percorso}}</ion-item>
                 </ion-list>
               </div>
             </div>
