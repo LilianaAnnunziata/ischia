@@ -6,43 +6,98 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', 'shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, shareData) {
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData,posizionaPunto,Layer) {
     //POI
-        $scope.poiList = window.infoPois;
+    $scope.poiList = window.infoPois;
 
-        /*Visualizza il percorso cercato sulla mappa*/
-        $scope.visualizzaPercorso = function (path) {
-          console.log("cercaP");
-          //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
-          shareData.setData(path);
-          $scope.closeModal()
+    $scope.visualizzaPOI = function (poi,personal,difficolta) {
+
+      var poiArr;
+      if(!personal) {
+        poiArr = new Array();
+        poiArr.push(poi);
+      }else
+        poiArr = poi;
+    //  console.log(poi.percorso)
+
+
+      var myPathListArray = window.infoPaths;
+      myPathListArray.forEach(function (path) {
+        if(path.percorso == poi.percorso && path.tipo_perc == difficolta){
+          console.log(poi.percorso)
+          $scope.visualizzaPercorso(path,path.tipo_perc)
         }
+      });
+      var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      map.addLayer(geosec);
+      //shareData.setData(poi);
+      $scope.closeModal()
+    }
 
     //PERCORSI
-      $scope.pathList = window.infoPaths;
+    $scope.pathList = window.infoPaths;
+    /*Visualizza il percorso cercato sulla mappa*/
+    $scope.visualizzaPercorso = function (path,difficolta) {
+      //console.log("visualizzaPercorso");
+      var geosec = Layer.lineLayer(path.coordinates,difficolta);
+      map.addLayer(geosec);
+      //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
+      //shareData.setData(path);
+      $scope.closeModal()
+    }
 
 
-    //DA SOSTITUIRE CON LA LISTA DEI PERCORSI
-      $scope.myPathList =[{
-        namePath : "dasdas",
-        namePOI :"ssadsads",
-        description :" RREre"
-      }];
-      $scope.goToMyPersonalPath = function (path) {
-        console.log("search")
+
+    $scope.visualizzaIMieiPercorsi = function () {
+      var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
+      if(myPathLocalStorage){
+        var obj;
+        var myPathListArray = new Array();
+        myPathLocalStorage.forEach(function (path) {
+          console.log(path)
+          obj = {
+            id:path.id,
+            percorso:path.POIs[0].percorso,
+            tipo_perc:path.POIs[0].tipo_perc,
+            num_poi_add: path.POIs.length,
+            POIs:path.POIs
+          }
+          myPathListArray.push(obj)
+        });
+        $scope.myPathList = myPathListArray;
+      }else{
+        $scope.myPathList = new Array();
+      }
+    }
+
+    /*visualizza sulla mappa il percorso con i propri poi*/
+      $scope.goToMyPersonalPath = function (p) {
+        var pathPersonal = JSON.parse(p)
+        console.log(pathPersonal)
+
+        window.infoPaths.forEach(function (path) {
+          if(path.id == pathPersonal.id){
+            console.log(path.tipo_perc)
+            $scope.visualizzaPercorso(path,path.tipo_perc)
+
+            $scope.visualizzaPOI(pathPersonal.POIs,true)
+          }
+        })
+
+        $scope.closeModal()
       };
 
-      $scope.deletePath = function (path) {
+      $scope.deletePath = function () {
         console.log("del")
-        console.log(path)
+        //console.log(path)
       };
-      $scope.editPath = function (path) {
+      $scope.editPath = function () {
         console.log("edit")
       };
 
-      var difficoltaPercorso = "";
 
+      var difficoltaPercorso = "";
       $scope.slideChange = function (difficolta) {
 
         if(difficolta == 0)
@@ -59,12 +114,17 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('homeCtrl', ['$scope', '$ionicModal', '$http', '$window',
+.controller('homeCtrl', ['$scope','$ionicModal', '$http', '$window',
   '$ionicPopup', 'dati','posizionaPunto','Layer','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope,$ionicModal,$http,$window,
           $ionicPopup,dati,posizionaPunto,Layer,shareData) {
     dati.setInfo($http,$ionicPopup,$window);
-    var map,view,vectorLayer,layer,geosec,array;
+
+    var x ="non ' XD"
+    console.log(x)
+  console.log(replaceApiceTo(x))
+    map;
+    var view,vectorLayer,layer,geosec,array;
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
@@ -161,18 +221,21 @@ function ($scope,$ionicModal,$http,$window,
   //ADD POI
 
   $scope.newPoi={
-    coordinate:"cooo"
+    coordinates:[13.874429,40.731345]
   }
-
+console.log($scope.newPoi)
   $scope.exit = function () {
     shareData.setData(null);
     $scope.path = shareData.getData();
   }
 
+
   $scope.addPOI = function () {
-    console.log(shareData.getData())
+    //informazioni del percorso selezionato
+    var path = shareData.getData();
 
     $scope.date = {}
+
     $scope.showError = false;
     var createPOIPopup = $ionicPopup.show({
       scope: $scope,
@@ -188,20 +251,48 @@ function ($scope,$ionicModal,$http,$window,
       }, {
         text: '<b>Save</b>',
         type: 'button-positive',
-        attr: 'data-ng-disabled="!newPoi.name"',
+        attr: 'data-ng-disabled="!newPoi.nom_poi"',
         onTap: function (e) {
-          if (!$scope.newPoi.name) {
+          if (!$scope.newPoi.nom_poi) {
             //don't allow the user to close unless he enters wifi password
             e.preventDefault();
             $scope.submitted=true;
-            console.log($scope.showError)
+
             $scope.showError = true;
           } else {
-            //  $localStorage.myPoi = $scope.newPoi;
-            // console.log($localStorage.myPoi)
+
+            //formato del localStorage:
+            //localstorage[{id,POIs:[{nom_poi,coordinates:[][],...},{nom_poi,coordinates:[][],...}]}]
+            var allPoiPersonalArray;//array che sarà inserito in localStorage
+            var idPath = 'personalPOI';//id del local storage
+            if(!localStorage.getItem(idPath)) {//se localStorage non è definito
+              allPoiPersonalArray = new Array();
+              //inserimento di un nuovo percorso e dei POI relativi
+              allPoiPersonalArray.push(insertPOIPath(path));
+            }else {//se localStorage era già definito
+              allPoiPersonalArray = JSON.parse(localStorage.getItem(idPath));
+              //flag per verificare se il percorso esisteva gia
+              var flag = true;
+              //itero su array esterno del localStorage per vedere se il path è già inserito
+              allPoiPersonalArray.forEach(function (percorso) {
+                if(percorso.id == path.id ){
+                  //se il path esiste già allora inserisco solo i POI
+                  percorso.POIs.push(insertPOI(path));
+                  flag = false;
+                  return;
+                }
+              })
+              if(flag){
+                //se il path non esiste allora inserisco path + OI
+                allPoiPersonalArray.push(insertPOIPath(path));
+              }
+            }
+            console.log(allPoiPersonalArray)
+            //iserisco la nuova variabile modificata
+            localStorage.setItem(idPath,JSON.stringify(allPoiPersonalArray));
+            }
             return $scope.newPoi;
           }
-        }
       }]
 
     });
@@ -209,6 +300,29 @@ function ($scope,$ionicModal,$http,$window,
       $scope.showError = false;
     });
   };
+
+  /*funzione di supporto per creare un oggetto POI con le coordinate*/
+  function insertPOI(path) {
+    var objPOI= {
+      nom_poi: $scope.newPoi.nom_poi,
+      coordinates: [13.874429, 40.731345],
+      percorso: path.percorso,
+      tipo_perc: path.tipo_perc,
+      description: $scope.newPoi.description
+    };
+    return objPOI;
+  }
+  /*funzione di supporto per creare un oggetto con id_Path e con l'array delle coordinate*/
+  function insertPOIPath(path) {
+    var poiArray = new Array();
+    var infoPoi = insertPOI(path);
+    poiArray.push(infoPoi);
+    var objPath = {
+      id: path.id,
+      POIs : poiArray
+    }
+    return objPath;
+  }
 
 }])
 

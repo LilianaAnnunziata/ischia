@@ -9,7 +9,7 @@
       <ion-segment-button value="searchPath" class="icon ion-search">
         Cerca Percorso
       </ion-segment-button>
-      <ion-segment-button value="myPath">
+      <ion-segment-button value="myPath" ng-click="visualizzaIMieiPercorsi()">
         I miei Percorsi
       </ion-segment-button>
       <ion-segment-button value="animation">
@@ -41,33 +41,29 @@
                          ng-model="difficolta">
                   <span>{{slideChange(difficolta)}}</span>
                 </ion-item>
+                <!-- ricerca per nome del poi nomePoi usato sotto per filter -->
                 <input type="text" placeholder="Ricerca Percorso per POI" ng-model="nomePOI">
 
                 <ion-list id="searchPOI-list">
                    <ion-item class="item-icon-right positive" id="searchPOI-item"
                           ng-repeat="poi in poiList | filter:{nom_poi:nomePOI, tipo_perc : slideChange(difficolta)}"
-                          ng-click="">{{poi.nom_poi}}</ion-item>
+                          ng-click="visualizzaPOI(poi,null,poi.tipo_perc)">{{poi.nom_poi}}</ion-item>
                 </ion-list>
-                <button id="cercaPercorsoPOIBottone" class="button button-positive button-block icon-search"
-                        ng-click="cercaPoi()">Cerca</button>
               </div>
 
               <div ng-switch-when="cercaNomePath">
-                <!-- ricerca per nome del poi-->
-                <!-- nomePoi usato sotto per filter -->
-
                 <ion-item style="border-radius: 0 0 5px 5px;" class="range range-positive" id="difficoltaPathRange">
                   <span>Difficoltà:</span>
                   <input type="range" value="0" min="0" max="3" step="1"
                          ng-model="difficolta">
                   <span>{{slideChange(difficolta)}}</span>
                 </ion-item>
-
+                <!-- ricerca per nome del poi nomePath usato sotto per filter -->
                 <input type="text" placeholder="Ricerca Percorso per Percorso" ng-model="nomePath">
                 <ion-list id="searchPath-list">
                   <ion-item class="item-icon-right positive" id="searchPath-item"
                             ng-repeat="path in pathList | filter:{percorso:nomePath, tipo_perc : slideChange(difficolta)}"
-                            ng-click="visualizzaPercorso(path)">{{path.percorso}}  {{path.tipo_perc}}</ion-item>
+                            ng-click="visualizzaPercorso(path,path.tipo_perc)">{{path.percorso}}  {{path.tipo_perc}}</ion-item>
                 </ion-list>
               </div>
             </div>
@@ -77,16 +73,18 @@
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
           <ion-item class="item-thumbnail-left listItem" id="home-list-item9"
-                    ng-repeat="path in myPathList | orderBy:namePOI"
-                    ng-click="goToMyPersonalPath('{{path}}')">
+                    ng-click="goToMyPersonalPath('{{path}}')"
+                    ng-repeat="path in myPathList">
             <!--<img src="{{path.src}}">-->
-            <h1>{{path.namePath}}</h1>
-            <h2>{{path.namePOI}}</h2>
+            <h2>{{path.percorso}}</h2>
+            <h3>{{path.tipo_perc}}</h3>
+            <h3>Numero POI aggiunti: {{path.num_poi_add}}</h3>
+
             <div style="color:#565656; font-size:0.8em; margin-bottom: -10px; white-space:normal;">{{path.description}} </div>
             <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-minus-circled"
-                               ng-click="deletePath('{{path}}')" ></ion-option-button>
+                               ng-click="deletePath()" ></ion-option-button>
             <ion-option-button class="button-positive"
-                               ng-click="editPath('{{path}}')" >Modifica</ion-option-button>
+                               ng-click="editPath()" >Modifica</ion-option-button>
           </ion-item>
         </ion-list>
       </ion-list>

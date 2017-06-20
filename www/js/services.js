@@ -27,7 +27,18 @@ angular.module('app.services', [])
             object.setVisible(true);
        };
 
-    this.lineLayer=function(lineString){
+    this.lineLayer=function(array,difficolta){
+      if(difficolta == 'Turistico')
+        colore = 'green';
+        else if(difficolta == 'Escursionistico' )
+          colore = 'yellow';
+          else if(difficolta == 'Escursionistico per esperti' )
+            colore = 'red';
+            else
+              colore ='white';
+
+      var lineString = new ol.geom.LineString(array);
+
         lineString.transform('EPSG:4326', 'EPSG:3857');
         var lineLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
@@ -37,7 +48,7 @@ angular.module('app.services', [])
                 })]
             }),
             style: new ol.style.Style({
-                stroke: new ol.style.Stroke({color: 'red', width: 3}),
+                stroke: new ol.style.Stroke({color: colore, width: 3}),
             })
         });
         return(lineLayer);

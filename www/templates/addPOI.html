@@ -1,3 +1,4 @@
+<!-- pagina che viene richiamata nel popup-->
 <div ng-controller="addPOICtrl" >
 
    <!-- Aggiunge immagine del POI -->
@@ -11,17 +12,17 @@
       <form style="margin-top: 5%" id="addPoi-form3" ng-class="{'submitted':submitted}" name="addPoiForm" novalidate>
         <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input7" name="poiName">
           <span class="input-label">Nome del POI:</span>
-          <input type="text" name="namePoi" ng-model="newPoi.name" required placeholder="Nome POI">
+          <input type="text" name="namePoi" ng-model="newPoi.nom_poi" required placeholder="Nome POI">
         </label>
 
         <label class="item item-input form-transparent" id="addPoi-textarea2" name="description">
           <span class="input-label">Description:</span>
           <input type="text" name="descriptionPoi" ng-model="newPoi.description" placeholder="(optional)">
         </label>
-        <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input8" name="poiCoordinate">
+        <label style="border-radius: 5px 5px 0 0;" class="item item-input form-transparent" id="addPoi-input8" name="poiCoordinates">
           <span class="input-label">Coordinate</span>
-          <input ng-readonly="true" type="text" name="coordinate"
-                 ng-model="newPoi.coordinate" value="{{newPoi.coordinate}}">
+          <input ng-readonly="true" type="text" name="coordinates"
+                 ng-model="newPoi.coordinates" value="{{newPoi.coordinates}}">
         </label>
 
       </form>
