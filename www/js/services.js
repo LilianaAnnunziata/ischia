@@ -48,9 +48,30 @@ angular.module('app.services', [])
             else
               colore ='white';
 
-      var lineString = new ol.geom.LineString(array);
-
+        var lineString = new ol.geom.LineString(array);
         lineString.transform('EPSG:4326', 'EPSG:3857');
+        var punto=new Array();
+        var obj= {
+                    "id": "",
+                    "nom_poi": "",
+                    "coordinates": array[0],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": ""
+                 };
+        punto.push(obj);
+        map.addLayer(this.posizionaPunto(punto,'icon/partenza.png'));       
+        var punto=new Array();
+        var obj= {
+                    "id": "",
+                    "nom_poi": "",
+                    "coordinates": array[array.length-1],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": ""
+                 };
+        punto.push(obj);
+        map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
         var lineLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
                 features: [new ol.Feature({
@@ -64,15 +85,13 @@ angular.module('app.services', [])
         });
         return(lineLayer);
     }
-
-})
-         /*funzione che visualizza un marker sulla mappa paramitri di input:
+    
+      /*funzione che visualizza un marker sulla mappa paramitri di input:
             x,y=coordinate
             name=nome marker
             src=icona del marker
          */
- .factory('posizionaPunto', function() {
-    return function(array,src){
+    this.posizionaPunto=function(array,src){
         if(array=="1"){
             array=window.infoPois;
         }
@@ -110,7 +129,9 @@ angular.module('app.services', [])
         });
 
         return vectorLayer;
-}})
+    };
+
+})
 
 .service('datiJson', function() {    
     window.myJson=new Array();

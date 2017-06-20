@@ -6,8 +6,8 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', 'shareData','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, shareData,posizionaPunto,Layer) {
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData,Layer) {
     //POI
     $scope.poiList = window.infoPois;
 
@@ -28,7 +28,7 @@ angular.module('app.controllers', [])
           $scope.visualizzaPercorso(path, path.tipo_perc)
         }
       })
-      var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
       //shareData.setData(poi);
       $scope.closeModal()
@@ -114,9 +114,9 @@ angular.module('app.controllers', [])
     }])
 
 .controller('homeCtrl', ['$scope','$ionicModal', '$http', '$window',
-  '$ionicPopup', 'dati','posizionaPunto','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  '$ionicPopup', 'dati','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope,$ionicModal,$http,$window,
-          $ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
+          $ionicPopup,dati,Layer,datiJson,shareData) {
 
   dati.setInfo($http,$ionicPopup,$window);
   datiJson.load($http);
@@ -154,10 +154,17 @@ function ($scope,$ionicModal,$http,$window,
       view: view
     });
 
+var layer;
+console.log(map.getLayers().getArray());
+        map.getLayers().forEach(function (lyr) {
+            if(lyr!=osm && lyr!=bing)
+                console.log(lyr.setVisible(false));
+                       
+        });
     //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
         if(!poigeosec){
-            poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poigeosec=Layer.posizionaPunto("1",'icon/geosec.png');
             map.addLayer(poigeosec);
         }else{
             Layer.viewLayer(poigeosec);
@@ -167,7 +174,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi spiaggia" locali
     $scope.poiSpiaggia=function(){
         if(!poispiaggia){
-            poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poispiaggia=Layer.posizionaPunto(window.myJson[0],'icon/spiaggia.png');
             map.addLayer(poispiaggia);
         }else{
             Layer.viewLayer(poispiaggia);
@@ -177,7 +184,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi vari" locali
     $scope.poiVari=function(){
         if(!poivari){
-            poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poivari=Layer.posizionaPunto(window.myJson[1],'icon/montagna.png');
             map.addLayer(poivari);
         }else{
             Layer.viewLayer(poivari);
