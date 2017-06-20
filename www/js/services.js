@@ -50,6 +50,18 @@ angular.module('app.services', [])
 
         var lineString = new ol.geom.LineString(array);
         lineString.transform('EPSG:4326', 'EPSG:3857');
+         var lineLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [new ol.Feature({
+                    geometry: lineString,
+                    name: 'Line'
+                })]
+            }),
+            style: new ol.style.Style({
+                stroke: new ol.style.Stroke({color: colore, width: 3}),
+            })
+        });
+        map.addLayer(lineLayer);
         var punto=new Array();
         var obj= {
                     "id": "",
@@ -72,18 +84,7 @@ angular.module('app.services', [])
                  };
         punto.push(obj);
         map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
-        var lineLayer = new ol.layer.Vector({
-            source: new ol.source.Vector({
-                features: [new ol.Feature({
-                    geometry: lineString,
-                    name: 'Line'
-                })]
-            }),
-            style: new ol.style.Style({
-                stroke: new ol.style.Stroke({color: colore, width: 3}),
-            })
-        });
-        return(lineLayer);
+       
     }
     
       /*funzione che visualizza un marker sulla mappa paramitri di input:

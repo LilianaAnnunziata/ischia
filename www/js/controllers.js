@@ -43,15 +43,13 @@ console.log("-----------------------------------")
     $scope.visualizzaPercorso = function (path,difficolta) {
       document.getElementById('range_Map').style.bottom = "7px";
       //console.log("visualizzaPercorso");
-      var geosec = Layer.lineLayer(path.coordinates,difficolta);
-      map.addLayer(geosec);
+      Layer.lineLayer(path.coordinates,difficolta);
       //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
-      console.log("path")
       shareData.setData(path);
-      console.log(shareData.getData())
 
       $scope.closeModal()
     }
+    
 
 
     $scope.visualizzaIMieiPercorsi = function () {
@@ -281,6 +279,10 @@ function ($scope,$ionicModal,$http,$window,
           map.removeLayer(arrLayer[i]);
       }
   }
+
+    $scope.geolocalization = function () {
+        Layer.GpsPosition();
+    }
 
 
   $scope.addPOI = function () {
