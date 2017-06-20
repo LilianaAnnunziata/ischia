@@ -8,11 +8,17 @@ angular.module('app.controllers', [])
 
 .controller('cercaPercorsoCtrl', ['$scope', 'shareData','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, shareData,posizionaPunto,Layer) {
+
+      $scope.removeLayer = function () {
+        console.log("remove")
+        for (var i = map.layers.length - 1; i >= 0; i--) {
+          map.removeLayer(map.layers[i]);
+        }
+      }
+
     //POI
     $scope.poiList = window.infoPois;
-
     $scope.visualizzaPOI = function (poi,personal,difficolta) {
-
       var poiArr;
       if(!personal) {
         poiArr = new Array();
@@ -28,9 +34,14 @@ angular.module('app.controllers', [])
           $scope.visualizzaPercorso(path, path.tipo_perc)
         }
       })
-      var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
-      //shareData.setData(poi);
+      console.log("poi")
+      console.log(poi)
+      console.log(map.getLayers())
+      console.log(map.getLayers().getLength())
+console.log("-----------------------------------")
+      shareData.setData(poi);
       $scope.closeModal()
     }
 
@@ -43,7 +54,10 @@ angular.module('app.controllers', [])
       var geosec = Layer.lineLayer(path.coordinates,difficolta);
       map.addLayer(geosec);
       //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
-      //shareData.setData(path);
+      console.log("path")
+      shareData.setData(path);
+      console.log(shareData.getData())
+
       $scope.closeModal()
     }
 
@@ -118,9 +132,12 @@ angular.module('app.controllers', [])
 function ($scope,$ionicModal,$http,$window,
           $ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
 
+  Layer.GpsPosition();
+
   dati.setInfo($http,$ionicPopup,$window);
   datiJson.load($http);
   map;
+  geosec;
   var view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature,
   geosec,array;
 
@@ -261,19 +278,16 @@ function ($scope,$ionicModal,$http,$window,
       map.render();
     }, false);
 
-
-
-
-  //ADD POI
-
-  $scope.newPoi={
-    coordinates:[13.874429,40.731345]
-  }
-console.log($scope.newPoi)
+  //delete all layer
   $scope.exit = function () {
     document.getElementById('range_Map').style.bottom = "6%";
     shareData.setData(null);
     $scope.path = shareData.getData();
+    var arrLayer = map.getLayers().getArray();
+    for(var i = map.getLayers().getLength() - 1; i >= 0; i--){
+        if(arrLayer[i] != osm && arrLayer[i] != bing)
+          map.removeLayer(arrLayer[i]);
+      }
   }
 
 
@@ -281,9 +295,10 @@ console.log($scope.newPoi)
     //informazioni del percorso selezionato
     var path = shareData.getData();
 
-    $scope.date = {}
-
     $scope.showError = false;
+    $scope.newPoi = {
+      coordinates:[13.869762, 40.735695],
+    }
     var createPOIPopup = $ionicPopup.show({
       scope: $scope,
       title: 'Aggiungi POI',
@@ -293,7 +308,6 @@ console.log($scope.newPoi)
         text: 'Cancel',
         type: 'button-positive',
         onTap: function(e) {
-
         }
       }, {
         text: '<b>Save</b>',
@@ -341,7 +355,6 @@ console.log($scope.newPoi)
             return $scope.newPoi;
           }
       }]
-
     });
     createPOIPopup.then(function(res) {
       $scope.showError = false;
@@ -350,9 +363,10 @@ console.log($scope.newPoi)
 
   /*funzione di supporto per creare un oggetto POI con le coordinate*/
   function insertPOI(path) {
+    console.log(window.posizione)
     var objPOI= {
       nom_poi: $scope.newPoi.nom_poi,
-      coordinates: [13.874429, 40.731345],
+      coordinates: $scope.newPoi.coordinates,
       percorso: path.percorso,
       tipo_perc: path.tipo_perc,
       description: $scope.newPoi.description
@@ -415,6 +429,7 @@ console.log($scope.newPoi)
           features: [accuracyFeature, positionFeature]
         })
       });
+
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',

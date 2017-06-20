@@ -19,18 +19,18 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-    
+
     //funzione ritorna coordinate gps in un array
     this.GpsPosition=function(){
     window.posizione=new Array();
-    
+
     var onSuccess = function(position) {
-          window.posizione.push(position.coords.longitude);        
+          window.posizione.push(position.coords.longitude);
           window.posizione.push(position.coords.latitude);
     };
     navigator.geolocation.getCurrentPosition(onSuccess);
     }
-        
+
     this.viewLayer=function(object){
         if(object.getVisible())
             object.setVisible(false);
@@ -86,14 +86,14 @@ angular.module('app.services', [])
             src: src
           }))
         });
-        
+
         array.forEach(function(record){
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
                 nom_poi: record.nom_poi,
                 coordinates: record.coordinates,
                 nom_itiner: record.nom_itiner,
-                percorso: record.percorso,                
+                percorso: record.percorso,
             });
             obj.setStyle(iconStyle);
             iconFeature.push(obj);
@@ -112,12 +112,12 @@ angular.module('app.services', [])
         return vectorLayer;
 }})
 
-.service('datiJson', function() {    
+.service('datiJson', function() {
     window.myJson=new Array();
     var urlPathJson= new Array();
     urlPathJson[0]="datiPoi/spiaggia.json";
-    urlPathJson[1]="datiPoi/vari.json"; 
-    this.load=function($http){ 
+    urlPathJson[1]="datiPoi/vari.json";
+    this.load=function($http){
        urlPathJson.forEach(function(url){
         var array=new Array();
         $http.get(url)
@@ -136,7 +136,7 @@ angular.module('app.services', [])
              window.myJson.push(array);
             })
         })
-    }   
+    }
 })
 .service('dati', function() {
     window.infoPois = new Array();

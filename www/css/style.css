@@ -1,6 +1,19 @@
 .submitted .ng-invalid{
   border: 1px solid red;
 }
+
+.color-green{
+  color:green;
+}
+
+.color-yellow{
+  color:yellow;
+}
+
+.color-red{
+  color:red;
+}
+
 .popup-container .popup {
   width: 350px;
 }
