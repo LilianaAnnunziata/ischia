@@ -71,12 +71,12 @@
       <!-- Contenuto I miei Percorsi -->
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
-          <ion-item class="item-thumbnail-left listItem" id="home-list-item9"
+          <ion-item class="listItem" id="home-list-item9"
                     ng-click="goToMyPersonalPath('{{path}}')"
                     ng-repeat="path in myPathList">
             <!--<img src="{{path.src}}">-->
-            <h2>{{path.percorso}}</h2>
-            <h3>{{path.tipo_perc}}</h3>
+            <h1>{{path.percorso}}</h1>
+            <h2  ng-class="{'color-green': path.tipo_perc == 'Turistico', 'color-yellow': path.tipo_perc == 'Escursionistico', 'color-red': path.tipo_perc == 'Escursionistico per esperti'}">{{path.tipo_perc}}</h2>
             <h3>Numero POI aggiunti: {{path.num_poi_add}}</h3>
 
             <div style="color:#565656; font-size:0.8em; margin-bottom: -10px; white-space:normal;">{{path.description}} </div>

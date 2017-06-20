@@ -70,5 +70,20 @@
 		"nome": "Spiaggia Forio",
 		"lat": 40.73808,
 		"lon": 13.85786
+	},
+	{
+		"nome": "Casamicciola Port ",
+		"lat": 40.74923,
+		"lon": 13.90541
+	},
+	{
+		"nome": "Ischia Port ",
+		"lat": 40.74597,
+		"lon": 13.93865
+	},
+	{
+		"nome": "Marina Del Raggio Verde",
+		"lat": 40.73947,
+		"lon": 13.85966
 	}]
 }

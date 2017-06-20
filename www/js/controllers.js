@@ -6,13 +6,11 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', 'shareData','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, shareData,posizionaPunto,Layer) {
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData,Layer) {
     //POI
     $scope.poiList = window.infoPois;
-
     $scope.visualizzaPOI = function (poi,personal,difficolta) {
-
       var poiArr;
       if(!personal) {
         poiArr = new Array();
@@ -28,8 +26,13 @@ angular.module('app.controllers', [])
           $scope.visualizzaPercorso(path, path.tipo_perc)
         }
       })
-      var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
+      console.log("poi")
+      console.log(poi)
+      console.log(map.getLayers())
+      console.log(map.getLayers().getLength())
+console.log("-----------------------------------")
       shareData.setData(poi);
       $scope.closeModal()
     }
@@ -43,7 +46,10 @@ angular.module('app.controllers', [])
       var geosec = Layer.lineLayer(path.coordinates,difficolta);
       map.addLayer(geosec);
       //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
+      console.log("path")
       shareData.setData(path);
+      console.log(shareData.getData())
+
       $scope.closeModal()
     }
 
@@ -114,13 +120,16 @@ angular.module('app.controllers', [])
     }])
 
 .controller('homeCtrl', ['$scope','$ionicModal', '$http', '$window',
-  '$ionicPopup', 'dati','posizionaPunto','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  '$ionicPopup', 'dati','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope,$ionicModal,$http,$window,
-          $ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
+          $ionicPopup,dati,Layer,datiJson,shareData) {
+
+  Layer.GpsPosition();
 
   dati.setInfo($http,$ionicPopup,$window);
   datiJson.load($http);
   map;
+  geosec;
   var view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature,
   geosec,array;
 
@@ -157,7 +166,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
         if(!poigeosec){
-            poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poigeosec=Layer.posizionaPunto("1",'icon/geosec.png');
             map.addLayer(poigeosec);
         }else{
             Layer.viewLayer(poigeosec);
@@ -167,7 +176,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi spiaggia" locali
     $scope.poiSpiaggia=function(){
         if(!poispiaggia){
-            poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poispiaggia=Layer.posizionaPunto(window.myJson[0],'icon/spiaggia.png');
             map.addLayer(poispiaggia);
         }else{
             Layer.viewLayer(poispiaggia);
@@ -177,7 +186,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi vari" locali
     $scope.poiVari=function(){
         if(!poivari){
-            poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poivari=Layer.posizionaPunto(window.myJson[1],'icon/montagna.png');
             map.addLayer(poivari);
         }else{
             Layer.viewLayer(poivari);
@@ -261,19 +270,16 @@ function ($scope,$ionicModal,$http,$window,
       map.render();
     }, false);
 
-
-
-
-  //ADD POI
-
-  $scope.newPoi={
-    coordinates:[13.874429,40.731345]
-  }
-console.log($scope.newPoi)
+  //delete all layer
   $scope.exit = function () {
     document.getElementById('range_Map').style.bottom = "6%";
     shareData.setData(null);
     $scope.path = shareData.getData();
+    var arrLayer = map.getLayers().getArray();
+    for(var i = map.getLayers().getLength() - 1; i >= 0; i--){
+        if(arrLayer[i] != osm && arrLayer[i] != bing)
+          map.removeLayer(arrLayer[i]);
+      }
   }
 
 
@@ -281,9 +287,10 @@ console.log($scope.newPoi)
     //informazioni del percorso selezionato
     var path = shareData.getData();
 
-    $scope.date = {}
-
     $scope.showError = false;
+    $scope.newPoi = {
+      coordinates:[13.869762, 40.735695],
+    }
     var createPOIPopup = $ionicPopup.show({
       scope: $scope,
       title: 'Aggiungi POI',
@@ -293,7 +300,6 @@ console.log($scope.newPoi)
         text: 'Cancel',
         type: 'button-positive',
         onTap: function(e) {
-
         }
       }, {
         text: '<b>Save</b>',
@@ -341,7 +347,6 @@ console.log($scope.newPoi)
             return $scope.newPoi;
           }
       }]
-
     });
     createPOIPopup.then(function(res) {
       $scope.showError = false;
@@ -352,7 +357,7 @@ console.log($scope.newPoi)
   function insertPOI(path) {
     var objPOI= {
       nom_poi: $scope.newPoi.nom_poi,
-      coordinates: [13.874429, 40.731345],
+      coordinates: $scope.newPoi.coordinates,
       percorso: path.percorso,
       tipo_perc: path.tipo_perc,
       description: $scope.newPoi.description
@@ -415,6 +420,7 @@ console.log($scope.newPoi)
           features: [accuracyFeature, positionFeature]
         })
       });
+
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',
