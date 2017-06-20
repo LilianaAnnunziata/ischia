@@ -6,16 +6,8 @@ angular.module('app.controllers', [])
 
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', 'shareData','posizionaPunto','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, shareData,posizionaPunto,Layer) {
-
-      $scope.removeLayer = function () {
-        console.log("remove")
-        for (var i = map.layers.length - 1; i >= 0; i--) {
-          map.removeLayer(map.layers[i]);
-        }
-      }
-
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData,Layer) {
     //POI
     $scope.poiList = window.infoPois;
     $scope.visualizzaPOI = function (poi,personal,difficolta) {
@@ -34,7 +26,7 @@ angular.module('app.controllers', [])
           $scope.visualizzaPercorso(path, path.tipo_perc)
         }
       })
-      geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
       console.log("poi")
       console.log(poi)
@@ -128,9 +120,9 @@ console.log("-----------------------------------")
     }])
 
 .controller('homeCtrl', ['$scope','$ionicModal', '$http', '$window',
-  '$ionicPopup', 'dati','posizionaPunto','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  '$ionicPopup', 'dati','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope,$ionicModal,$http,$window,
-          $ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
+          $ionicPopup,dati,Layer,datiJson,shareData) {
 
   Layer.GpsPosition();
 
@@ -174,7 +166,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
         if(!poigeosec){
-            poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poigeosec=Layer.posizionaPunto("1",'icon/geosec.png');
             map.addLayer(poigeosec);
         }else{
             Layer.viewLayer(poigeosec);
@@ -184,7 +176,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi spiaggia" locali
     $scope.poiSpiaggia=function(){
         if(!poispiaggia){
-            poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poispiaggia=Layer.posizionaPunto(window.myJson[0],'icon/spiaggia.png');
             map.addLayer(poispiaggia);
         }else{
             Layer.viewLayer(poispiaggia);
@@ -194,7 +186,7 @@ function ($scope,$ionicModal,$http,$window,
     //visualizza i "poi vari" locali
     $scope.poiVari=function(){
         if(!poivari){
-            poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            poivari=Layer.posizionaPunto(window.myJson[1],'icon/montagna.png');
             map.addLayer(poivari);
         }else{
             Layer.viewLayer(poivari);
@@ -363,7 +355,6 @@ function ($scope,$ionicModal,$http,$window,
 
   /*funzione di supporto per creare un oggetto POI con le coordinate*/
   function insertPOI(path) {
-    console.log(window.posizione)
     var objPOI= {
       nom_poi: $scope.newPoi.nom_poi,
       coordinates: $scope.newPoi.coordinates,

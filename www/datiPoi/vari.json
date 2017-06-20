@@ -30,20 +30,5 @@
 		"nome": "Monte Epomeo",
 		"lat": 40.73122,
 		"lon": 13.89672
-	},
-	{
-		"nome": "Casamicciola Port ",
-		"lat": 40.74923,
-		"lon": 13.90541
-	},
-	{
-		"nome": "Ischia Port ",
-		"lat": 40.74597,
-		"lon": 13.93865
-	},
-	{
-		"nome": "Marina Del Raggio Verde",
-		"lat": 40.73947,
-		"lon": 13.85966
 	}]
 }
