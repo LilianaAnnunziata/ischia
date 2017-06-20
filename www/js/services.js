@@ -19,7 +19,18 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-
+    
+    //funzione ritorna coordinate gps in un array
+    this.GpsPosition=function(){
+    window.posizione=new Array();
+    
+    var onSuccess = function(position) {
+          window.posizione.push(position.coords.longitude);        
+          window.posizione.push(position.coords.latitude);
+    };
+    navigator.geolocation.getCurrentPosition(onSuccess);
+    }
+        
     this.viewLayer=function(object){
         if(object.getVisible())
             object.setVisible(false);
@@ -75,12 +86,14 @@ angular.module('app.services', [])
             src: src
           }))
         });
-
+        
         array.forEach(function(record){
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
-                name:record.nom_poi
-
+                nom_poi: record.nom_poi,
+                coordinates: record.coordinates,
+                nom_itiner: record.nom_itiner,
+                percorso: record.percorso,                
             });
             obj.setStyle(iconStyle);
             iconFeature.push(obj);
@@ -99,6 +112,32 @@ angular.module('app.services', [])
         return vectorLayer;
 }})
 
+.service('datiJson', function() {    
+    window.myJson=new Array();
+    var urlPathJson= new Array();
+    urlPathJson[0]="datiPoi/spiaggia.json";
+    urlPathJson[1]="datiPoi/vari.json"; 
+    this.load=function($http){ 
+       urlPathJson.forEach(function(url){
+        var array=new Array();
+        $http.get(url)
+             .success(function(data, status, headers, config){
+                 data.lista.forEach(function(record){
+                 var obj= {
+                    "id": "",
+                    "nom_poi": record.nome,
+                    "coordinates": [record.lon,record.lat],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": ""
+                 };
+                 array.push(obj);
+                 });
+             window.myJson.push(array);
+            })
+        })
+    }   
+})
 .service('dati', function() {
     window.infoPois = new Array();
     window.infoPaths = new Array();
@@ -114,8 +153,8 @@ angular.module('app.services', [])
         var urlPathLine = 'http://www.geosec.cnr.it/geoserver/wms/reflect?&layers=Ischia:CiroRomano_shp_sentieri&format=rss';
         */
 
-        dataDownload = new Date(localStorage.getItem('Data'));
-        app = new Date();
+        var dataDownload = new Date(localStorage.getItem('Data'));
+        var app = new Date();
         var dataUpgrade = new Date(app.getFullYear(),app.getMonth(),app.getDate());
 
         //Da decommentare alla fine
@@ -220,18 +259,18 @@ angular.module('app.services', [])
 
     setPathLine = function(){
         var path;
-        parser = new DOMParser();
+        var parser = new DOMParser();
         xmlDoc = parser.parseFromString(localStorage.getItem('PATH_LINE'),"text/xml");
-        item = xmlDoc.getElementsByTagName("item");
+        var item = xmlDoc.getElementsByTagName("item");
         for(var j=0;j<item.length;j++)
         {
-            line = item[j].childNodes[4].innerHTML;
+            var line = item[j].childNodes[4].innerHTML;
             var coors = line.split(" ");
             path = new Array();
             for(var i=0;i<(coors.length);i+=2){
                 coors[i]=parseFloat(coors[i]);
                 coors[i+1]=parseFloat(coors[i+1]);
-                app = [coors[i+1],coors[i]];
+                var app = [coors[i+1],coors[i]];
                 path.push(app);
             }
             window.infoPaths[j].coordinates = path;

@@ -21,14 +21,13 @@ angular.module('app.controllers', [])
         poiArr = poi;
     //  console.log(poi.percorso)
 
-
       var myPathListArray = window.infoPaths;
       myPathListArray.forEach(function (path) {
-        if(path.percorso == poi.percorso && path.tipo_perc == difficolta){
+        if (path.percorso == poi.percorso && path.tipo_perc == difficolta) {
           console.log(poi.percorso)
-          $scope.visualizzaPercorso(path,path.tipo_perc)
+          $scope.visualizzaPercorso(path, path.tipo_perc)
         }
-      });
+      })
       var geosec = posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
       //shareData.setData(poi);
@@ -39,6 +38,7 @@ angular.module('app.controllers', [])
     $scope.pathList = window.infoPaths;
     /*Visualizza il percorso cercato sulla mappa*/
     $scope.visualizzaPercorso = function (path,difficolta) {
+      document.getElementById('range_Map').style.bottom = "7px";
       //console.log("visualizzaPercorso");
       var geosec = Layer.lineLayer(path.coordinates,difficolta);
       map.addLayer(geosec);
@@ -46,7 +46,6 @@ angular.module('app.controllers', [])
       //shareData.setData(path);
       $scope.closeModal()
     }
-
 
 
     $scope.visualizzaIMieiPercorsi = function () {
@@ -115,16 +114,15 @@ angular.module('app.controllers', [])
     }])
 
 .controller('homeCtrl', ['$scope','$ionicModal', '$http', '$window',
-  '$ionicPopup', 'dati','posizionaPunto','Layer','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+  '$ionicPopup', 'dati','posizionaPunto','Layer','datiJson','shareData', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 function ($scope,$ionicModal,$http,$window,
-          $ionicPopup,dati,posizionaPunto,Layer,shareData) {
-    dati.setInfo($http,$ionicPopup,$window);
+          $ionicPopup,dati,posizionaPunto,Layer,datiJson,shareData) {
 
-    var x ="non ' XD"
-    console.log(x)
-  console.log(replaceApiceTo(x))
-    map;
-    var view,vectorLayer,layer,geosec,array;
+  dati.setInfo($http,$ionicPopup,$window);
+  datiJson.load($http);
+  map;
+  var view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature,
+  geosec,array;
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
@@ -156,12 +154,33 @@ function ($scope,$ionicModal,$http,$window,
       view: view
     });
 
+    //visualizza i "poi" dal sito geosec
     $scope.poiGeosec=function(){
-        if(!geosec){
-            geosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
-            map.addLayer(geosec);
+        if(!poigeosec){
+            poigeosec=posizionaPunto("1",'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poigeosec);
         }else{
-            Layer.viewLayer(geosec);
+            Layer.viewLayer(poigeosec);
+        }
+    }
+
+    //visualizza i "poi spiaggia" locali
+    $scope.poiSpiaggia=function(){
+        if(!poispiaggia){
+            poispiaggia=posizionaPunto(window.myJson[0],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poispiaggia);
+        }else{
+            Layer.viewLayer(poispiaggia);
+        }
+    }
+
+    //visualizza i "poi vari" locali
+    $scope.poiVari=function(){
+        if(!poivari){
+            poivari=posizionaPunto(window.myJson[1],'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+            map.addLayer(poivari);
+        }else{
+            Layer.viewLayer(poivari);
         }
     }
     //nome della pagina html che viene prodotta nel modal
@@ -170,6 +189,31 @@ function ($scope,$ionicModal,$http,$window,
         animation: 'slide-in-up',
     }).then(function(modal) {
         $scope.modal = modal;
+    });
+
+   //Trova le feature mentre si naviga sulla mappa
+   map.on('pointermove', function(evt) {
+         feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                  return feature;
+        })});
+
+    //Visualizza informazioni poi
+    map.getViewport().addEventListener("click", function(e) {
+        if (feature && feature.get('nom_poi')) {
+            var stringa="";
+            if(feature.get('nom_itiner'))
+                 stringa="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
+            var createPOIPopup = $ionicPopup.show({
+              title: "<h4>"+feature.get('nom_poi')+"</h2>",
+              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ stringa,
+              buttons: [{
+                text: 'OK',
+                type: 'button-positive',
+                onTap: function(e) {
+                }
+              }]
+            });
+        };
     });
 
     //apertura del modal
@@ -195,7 +239,7 @@ function ($scope,$ionicModal,$http,$window,
     // Execute action on remove modal
     $scope.$on('modal.removed', function() {
         // Execute action
-    })
+    });
 
     //Dedicato allo Swipe della mappa tra i due diversi layer
     var swipe = document.getElementById('swipe');
@@ -207,10 +251,12 @@ function ($scope,$ionicModal,$http,$window,
        ctx.rect(width, 0, ctx.canvas.width - width, ctx.canvas.height);
        ctx.clip();
     });
+
     bing.on('postcompose', function(event) {
       var ctx = event.context;
       ctx.restore();
     });
+
     swipe.addEventListener('input', function() {
       map.render();
     }, false);
@@ -225,6 +271,7 @@ function ($scope,$ionicModal,$http,$window,
   }
 console.log($scope.newPoi)
   $scope.exit = function () {
+    document.getElementById('range_Map').style.bottom = "6%";
     shareData.setData(null);
     $scope.path = shareData.getData();
   }
@@ -324,6 +371,50 @@ console.log($scope.newPoi)
     return objPath;
   }
 
+    //geolocalizzazione utente
+    var geolocation = new ol.Geolocation({
+        projection: view.getProjection()
+      });
+
+      geolocation.setTracking(true);
+
+      geolocation.on('error', function(error) {
+        var info = document.getElementById('info');
+        info.innerHTML = error.message;
+        info.style.display = '';
+      });
+
+      var accuracyFeature = new ol.Feature();
+      geolocation.on('change:accuracyGeometry', function() {
+        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+      });
+
+      var positionFeature = new ol.Feature();
+      positionFeature.setStyle(new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 6,
+          fill: new ol.style.Fill({
+            color: '#3399CC'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#fff',
+            width: 2
+          })
+        })
+      }));
+
+      geolocation.on('change:position', function() {
+        var coordinates = geolocation.getPosition();
+        positionFeature.setGeometry(coordinates ?
+            new ol.geom.Point(coordinates) : null);
+      });
+
+      new ol.layer.Vector({
+        map: map,
+        source: new ol.source.Vector({
+          features: [accuracyFeature, positionFeature]
+        })
+      });
 }])
 
 .controller('iMieiPercorsiCtrl', ['$scope', '$stateParams',

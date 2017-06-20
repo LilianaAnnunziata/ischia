@@ -1,0 +1,74 @@
+{
+	"tipo": "spiaggia",
+	"icona": "svg/edificiMarker.svg",
+	"lista": [{
+		"nome": "Plage of Saint Montano in Lacco Ameno",
+		"lat": 40.75706,
+		"lon": 13.87769
+	},
+	{
+		"nome": "Punta Vico",
+		"lat": 40.76667,
+		"lon": 13.88333
+	},
+	{
+		"nome": "Punta Cornacchia",
+		"lat": 40.76667,
+		"lon": 13.86667
+	},
+	{
+		"nome": "Punta Molina",
+		"lat": 40.7467,
+		"lon": 13.94426
+	},
+	{
+		"nome": "Spiaggia Ischia Porto",
+		"lat": 40.74435,
+		"lon": 13.94633
+	},
+	{
+		"nome": "Spiaggia Dei Pescatori",
+		"lat": 40.73817,
+		"lon": 13.95553
+	},
+	{
+		"nome": "Punta del Bordo",
+		"lat": 40.71667,
+		"lon": 13.96667
+	},
+	{
+		"nome": "Punta San Pancrazio",
+		"lat": 40.7,
+		"lon": 13.95
+	},
+	{
+		"nome": "Capo Grosso",
+		"lat": 40.7,
+		"lon": 13.91667
+	},
+	{
+		"nome": "Capo Negro",
+		"lat": 40.69922,
+		"lon": 13.86936
+	},
+	{
+		"nome": "Punta del Chiarito",
+		"lat": 40.7,
+		"lon": 13.88333
+	},
+	{
+		"nome": "Punta Imperatore",
+		"lat": 40.70345,
+		"lon": 13.86146
+	},
+	{
+		"nome": "Spiaggia Citara",
+		"lat": 40.71727,
+		"lon": 13.86119
+	},
+	{
+		"nome": "Spiaggia Forio",
+		"lat": 40.73808,
+		"lon": 13.85786
+	}]
+}
