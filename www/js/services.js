@@ -93,6 +93,7 @@ angular.module('app.services', [])
             src=icona del marker
          */
     this.posizionaPunto=function(array,src){
+        var vectorLayer;
         if(array=="1"){
             array=window.infoPois;
         }
@@ -129,7 +130,7 @@ angular.module('app.services', [])
           source: vectorSource
         });
 
-        return vectorLayer;
+         map.addLayer(vectorLayer);
     };
 
 })
