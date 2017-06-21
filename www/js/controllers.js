@@ -129,7 +129,6 @@ angular.module('app.controllers', [])
 function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           $ionicPopup,dati,Layer,datiJson,shareData,$rootScope) {
 
-
   dati.setInfo($http,$ionicPopup,$window);
   datiJson.load($http);
   map;
@@ -340,10 +339,11 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     $scope.showError = false;
     var options = { enableHighAccuracy: true};
 
-    $scope.show();
-
+    //$scope.show();
+    $scope.showLoading = 1;
     $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
-      $scope.hide();
+      $scope.showLoading = 0;
+      //$scope.hide();
       $scope.newPoi = {
         coordinates:[position.coords.longitude,position.coords.latitude],
       }
