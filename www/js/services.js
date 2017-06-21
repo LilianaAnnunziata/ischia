@@ -19,16 +19,19 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-
+    window.posizione=new Array();
     //funzione ritorna coordinate gps in un array
     this.GpsPosition=function(){
-    window.posizione=new Array();
-
-    var onSuccess = function(position) {
-          window.posizione.push(position.coords.longitude);
-          window.posizione.push(position.coords.latitude);
-    };
-    navigator.geolocation.getCurrentPosition(onSuccess);
+      var onSuccess = function(position) {
+        console.log("ppppp: "+position.coords.longitude +" "+ position.coords.latitude)
+            window.posizione.push(position.coords.longitude);
+            window.posizione.push(position.coords.latitude);
+            console.log(window.posizione)
+      };
+      function onError(error) {
+        console.log('code: '+ error.code + 'message: ' + error.message);
+      }
+      navigator.geolocation.getCurrentPosition(onSuccess,onError);
     }
 
     this.viewLayer=function(object){
@@ -39,40 +42,18 @@ angular.module('app.services', [])
        };
 
     this.lineLayer=function(array,difficolta){
-      if(difficolta == 'Turistico')
+      if(difficolta == 'T')
         colore = 'green';
-        else if(difficolta == 'Escursionistico' )
+        else if(difficolta == 'E' )
           colore = 'yellow';
-          else if(difficolta == 'Escursionistico per esperti' )
+          else if(difficolta == 'EE' )
             colore = 'red';
             else
               colore ='white';
 
         var lineString = new ol.geom.LineString(array);
         lineString.transform('EPSG:4326', 'EPSG:3857');
-        var punto=new Array();
-        var obj= {
-                    "id": "",
-                    "nom_poi": "",
-                    "coordinates": array[0],
-                    "nom_itiner": "",
-                    "percorso": "",
-                    "tipo_perc": ""
-                 };
-        punto.push(obj);
-        map.addLayer(this.posizionaPunto(punto,'icon/partenza.png'));       
-        var punto=new Array();
-        var obj= {
-                    "id": "",
-                    "nom_poi": "",
-                    "coordinates": array[array.length-1],
-                    "nom_itiner": "",
-                    "percorso": "",
-                    "tipo_perc": ""
-                 };
-        punto.push(obj);
-        map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
-        var lineLayer = new ol.layer.Vector({
+         var lineLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
                 features: [new ol.Feature({
                     geometry: lineString,
@@ -83,15 +64,41 @@ angular.module('app.services', [])
                 stroke: new ol.style.Stroke({color: colore, width: 3}),
             })
         });
-        return(lineLayer);
+        map.addLayer(lineLayer);
+        var punto=new Array();
+        var obj= {
+                    "id": "",
+                    "nom_poi": "",
+                    "coordinates": array[0],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": "",
+                    "cod_tipo": "",
+                 };
+        punto.push(obj);
+        map.addLayer(this.posizionaPunto(punto,'icon/partenza.png'));
+        var punto=new Array();
+        var obj= {
+                    "id": "",
+                    "nom_poi": "",
+                    "coordinates": array[array.length-1],
+                    "nom_itiner": "",
+                    "percorso": "",
+                    "tipo_perc": "",
+                    "cod_tipo":""
+                 };
+        punto.push(obj);
+        map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
+
     }
-    
+
       /*funzione che visualizza un marker sulla mappa paramitri di input:
             x,y=coordinate
             name=nome marker
             src=icona del marker
          */
     this.posizionaPunto=function(array,src){
+        var vectorLayer;
         if(array=="1"){
             array=window.infoPois;
         }
@@ -128,7 +135,7 @@ angular.module('app.services', [])
           source: vectorSource
         });
 
-        return vectorLayer;
+      return vectorLayer;
     };
 
 })
@@ -150,7 +157,8 @@ angular.module('app.services', [])
                     "coordinates": [record.lon,record.lat],
                     "nom_itiner": "",
                     "percorso": "",
-                    "tipo_perc": ""
+                    "tipo_perc": "",
+                    "cod_tipo":""
                  };
                  array.push(obj);
                  });
@@ -288,6 +296,8 @@ angular.module('app.services', [])
         for(var j=0;j<item.length;j++)
         {
             var line = item[j].childNodes[4].innerHTML;
+            if(!line)
+              var line = item[j].childNodes[4].firstChild.nodeValue;
             var coors = line.split(" ");
             path = new Array();
             for(var i=0;i<(coors.length);i+=2){
