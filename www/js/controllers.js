@@ -19,22 +19,19 @@ angular.module('app.controllers', [])
         poiArr.push(poi);
       }else
         poiArr = poi;
-    //  console.log(poi.percorso)
+    console.log(difficolta)
 
       var myPathListArray = window.infoPaths;
       myPathListArray.forEach(function (path) {
-        if (path.percorso == poi.percorso && path.tipo_perc == difficolta) {
+        if (path.percorso == poi.percorso && path.cod_tipo == difficolta) {
+          console.log("XXXXXXXXXXXX")
           console.log(poi.percorso)
-          $scope.visualizzaPercorso(path, path.tipo_perc)
+          $scope.visualizzaPercorso(path, path.cod_tipo)
         }
       })
       var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
       map.addLayer(geosec);
-      console.log("poi")
-      console.log(poi)
-      console.log(map.getLayers())
-      console.log(map.getLayers().getLength())
-console.log("-----------------------------------")
+
       shareData.setData(poi);
       $scope.closeModal()
     }
@@ -48,10 +45,9 @@ console.log("-----------------------------------")
       Layer.lineLayer(path.coordinates,difficolta);
       //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
       shareData.setData(path);
-
       $scope.closeModal()
     }
-    
+
 
 
     $scope.visualizzaIMieiPercorsi = function () {
@@ -60,11 +56,11 @@ console.log("-----------------------------------")
         var obj;
         var myPathListArray = new Array();
         myPathLocalStorage.forEach(function (path) {
-          console.log(path)
           obj = {
             id:path.id,
             percorso:path.POIs[0].percorso,
             tipo_perc:path.POIs[0].tipo_perc,
+            cod_tipo:path.POIs[0].cod_tipo,
             num_poi_add: path.POIs.length,
             POIs:path.POIs
           }
@@ -83,8 +79,7 @@ console.log("-----------------------------------")
 
         window.infoPaths.forEach(function (path) {
           if(path.id == pathPersonal.id){
-            console.log(path.tipo_perc)
-            $scope.visualizzaPercorso(path,path.tipo_perc)
+            $scope.visualizzaPercorso(path,path.cod_tipo)
 
             $scope.visualizzaPOI(pathPersonal.POIs,true)
           }
@@ -93,10 +88,27 @@ console.log("-----------------------------------")
         $scope.closeModal()
       };
 
-      $scope.deletePath = function () {
+      $scope.deletePath = function (myPath) {
         console.log("del")
-        //console.log(path)
-      };
+        var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
+       console.log(myPathLocalStorage)
+
+        myPathLocalStorage.forEach(function (path) {
+          console.log("all "+path.id)
+
+          if(path.id == myPath.id){
+            console.log("delete "+path.id)
+            var index = myPathLocalStorage.indexOf(path.id);
+            console.log(index)
+            var value = myPathLocalStorage.splice(index, 1 )[0];
+          }
+        });
+       console.log("nuovo")
+        console.log(myPathLocalStorage)
+        //localStorage.setItem('personalPOI',JSON.stringify(allPoiPersonalArray));
+
+
+      }
       $scope.editPath = function () {
         console.log("edit")
       };
@@ -104,15 +116,14 @@ console.log("-----------------------------------")
 
       var difficoltaPercorso = "";
       $scope.slideChange = function (difficolta) {
-
         if(difficolta == 0)
           difficoltaPercorso = ""
         else if(difficolta == 1)
-          difficoltaPercorso = "Turistico"
+          difficoltaPercorso = "T"
           else  if(difficolta == 2)
-          difficoltaPercorso = "Escursionistico"
+          difficoltaPercorso = "E"
           else  if(difficolta == 3)
-          difficoltaPercorso = "Escursionistico per esperti"
+          difficoltaPercorso = "EE"
 
         return difficoltaPercorso;
       }
@@ -347,6 +358,8 @@ function ($scope,$ionicModal,$http,$window,
             console.log(allPoiPersonalArray)
             //iserisco la nuova variabile modificata
             localStorage.setItem(idPath,JSON.stringify(allPoiPersonalArray));
+
+            //AGGIUNGERE LA VISUALIZZAZIONE DEL MARKER APPENA AGGIUNTO SULLA MAPPA
             }
             return $scope.newPoi;
           }
@@ -362,8 +375,10 @@ function ($scope,$ionicModal,$http,$window,
     var objPOI= {
       nom_poi: $scope.newPoi.nom_poi,
       coordinates: $scope.newPoi.coordinates,
+      src: imageSrc,
       percorso: path.percorso,
       tipo_perc: path.tipo_perc,
+      cod_tipo: path.cod_tipo,
       description: $scope.newPoi.description
     };
     return objPOI;
@@ -457,7 +472,7 @@ function ($scope,$ionicModal,$http,$window,
                 template: 'Input not valid'
               });
           };*/
-
+        imageSrc =null;
         $scope.choosePhoto = function () {
             var imgRect = document.getElementById("addPoiId").getBoundingClientRect();
             console.log("rect= " + imgRect.width + " " + imgRect.height + " " + imgRect.bottom + " " + imgRect.left);
@@ -465,7 +480,7 @@ function ($scope,$ionicModal,$http,$window,
             var options = setOptionsCamera(srcType, imgRect.width, imgRect.height);
 
             $cordovaCamera.getPicture(options).then(function (imageURI) {
-                $scope.imgURI = "data:image/jpeg;base64," + imageURI;
+                $scope.imgURI = imageSrc = "data:image/jpeg;base64," + imageURI;
             },function (err) {
                 console.log("error createSharedEventCtrl: " + err);
             });
@@ -473,7 +488,7 @@ function ($scope,$ionicModal,$http,$window,
 
         $scope.takePhoto = function () {
             $cordovaCamera.getPicture(setOptionsCamera(Camera.PictureSourceType.CAMERA)).then(function (imageData) {
-                $scope.imgURI = "data:image/jpeg;base64," + imageData;
+                $scope.imgURI = imageSrc = "data:image/jpeg;base64," + imageData;
             }, function (err) {
                 console.log("error eventInfoCtrl " + err)
             });

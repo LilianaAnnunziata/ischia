@@ -39,11 +39,11 @@ angular.module('app.services', [])
        };
 
     this.lineLayer=function(array,difficolta){
-      if(difficolta == 'Turistico')
+      if(difficolta == 'T')
         colore = 'green';
-        else if(difficolta == 'Escursionistico' )
+        else if(difficolta == 'E' )
           colore = 'yellow';
-          else if(difficolta == 'Escursionistico per esperti' )
+          else if(difficolta == 'EE' )
             colore = 'red';
             else
               colore ='white';
@@ -69,10 +69,11 @@ angular.module('app.services', [])
                     "coordinates": array[0],
                     "nom_itiner": "",
                     "percorso": "",
-                    "tipo_perc": ""
+                    "tipo_perc": "",
+                    "cod_tipo": "",
                  };
         punto.push(obj);
-        map.addLayer(this.posizionaPunto(punto,'icon/partenza.png'));       
+        map.addLayer(this.posizionaPunto(punto,'icon/partenza.png'));
         var punto=new Array();
         var obj= {
                     "id": "",
@@ -80,13 +81,14 @@ angular.module('app.services', [])
                     "coordinates": array[array.length-1],
                     "nom_itiner": "",
                     "percorso": "",
-                    "tipo_perc": ""
+                    "tipo_perc": "",
+                    "cod_tipo":""
                  };
         punto.push(obj);
         map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
        
     }
-    
+
       /*funzione che visualizza un marker sulla mappa paramitri di input:
             x,y=coordinate
             name=nome marker
@@ -152,7 +154,8 @@ angular.module('app.services', [])
                     "coordinates": [record.lon,record.lat],
                     "nom_itiner": "",
                     "percorso": "",
-                    "tipo_perc": ""
+                    "tipo_perc": "",
+                    "cod_tipo":""
                  };
                  array.push(obj);
                  });
@@ -290,6 +293,8 @@ angular.module('app.services', [])
         for(var j=0;j<item.length;j++)
         {
             var line = item[j].childNodes[4].innerHTML;
+            if(!line)
+              var line = item[j].childNodes[4].firstChild.nodeValue;
             var coors = line.split(" ");
             path = new Array();
             for(var i=0;i<(coors.length);i+=2){
