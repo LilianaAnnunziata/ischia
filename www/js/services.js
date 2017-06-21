@@ -98,6 +98,7 @@ angular.module('app.services', [])
             src=icona del marker
          */
     this.posizionaPunto=function(array,src){
+      console.log(array)
         var vectorLayer;
         if(array=="1"){
             array=window.infoPois;
@@ -145,6 +146,7 @@ angular.module('app.services', [])
     var urlPathJson= new Array();
     urlPathJson[0]="datiPoi/spiaggia.json";
     urlPathJson[1]="datiPoi/vari.json";
+    urlPathJson[2]="datiPoi/hotel.json";
     this.load=function($http){
        urlPathJson.forEach(function(url){
         var array=new Array();

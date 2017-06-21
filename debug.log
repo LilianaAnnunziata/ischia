@@ -184,3 +184,6 @@
 [0621/155523.862:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\reports: Accesso negato. (0x5)
 [0621/155523.862:ERROR:registration_protocol_win.cc(83)] TransactNamedPipe: Pipe terminata. (0x6D)
 [0621/155523.862:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\reports: Accesso negato. (0x5)
+[0621/182425.524:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\reports: Accesso negato. (0x5)
+[0621/182425.524:ERROR:registration_protocol_win.cc(83)] TransactNamedPipe: Pipe terminata. (0x6D)
+[0621/182425.524:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\reports: Accesso negato. (0x5)
