@@ -69,6 +69,7 @@ angular.module('app.services', [])
         var obj= {
                     "id": "",
                     "nom_poi": "",
+                    "src":"",
                     "coordinates": array[0],
                     "nom_itiner": "",
                     "percorso": "",
@@ -81,6 +82,7 @@ angular.module('app.services', [])
         var obj= {
                     "id": "",
                     "nom_poi": "",
+                    "src":"",
                     "coordinates": array[array.length-1],
                     "nom_itiner": "",
                     "percorso": "",
@@ -118,6 +120,7 @@ angular.module('app.services', [])
             var obj = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.transform(record.coordinates, 'EPSG:4326', 'EPSG:3857')),
                 nom_poi: record.nom_poi,
+                src:record.src,
                 coordinates: record.coordinates,
                 nom_itiner: record.nom_itiner,
                 percorso: record.percorso,
@@ -156,6 +159,7 @@ angular.module('app.services', [])
                  var obj= {
                     "id": "",
                     "nom_poi": record.nome,
+                    "src":"",
                     "coordinates": [record.lon,record.lat],
                     "nom_itiner": "",
                     "percorso": "",
@@ -266,6 +270,7 @@ angular.module('app.services', [])
                 "id": record.id,
                 "nom_poi": record.properties.NOM_POI,
                 "coordinates": record.geometry.coordinates,
+                "src":"",
                 "nom_itiner": record.properties.NOM_ITINER,
                 "percorso": record.properties.PERCORSO,
                 "tipo_perc": record.properties.TIPO_PERC,

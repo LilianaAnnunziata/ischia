@@ -246,8 +246,10 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     map.getViewport().addEventListener("click", function(e) {
         if (feature && feature.get('nom_poi')) {
             var stringa="";
+            if(feature.get('src'))
+                 stringa+="<br><img  width='100%' height='100%'  src='"+feature.get('src')+"'><br>";
             if(feature.get('nom_itiner'))
-                 stringa="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
+                 stringa+="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
             var createPOIPopup = $ionicPopup.show({
               title: "<h4>"+feature.get('nom_poi')+"</h2>",
               content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ stringa,
