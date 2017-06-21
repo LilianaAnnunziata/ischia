@@ -19,16 +19,19 @@ angular.module('app.services', [])
 
 //funzione che ritorna il layer contenente il tragitto
 .service('Layer', function(){
-
+    window.posizione=new Array();
     //funzione ritorna coordinate gps in un array
     this.GpsPosition=function(){
-    window.posizione=new Array();
-
-    var onSuccess = function(position) {
-          window.posizione.push(position.coords.longitude);
-          window.posizione.push(position.coords.latitude);
-    };
-    navigator.geolocation.getCurrentPosition(onSuccess);
+      var onSuccess = function(position) {
+        console.log("ppppp: "+position.coords.longitude +" "+ position.coords.latitude)
+            window.posizione.push(position.coords.longitude);
+            window.posizione.push(position.coords.latitude);
+            console.log(window.posizione)
+      };
+      function onError(error) {
+        console.log('code: '+ error.code + 'message: ' + error.message);
+      }
+      navigator.geolocation.getCurrentPosition(onSuccess,onError);
     }
 
     this.viewLayer=function(object){
@@ -86,7 +89,7 @@ angular.module('app.services', [])
                  };
         punto.push(obj);
         map.addLayer(this.posizionaPunto(punto,'icon/arrivo.png'));
-       
+
     }
 
       /*funzione che visualizza un marker sulla mappa paramitri di input:
@@ -132,7 +135,7 @@ angular.module('app.services', [])
           source: vectorSource
         });
 
-         map.addLayer(vectorLayer);
+      return vectorLayer;
     };
 
 })
