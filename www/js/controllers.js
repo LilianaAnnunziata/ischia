@@ -192,7 +192,7 @@ function ($scope,$ionicModal,$http,$window,
             map.addLayer(poivari);
         }else{
             Layer.viewLayer(poivari);
-        }
+        }        
     }
     //nome della pagina html che viene prodotta nel modal
     $ionicModal.fromTemplateUrl('templates/cercaPercorso.html', {
@@ -204,9 +204,13 @@ function ($scope,$ionicModal,$http,$window,
 
    //Trova le feature mentre si naviga sulla mappa
    map.on('pointermove', function(evt) {
-         feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+        if(view.getCenter()!=ol.proj.fromLonLat([13.905190,40.722581])){
+            document.getElementById('resetPosizione').style.display="block";  
+        }      
+        feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
                   return feature;
-        })});
+        })
+    });
 
     //Visualizza informazioni poi
     map.getViewport().addEventListener("click", function(e) {
@@ -283,7 +287,14 @@ function ($scope,$ionicModal,$http,$window,
           map.removeLayer(arrLayer[i]);
       }
   }
-
+  
+//Riposiziona la Mappa
+ $scope.resetPosizione = function (){
+    view.setCenter(ol.proj.fromLonLat([13.905190,40.722581]));
+    view.setZoom(12);
+    map.setView(view);  
+    document.getElementById('resetPosizione').style.display="none"; 
+ }
 
   $scope.addPOI = function () {
     //informazioni del percorso selezionato

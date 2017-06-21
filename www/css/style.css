@@ -101,3 +101,47 @@ ul#ion-segment li{
     max-height: 34px!important;
     min-height: 34px!important;
 }
+.attivo{
+    background-color: #11C1F3!important;
+}
+#resetPosizione{
+    position: absolute;
+    z-index: 2;
+    right: 10px;
+    top: 50px; 
+    height: 30px!important;
+    width: 30px;
+    background-color: #11C1F3;
+    opacity: 0.75;
+    border-radius: 30px 10px 10px 30px;
+    display: none;
+}
+#buttonReset{
+    color: white; 
+    font-size: 30px;
+}
+#resetPosizione:active {
+    background-color: #387EF5;
+    opacity: 0.85;
+}
+#close{
+    position: absolute;
+    right: 8px;
+    top: 7px;
+}
+
+
+.nomePercorsoPersonale{
+    font-size: 15px;
+    font-weight: bold;
+    color: #387EF5;
+    margin-left: 3px;
+    margin-bottom: 10px;
+    
+}
+.rigaPersonale{
+    height: 30px;
+    width: 100%;
+    border: black solid;
+    
+}

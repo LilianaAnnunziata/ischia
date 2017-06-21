@@ -3,13 +3,17 @@
         <div id="map" class="map"></div>
             <div id="track" class="marker"><span class="icon-arrow-up"></span></div>
         <div id="barra_Poi" class="button-bar">
-            <button class="noBorder button button-positive  button-block icon ion-location" ng-click="poiGeosec()"></button>
-            <button class="noBorder button button-positive  button-block icon ion-ios-partlysunny" ng-click="poiSpiaggia()"> </button>
-            <button class="noBorder button button-positive  button-block icon ion-leaf" ng-click="poiVari()"></button>
-            <button class="noBorder button button-positive  button-block icon ion-ios-home"></button>
-            <button class="noBorder button button-positive  button-block icon ion-pin"></button>
+            <button ng-class="attivoA" class="noBorder button button-positive  button-block icon ion-location" ng-click="poiGeosec()"></button>
+            <button ng-class="attivoB" class="noBorder button button-positive  button-block icon ion-ios-partlysunny" ng-click="poiSpiaggia()"> </button>
+            <button ng-class="attivoC" class="noBorder button button-positive  button-block icon ion-leaf" ng-click="poiVari()"></button>
+            <button ng-class="attivoD" class="noBorder button button-positive  button-block icon ion-ios-home"></button>
+            <button ng-class="attivoE" class="noBorder button button-positive  button-block icon ion-pin"></button>
         </div>
-
+        
+        <button id="resetPosizione" class="button button-block" ng-click="resetPosizione()">
+            <icon id="buttonReset" style="" class="ion-pinpoint"></icon>
+        </button>
+        
         <div id="range_Map" class="range_Map">
             <ion-item style="background: transparent;" class="noBorder range range-calm">
                   <input id="swipe" value="0" type="range">
