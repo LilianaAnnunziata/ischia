@@ -8,6 +8,8 @@ angular.module('app.controllers', [])
 
 .controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, shareData,Layer) {
+    $scope.difficoltaPOI = 1;
+    $scope.difficoltaPATH = 1;
     //POI
     $scope.poiList = window.infoPois;
     $scope.visualizzaPOI = function (poi,personal,difficolta) {
@@ -35,15 +37,13 @@ angular.module('app.controllers', [])
     }
 
     //PERCORSI
-
     $scope.pathList = window.infoPaths;
-
     /*Visualizza il percorso cercato sulla mappa*/
     $scope.visualizzaPercorso = function (path,difficolta) {
       document.getElementById('range_Map').style.bottom = "7px";
       //console.log("visualizzaPercorso");
-      var geosec = Layer.lineLayer(path.coordinates,difficolta);
-      map.addLayer(geosec);
+      Layer.lineLayer(path.coordinates,difficolta);
+      //AGGIUNGERE FUNZIONE PER LA VISUALIZZAZIONE DEL PATH
       shareData.setData(path);
       $scope.closeModal()
     }
@@ -75,6 +75,7 @@ angular.module('app.controllers', [])
     /*visualizza sulla mappa il percorso con i propri poi*/
       $scope.goToMyPersonalPath = function (p) {
         var pathPersonal = JSON.parse(p)
+        console.log(pathPersonal)
 
         window.infoPaths.forEach(function (path) {
           if(path.id == pathPersonal.id){
@@ -291,6 +292,10 @@ function ($scope,$ionicModal,$http,$window,
           map.removeLayer(arrLayer[i]);
       }
   }
+
+    $scope.geolocalization = function () {
+        Layer.GpsPosition();
+    }
 
 
   $scope.addPOI = function () {

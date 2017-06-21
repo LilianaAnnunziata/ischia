@@ -17,7 +17,7 @@
             <div class="back_range range_Map"></div>
         </div>
 
-        <ion-floating-menu  menu-color="#387EF5" bottom="55px" menu-open-color="#38BDF6" menu-icon="ion-plus" menu-open-icon="ion-chevron-down" ng-show="path != null">
+        <ion-floating-menu  menu-color="#387EF5" bottom="55px" menu-open-color="#38BDF6" menu-icon="ion-plus" menu-open-icon="ion-chevron-down" ng-click="geolocalization()" ng-show="path != null">
           <ion-floating-item icon="ion-pin" button-color="#17A817" ng-click="addPOI()" text="Aggiungi POI"></ion-floating-item>
           <ion-floating-item icon="ion-close-round" button-color="#C00000" ng-click="exit()" text="Termina Navigazione"></ion-floating-item>
         </ion-floating-menu>

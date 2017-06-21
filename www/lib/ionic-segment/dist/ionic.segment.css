@@ -27,7 +27,7 @@ ul#ion-segment li.full {
 ul#ion-segment li {
   background-color: transparent;
   margin-right: 0;
-  margin-left: 0;
+  margin-left: 5;
   padding: 0 13px 0 13px;
   color: #fff;
   border: 1px solid;
