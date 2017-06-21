@@ -488,6 +488,14 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           features: [accuracyFeature, positionFeature]
         })
       });
+      
+    //Riposiziona la Mappa
+    $scope.resetPosizione = function (){
+       view.setCenter(ol.proj.fromLonLat([13.905190,40.722581]));
+       view.setZoom(12);
+       map.setView(view);  
+       document.getElementById('resetPosizione').style.display="none"; 
+    }   
 
 }])
 

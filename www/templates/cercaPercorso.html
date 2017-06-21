@@ -80,22 +80,28 @@
       <!-- Contenuto I miei Percorsi -->
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
-          <ion-item class="listItem" id="home-list-item9"
-                    ng-click="goToMyPersonalPath('{{path}}')"
-                    ng-repeat="path in myPathList">
-            <!--<img src="{{path.src}}">-->
-            <h1>{{path.percorso}}</h1>
-            <h2  ng-class="{'color-green': path.cod_tipo == 'T', 'color-yellow': path.cod_tipo == 'E', 'color-red': path.cod_tipo == 'EE'}">{{path.tipo_perc}}</h2>
-            <h3>Numero POI aggiunti: {{path.num_poi_add}}</h3>
-
-            <div style="color:#565656; font-size:0.8em; margin-bottom: -10px; white-space:normal;">{{path.description}} </div>-->
-            
+          <ion-item class="listItem" id="home-list-item9" ng-click="goToMyPersonalPath('{{path}}')" ng-repeat="path in myPathList">
+                <div>
+                    <i style="font-size: 30px; color:black;" class="icon ion-map"></i>
+                    <spam class="nomePercorsoPersonale">:</spam>
+                    <spam class="nomePercorsoPersonale" style="margin-left: 15px;">{{path.percorso}}</spam> 
+                </div>
+                <div>
+                    <i style="font-size: 24px;" class="icon ion-arrow-graph-up-right"></i>
+                    <img src="img/1.png" class="myScala" ng-if="path.cod_tipo == 'T'" height="35"></img>
+                    <img src="img/2.png" class="mySscala" ng-if="path.cod_tipo == 'E'" height="35"></img>
+                    <img src="img/3.png" class="myScala" ng-if="path.cod_tipo == 'EE'" height="35"></img>
+                </div>
+                <div>
+                   <i style="font-size: 24px; color:red;" class="icon ion-pin"></i>
+                   <h3>{{path.num_poi_add}}</h3>
+                </div>
+                 <h2  ng-class="{'color-green': path.cod_tipo == 'T', 'color-yellow': path.cod_tipo == 'E', 'color-red': path.cod_tipo == 'EE'}">{{path.tipo_perc}}</h2>      
             <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-close" ng-click="deletePath()" ></ion-option-button>
             <!-- <ion-option-button class="button-positive" ng-click="editPath()" >Modifica</ion-option-button> -->
           </ion-item>
         </ion-list>
       </ion-list>
-
     </div>
   </ion-content>
 </ion-view>
