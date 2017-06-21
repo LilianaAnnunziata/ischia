@@ -24,10 +24,9 @@ angular.module('app.controllers', [])
 
       //visualizzazione anche del percorso
       var myPathListArray = window.infoPaths;
-      //console.log(poi)
       myPathListArray.forEach(function (path) {
         if (path.percorso == poi.percorso && path.cod_tipo == difficolta) {
-        //  console.log(path)
+          console.log(path)
          $scope.visualizzaPercorso(path, path.cod_tipo)
         }
       });
@@ -93,7 +92,7 @@ angular.module('app.controllers', [])
         myPathLocalStorage.forEach(function (path) {
           if(path.id == myPath.id){
             console.log("delete "+path.id)
-            var index = myPathLocalStorage.indexOf("CiroRomano_shp_poi.16");
+            var index = myPathLocalStorage.indexOf(path.id);
             console.log(index)
             if(index != -1)
               myPathLocalStorage.splice(index,1);
@@ -217,7 +216,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
             myPOIListArray.push(poi)
           });
         });
-        poiPersonal=Layer.posizionaPunto(myPOIListArray,'icon/montagna.png');
+        poiPersonal=Layer.posizionaPunto(myPOIListArray,'icon/personali.png');
         map.addLayer(poiPersonal);
       }
     }else{
@@ -235,9 +234,13 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
 
    //Trova le feature mentre si naviga sulla mappa
    map.on('pointermove', function(evt) {
-         feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
+        if(view.getCenter()!=ol.proj.fromLonLat([13.905190,40.722581])){
+            document.getElementById('resetPosizione').style.display="block";
+        }
+        feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
                   return feature;
-        })});
+        })
+    });
 
     //Visualizza informazioni poi
     map.getViewport().addEventListener("click", function(e) {
@@ -499,6 +502,14 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           features: [accuracyFeature, positionFeature]
         })
       });
+
+    //Riposiziona la Mappa
+    $scope.resetPosizione = function (){
+       view.setCenter(ol.proj.fromLonLat([13.905190,40.722581]));
+       view.setZoom(12);
+       map.setView(view);
+       document.getElementById('resetPosizione').style.display="none";
+    }
 
 }])
 
