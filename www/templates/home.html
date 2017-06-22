@@ -14,7 +14,7 @@
         </div>
         
         <button id="resetPosizione" class="button button-block" ng-click="resetPosizione()">
-            <i style="color: white;" class="icon ion-pinpoint"></i>
+            <i style="color: white;" class="icon ion-android-locate"></i>
         </button>
         
         <div id="range_Map" class="range_Map">
@@ -23,8 +23,15 @@
             </ion-item>
             <div class="back_range range_Map"></div>
         </div>
-
-        <ion-floating-menu  menu-color="#387EF5" bottom="55px" menu-open-color="#38BDF6" menu-icon="ion-plus" menu-open-icon="ion-chevron-down" ng-show="path != null">
+               
+        <button id="cambiaPercorso" class="button button-block" ng-show="path != null && inNavigazione == 0" ng-click="gestisciPercorso(0)">
+            <i style="color: white;" class="icon ion-reply"></i>
+        </button>
+        <button id="avviaPercorso" class="button button-block" ng-show="path != null && inNavigazione == 0" ng-click="gestisciPercorso(1)">
+            <i style="color: white;" class="icon ion-navigate"></i>
+        </button>
+        
+        <ion-floating-menu  menu-color="#387EF5" bottom="55px" menu-open-color="#38BDF6" menu-icon="ion-chevron-up" menu-open-icon="ion-chevron-down" ng-show="path != null && inNavigazione == 1">
           <ion-floating-item icon="ion-pin" button-color="#17A817" ng-click="addPOI()" text="Aggiungi POI"></ion-floating-item>
           <ion-floating-item icon="ion-close-round" button-color="#C00000" ng-click="exit()" text="Termina Navigazione"></ion-floating-item>
         </ion-floating-menu>
