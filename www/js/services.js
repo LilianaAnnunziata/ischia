@@ -122,7 +122,7 @@ angular.module('app.services', [])
                 src:record.src,
                 coordinates: record.coordinates,
                 nom_itiner: record.nom_itiner,
-                percorso: record.percorso,
+                percorso: record.percorso.replace(/\'/g, ' '),
             });
             obj.setStyle(iconStyle);
             iconFeature.push(obj);
@@ -270,8 +270,8 @@ angular.module('app.services', [])
                 "nom_poi": record.properties.NOM_POI,
                 "coordinates": record.geometry.coordinates,
                 "src":"",
-                "nom_itiner": record.properties.NOM_ITINER,
-                "percorso": record.properties.PERCORSO,
+                "nom_itiner": record.properties.NOM_ITINER.replace(/\'/g, ' '),
+                "percorso": record.properties.PERCORSO.replace(/\'/g, ' '),
                 "tipo_perc": record.properties.TIPO_PERC,
                 "cod_tipo": record.properties.COD_TIPO
             };
@@ -284,7 +284,7 @@ angular.module('app.services', [])
         features.forEach(function(record){
             var obj= {
                 "id": record.id,
-                "percorso": record.properties.PERCORSO,
+                "percorso": record.properties.PERCORSO.replace(/\'/g, ' '),
                 "nom_itiner": record.properties.NOM_ITINER,
                 "coordinates": null,
                 "tipo_perc": record.properties.TIPO_PERC,

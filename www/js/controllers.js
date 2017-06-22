@@ -53,11 +53,13 @@ angular.module('app.controllers', [])
 
     $scope.visualizzaListaIMieiPercorsi = function () {
       //stampa la lista dei percorsi personali
-      var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
-      if(myPathLocalStorage){//se localStorage è pieno
+        var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
+
+        if(myPathLocalStorage){//se localStorage è pieno
         var obj;
         var myPathListArray = new Array();
         myPathLocalStorage.forEach(function (path) {
+
           obj = {
             id:path.id,
             percorso:path.POIs[0].percorso,
@@ -75,13 +77,15 @@ angular.module('app.controllers', [])
     };
 
     $scope.goToMyPersonalPath = function (p) {
+      console.log("GOTO")
       /*visualizza sulla mappa il percorso e poi*/
         var pathPersonal = JSON.parse(p);
+
         window.infoPaths.forEach(function (path) {
           if(path.id == pathPersonal.id){
             $scope.visualizzaPercorso(path,path.cod_tipo);
-            console.log()
-            $scope.visualizzaPOI(pathPersonal.POIs,true,path.cod_tipo,'icon/personali.png')
+            var geosec = Layer.posizionaPunto(pathPersonal.POIs,'icon/personali.png');
+            map.addLayer(geosec);
           }
         });
         $scope.closeModal()
