@@ -100,7 +100,6 @@ angular.module('app.services', [])
             src=icona del marker
          */
     this.posizionaPunto=function(array,src){
-      console.log(array)
         var vectorLayer;
         if(array=="1"){
             array=window.infoPois;

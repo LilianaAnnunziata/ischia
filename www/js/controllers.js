@@ -174,6 +174,14 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
         }else{
             Layer.viewLayer(poigeosec);
         }
+        if(poigeosec.getVisible())
+        {
+            $scope.attivoA = "attivo";
+        }
+        else
+        {
+             $scope.attivoA = "";
+        }
     }
 
     //visualizza i "poi spiaggia" locali
@@ -184,6 +192,14 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
         }else{
             Layer.viewLayer(poispiaggia);
         }
+        if(poispiaggia.getVisible())
+        {
+            $scope.attivoB = "attivo";
+        }
+        else
+        {
+             $scope.attivoB = "";
+        }
     }
 
     //visualizza i "poi vari" locali
@@ -192,7 +208,15 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
             poivari=Layer.posizionaPunto(window.myJson[1],'icon/montagna.png');
             map.addLayer(poivari);
         }else
-          Layer.viewLayer(poivari);
+            Layer.viewLayer(poivari);
+        if(poivari.getVisible())
+        {
+            $scope.attivoC = "attivo";
+        }
+        else
+        {
+             $scope.attivoC = "";
+        }
     }
 
   //visualizza i "poi hotel" locali
@@ -201,26 +225,50 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
       poihotel=Layer.posizionaPunto(window.myJson[2],'icon/hotel.png');
       map.addLayer(poihotel);
     }else
-      Layer.viewLayer(poihotel);
+        Layer.viewLayer(poihotel);
+    if(poihotel.getVisible())
+    {
+        $scope.attivoD = "attivo";
+    }
+    else
+    {
+         $scope.attivoD = "";
+    }
   }
 
   //visualizza i "poi personali
   $scope.poiPersonali = function(){
     if(!poiPersonal){
-      var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
-      if(myPathLocalStorage){//se localStorage è riempito
-        var myPOIListArray = new Array();
-        myPathLocalStorage.forEach(function (path) {
-          path.POIs.forEach(function (poi) {
-            myPOIListArray.push(poi)
+        var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
+        if(myPathLocalStorage){//se localStorage è riempito
+          var myPOIListArray = new Array();
+          myPathLocalStorage.forEach(function (path) {
+            path.POIs.forEach(function (poi) {
+              myPOIListArray.push(poi)
+            });
           });
-        });
-        poiPersonal=Layer.posizionaPunto(myPOIListArray,'icon/personali.png');
-        map.addLayer(poiPersonal);
-      }
+          poiPersonal=Layer.posizionaPunto(myPOIListArray,'icon/personali.png');
+          map.addLayer(poiPersonal);
+          if(poiPersonal.getVisible()){
+                $scope.attivoE = "attivo";
+            }else{
+                 $scope.attivoE = "";
+            }
+        }
+        else{
+            $ionicPopup.alert({
+                title: 'SPIACENTE',
+                template: 'Non hai ancora inserito POI personali!'
+            });
+        }
     }else{
       Layer.viewLayer(poiPersonal);
-    }
+      if(poiPersonal.getVisible()){
+            $scope.attivoE = "attivo";
+        }else{
+             $scope.attivoE = "";
+        }
+    }    
   }
 
     //nome della pagina html che viene prodotta nel modal
