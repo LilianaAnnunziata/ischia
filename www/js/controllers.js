@@ -44,7 +44,7 @@ angular.module('app.controllers', [])
     $scope.centraMappa = function (x) {
         var view = new ol.View({
         center: ol.proj.fromLonLat(x),
-        zoom: 15
+        zoom: 13.5
         });
         map.setView(view);
     }
