@@ -1,0 +1,1103 @@
+{
+	"tipo": "hotel",
+	"lista": [{
+		"nome": "Appartamenti Buttavento ",
+		"lat": 40.7144,
+		"lon": 13.91474
+	},
+	{
+		"nome": "Terme Saint Raphael Hotel",
+		"lat": 40.70342,
+		"lon": 13.91847
+	},
+	{
+		"nome": "Maronti Hotel",
+		"lat": 40.70172,
+		"lon": 13.915
+	},
+	{
+		"nome": "Albergo Villa Giusto",
+		"lat": 40.70172,
+		"lon": 13.91397
+	},
+	{
+		"nome": "Villa Al Mare",
+		"lat": 40.70176,
+		"lon": 13.91353
+	},
+	{
+		"nome": "Hotel San Giorgio Terme",
+		"lat": 40.7019,
+		"lon": 13.9123
+	},
+	{
+		"nome": "Park Hotel and Terme Romantica",
+		"lat": 40.70822,
+		"lon": 13.89835
+	},
+	{
+		"nome": "Hotel Loreley",
+		"lat": 40.70355,
+		"lon": 13.89213
+	},
+	{
+		"nome": "Park Hotel Miramare",
+		"lat": 40.7019,
+		"lon": 13.8936
+	},
+	{
+		"nome": "Hotel Il Fortino",
+		"lat": 40.69541,
+		"lon": 13.89307
+	},
+	{
+		"nome": "Miramare Sea Resort & Spa Apollo Club",
+		"lat": 40.6999,
+		"lon": 13.89618
+	},
+	{
+		"nome": "Villa Franz",
+		"lat": 40.69915,
+		"lon": 13.8927
+	},
+	{
+		"nome": "Hotel San Michele Terme and Spa",
+		"lat": 40.69883,
+		"lon": 13.89391
+	},
+	{
+		"nome": "Casa Del Sole",
+		"lat": 40.69772,
+		"lon": 13.89288
+	},
+	{
+		"nome": "Casa Celestino",
+		"lat": 40.69736,
+		"lon": 13.8926
+	},
+	{
+		"nome": "Park Hotel Miramare Sea Resort and Spa",
+		"lat": 40.69725,
+		"lon": 13.89371
+	},
+	{
+		"nome": "Residence Monte Zunta",
+		"lat": 40.69626,
+		"lon": 13.89341
+	},
+	{
+		"nome": "Conte S. Angelo Bay",
+		"lat": 40.6999,
+		"lon": 13.89618
+	},
+	{
+		"nome": "Tenuta Villa Tara",
+		"lat": 40.70364,
+		"lon": 13.88301
+	},
+	{
+		"nome": "Villa Fumerie",
+		"lat": 40.70014,
+		"lon": 13.87909
+	},
+	{
+		"nome": "Hotel Torre San Angelo",
+		"lat": 40.7,
+		"lon": 13.8783
+	},
+	{
+		"nome": "Punta Chiarito Resort",
+		"lat": 40.69804,
+		"lon": 13.8798
+	},
+	{
+		"nome": "Villa Natalia",
+		"lat": 40.70424,
+		"lon": 13.88034
+	},
+	{
+		"nome": "Castiglione Village And Spa",
+		"lat": 40.70377,
+		"lon": 13.88012
+	},
+	{
+		"nome": "Hotel Belvedere",
+		"lat": 40.70736,
+		"lon": 13.87864
+	},
+	{
+		"nome": "Maremonti S.Angelo View",
+		"lat": 40.70736,
+		"lon": 13.87849
+	},
+	{
+		"nome": "Hotel La Ginestra",
+		"lat": 40.70817,
+		"lon": 13.87916
+	},
+	{
+		"nome": "Hotel Al Bosco",
+		"lat": 40.70702,
+		"lon": 13.87287
+	},
+	{
+		"nome": "St Leonard Ischia",
+		"lat": 40.70857,
+		"lon": 13.87327
+	},
+	{
+		"nome": "Hotel Terme San Nicola",
+		"lat": 40.70979,
+		"lon": 13.87968
+	},
+	{
+		"nome": "Villa La Cese",
+		"lat": 40.71048,
+		"lon": 13.87895
+	},
+	{
+		"nome": "Hotel Terme Park Imperial",
+		"lat": 40.71242,
+		"lon": 13.87124
+	},
+	{
+		"nome": "Hotel Capizzo",
+		"lat": 40.71277,
+		"lon": 13.87133
+	},
+	{
+		"nome": "Hotel Corona",
+		"lat": 40.71315,
+		"lon": 13.87157
+	},
+	{
+		"nome": "Hotel Villa Franca",
+		"lat": 40.71334,
+		"lon": 13.87695
+	},
+	{
+		"nome": "Pardiso Terme Resort & Spa",
+		"lat": 40.71753,
+		"lon": 13.87077
+	},
+	{
+		"nome": "Hotel Parco Maria Terme",
+		"lat": 40.7169,
+		"lon": 13.8657
+	},
+	{
+		"nome": "Park Hotel Terme Mediterraneo",
+		"lat": 40.71715,
+		"lon": 13.86568
+	},
+	{
+		"nome": "Giardini Poseidon Terme",
+		"lat": 40.71814,
+		"lon": 13.86183
+	},
+	{
+		"nome": "Hotel Terme Royal Palm",
+		"lat": 40.72013,
+		"lon": 13.86145
+	},
+	{
+		"nome": "Terme Galidon Ischia",
+		"lat": 40.72072,
+		"lon": 13.86612
+	},
+	{
+		"nome": "Hotel Galidon",
+		"lat": 40.72163,
+		"lon": 13.86306
+	},
+	{
+		"nome": "Sorriso Thermae Resort",
+		"lat": 40.72192,
+		"lon": 13.86517
+	},
+	{
+		"nome": "Il Gattopardo Hotel Terme & Beauty Farm",
+		"lat": 40.7232,
+		"lon": 13.8616
+	},
+	{
+		"nome": "Imperamare Hotel",
+		"lat": 40.72347,
+		"lon": 13.86264
+	},
+	{
+		"nome": "Hotel Terme Villa Teresa",
+		"lat": 40.72391,
+		"lon": 13.1386372
+	},
+	{
+		"nome": "Residence Villa Marinu",
+		"lat": 40.72405,
+		"lon": 13.86612
+	},
+	{
+		"nome": "Royal Palm and San Marco Complex",
+		"lat": 40.72454,
+		"lon": 13.86072
+	},
+	{
+		"nome": "Hotel Villa Angela Terme",
+		"lat": 40.72533,
+		"lon": 13.86462
+	},
+	{
+		"nome": "Albergo Villa Hibiscus",
+		"lat": 40.72573,
+		"lon": 13.8738
+	},
+	{
+		"nome": "Hotel Carlo Magno",
+		"lat": 40.72764,
+		"lon": 13.87186
+	},
+	{
+		"nome": "Giardino Botanico Ravino",
+		"lat": 40.72717,
+		"lon": 13.86559
+	},
+	{
+		"nome": "Hotel Cava Isola",
+		"lat": 40.72754,
+		"lon": 13.86061
+	},
+	{
+		"nome": "Residence E Depandance Villa Tina",
+		"lat": 40.72879,
+		"lon": 13.1386526
+	},
+	{
+		"nome": "Il Gatoopardo - Hotel Terme E Beauty Farm",
+		"lat": 40.72905,
+		"lon": 13.86018
+	},
+	{
+		"nome": "Hotel Citara",
+		"lat": 40.72993,
+		"lon": 13.85758
+	},
+	{
+		"nome": "Hotel Park Vittoria",
+		"lat": 40.73152,
+		"lon": 13.86072
+	},
+	{
+		"nome": "B&B Pietradonica",
+		"lat": 40.73315,
+		"lon": 13.85936
+	},
+	{
+		"nome": "Il Gattopardo Hotel and Beauty Farm",
+		"lat": 40.73376,
+		"lon": 13.85488
+	},
+	{
+		"nome": "Hotel Punta Imperatore",
+		"lat": 40.73417,
+		"lon": 13.85505
+	},
+	{
+		"nome": "Hotel Santa Lucia",
+		"lat": 40.73409,
+		"lon": 13.85505
+	},
+	{
+		"nome": "Residence La Rosa",
+		"lat": 40.73418,
+		"lon": 13.87371
+	},
+	{
+		"nome": "Villa Melodie",
+		"lat": 40.735,
+		"lon": 13.866
+	},
+	{
+		"nome": "Hotel Villa Thomas",
+		"lat": 40.7355,
+		"lon": 13.8682
+	},
+	{
+		"nome": "Terme Castaldi",
+		"lat": 40.73557,
+		"lon": 13.86992
+	},
+	{
+		"nome": "Hotel Lord Byron",
+		"lat": 40.4073628,
+		"lon": 13.86551
+	},
+	{
+		"nome": "Hotel Umberto a Mare",
+		"lat": 40.7369,
+		"lon": 13.85466
+	},
+	{
+		"nome": "Chiesa del Soccorso",
+		"lat": 40.73714,
+		"lon": 13.85447
+	},
+	{
+		"nome": "Landscape from Madonna of Soccorso in Forio",
+		"lat": 40.73731,
+		"lon": 13.85515
+	},
+	{
+		"nome": "Piazzale del Soccorso",
+		"lat": 40.73738,
+		"lon": 13.85541
+	},
+	{
+		"nome": "Terme Providence",
+		"lat": 40.73751,
+		"lon": 13.85846
+	},
+	{
+		"nome": "Hotel Villa Teresa",
+		"lat": 40.73739,
+		"lon": 13.85921
+	},
+	{
+		"nome": "Hotel Villa Carolina",
+		"lat": 40.73744,
+		"lon": 13.85986
+	},
+	{
+		"nome": "Hotel Zi Carmela",
+		"lat": 40.73781,
+		"lon": 13.86125
+	},
+	{
+		"nome": "Hotel Tramonto Oro",
+		"lat": 40.7383,
+		"lon": 13.86054
+	},
+	{
+		"nome": "Hotel Parco dei Principi",
+		"lat": 40.73807,
+		"lon": 13.85947
+	},
+	{
+		"nome": "Hotel Nettuno De Charme",
+		"lat": 40.73867,
+		"lon": 13.85925
+	},
+	{
+		"nome": "Villa Marialuisa Apartments Island of Ischia",
+		"lat": 40.73828,
+		"lon": 13.85939
+	},
+	{
+		"nome": "Hotel Poggio Del Sole",
+		"lat": 40.73991,
+		"lon": 13.86277
+	},
+	{
+		"nome": "Hotel Terme Colella",
+		"lat": 40.73464,
+		"lon": 13.87019
+	},
+	{
+		"nome": "Villa Neptunus",
+		"lat": 40.73829,
+		"lon": 13.86055
+	},
+	{
+		"nome": "Villa Le Magnolie",
+		"lat": 40.7389,
+		"lon": 13.8732
+	},
+	{
+		"nome": "Hotel Le Canne",
+		"lat": 40.74157,
+		"lon": 13.86533
+	},
+	{
+		"nome": "Villa Adriana",
+		"lat": 40.74238,
+		"lon": 13.86518
+	},
+	{
+		"nome": "Stadio Comunale Salvatore Calisse",
+		"lat": 40.74222,
+		"lon": 13.86855
+	},
+	{
+		"nome": "Hotel Iris",
+		"lat": 40.74234,
+		"lon": 13.86996
+	},
+	{
+		"nome": "Hotel La Rotonda sul Mare",
+		"lat": 40.74413,
+		"lon": 13.86587
+	},
+	{
+		"nome": "Hotel Parco delle Agavi",
+		"lat": 40.7449,
+		"lon": 13.8703
+	},
+	{
+		"nome": "Hotel San Vito",
+		"lat": 40.74537,
+		"lon": 13.87001
+	},
+	{
+		"nome": "Museo Galleria del Monte Arte Contemporanea",
+		"lat": 40.74552,
+		"lon": 13.87035
+	},
+	{
+		"nome": "Baia Verde Hotel",
+		"lat": 40.74644,
+		"lon": 13.87194
+	},
+	{
+		"nome": "Hotel Villa al Parco",
+		"lat": 40.74716,
+		"lon": 13.87271
+	},
+	{
+		"nome": "Hotel Santa Maria",
+		"lat": 40.74766,
+		"lon": 13.87011
+	},
+	{
+		"nome": "Hotel la Scogliera",
+		"lat": 40.74881,
+		"lon": 13.86831
+	},
+	{
+		"nome": "Hotel Zaro",
+		"lat": 40.74888,
+		"lon": 13.86849
+	},
+	{
+		"nome": "Hotel Terme Tritone",
+		"lat": 40.74928,
+		"lon": 13.86856
+	},
+	{
+		"nome": "Giardini La Mortella",
+		"lat": 40.75167,
+		"lon": 13.87304
+	},
+	{
+		"nome": "Hotel Terme la Bagattella",
+		"lat": 40.75292,
+		"lon": 13.87015
+	},
+	{
+		"nome": "Museo Fondazione la Combaia di Lucchino Visconti",
+		"lat": 40.7574,
+		"lon": 13.87389
+	},
+	{
+		"nome": "Hotel Mezzatorre Resort & Spa",
+		"lat": 40.76028,
+		"lon": 13.87291
+	},
+	{
+		"nome": "Albergo San Montano",
+		"lat": 40.758,
+		"lon": 13.8788
+	},
+	{
+		"nome": "Albergo Terme San Lorenzo",
+		"lat": 40.75321,
+		"lon": 13.88034
+	},
+	{
+		"nome": "Grand Hotel Terme di Augustu",
+		"lat": 40.7559,
+		"lon": 13.8843
+	},
+	{
+		"nome": "Civic Archeological Museum of Pthecusae - Villa Arbusto",
+		"lat": 40.75444,
+		"lon": 13.88486
+	},
+	{
+		"nome": "Albergo Regina Isabella",
+		"lat": 40.75404,
+		"lon": 13.88507
+	},
+	{
+		"nome": "Hotel della Regina Isabella",
+		"lat": 40.7539,
+		"lon": 13.8851
+	},
+	{
+		"nome": "Albergo Terme La Reginella",
+		"lat": 40.75378,
+		"lon": 13.88497
+	},
+	{
+		"nome": "La Sirenella",
+		"lat": 40.75373,
+		"lon": 13.88424
+	},
+	{
+		"nome": "Museo Archeologico di Pithecusae",
+		"lat": 40.75365,
+		"lon": 13.88373
+	},
+	{
+		"nome": "Hotel Terme Principe",
+		"lat": 40.75281,
+		"lon": 13.889
+	},
+	{
+		"nome": "Hotel Villa Svizzera",
+		"lat": 40.75214,
+		"lon": 13.89145
+	},
+	{
+		"nome": "Don Pepe Terme e Beauty Farm",
+		"lat": 40.75095,
+		"lon": 13.88844
+	},
+	{
+		"nome": "Residence Arco Oro",
+		"lat": 40.74922,
+		"lon": 13.88842
+	},
+	{
+		"nome": "Garden and Villas Resort",
+		"lat": 40.74632,
+		"lon": 13.89058
+	},
+	{
+		"nome": "Hotel Grazia Terme",
+		"lat": 40.74288,
+		"lon": 13.88886
+	},
+	{
+		"nome": "Hotel Bristol",
+		"lat": 40.74792,
+		"lon": 13.89722
+	},
+	{
+		"nome": "Country Club Hotel",
+		"lat": 40.74134,
+		"lon": 13.89596
+	},
+	{
+		"nome": "Residence Covo dei Borboni",
+		"lat": 40.75,
+		"lon": 13.9
+	},
+	{
+		"nome": "Hotel Approdo",
+		"lat": 40.74915,
+		"lon": 13.9007
+	},
+	{
+		"nome": "Hotel Magnolie Ischia",
+		"lat": 40.74198,
+		"lon": 13.90041
+	},
+	{
+		"nome": "Hotel Bel Tramonto",
+		"lat": 40.74513,
+		"lon": 13.90135
+	},
+	{
+		"nome": "Hotel Villa Orta",
+		"lat": 40.74577,
+		"lon": 13.90276
+	},
+	{
+		"nome": "Hotel Coralba",
+		"lat": 40.74509,
+		"lon": 13.90425
+	},
+	{
+		"nome": "Terme la Pergola",
+		"lat": 40.7479,
+		"lon": 13.9045
+	},
+	{
+		"nome": "Gran Parido Hotel",
+		"lat": 40.74788,
+		"lon": 13.90499
+	},
+	{
+		"nome": "Hotel Pithaecusa",
+		"lat": 40.7472,
+		"lon": 13.9057
+	},
+	{
+		"nome": "Hotel & Residence Matarese",
+		"lat": 40.74694,
+		"lon": 13.90613
+	},
+	{
+		"nome": "Marina 10 Spa & Design Hotel",
+		"lat": 40.7488,
+		"lon": 13.9081
+	},
+	{
+		"nome": "Hotel Casa Mazzella",
+		"lat": 40.74356,
+		"lon": 13.90708
+	},
+	{
+		"nome": "Agriturismo Pera di Basso",
+		"lat": 40.74137,
+		"lon": 13.9086
+	},
+	{
+		"nome": "Terme Elisabetta",
+		"lat": 40.7432,
+		"lon": 13.90787
+	},
+	{
+		"nome": "Terme Manzi Relaise & Chateaux",
+		"lat": 40.74338,
+		"lon": 13.9082
+	},
+	{
+		"nome": "Terme Manzi Hotel & Spa",
+		"lat": 40.744,
+		"lon": 13.9081
+	},
+	{
+		"nome": "Hotel Il Nespolo",
+		"lat": 40.74415,
+		"lon": 13.90932
+	},
+	{
+		"nome": "Hotel Le Zagare",
+		"lat": 40.74311,
+		"lon": 13.90938
+	},
+	{
+		"nome": "Agriturismo Pera di Basso",
+		"lat": 40.74137,
+		"lon": 13.9086
+	},
+	{
+		"nome": "Hotel Ape Regina",
+		"lat": 40.74065,
+		"lon": 13.91888
+	},
+	{
+		"nome": "Hotel Villa Fiorentina",
+		"lat": 40.7422,
+		"lon": 13.917
+	},
+	{
+		"nome": "Hotel Ischia Casa della Vela",
+		"lat": 40.74729,
+		"lon": 13.91384
+	},
+	{
+		"nome": "Hotel Mirage",
+		"lat": 40.74767,
+		"lon": 13.91298
+	},
+	{
+		"nome": "Hotel La Madonnina",
+		"lat": 40.74796,
+		"lon": 13.91297
+	},
+	{
+		"nome": "Grand Hotel Punta Molino Terme",
+		"lat": 40.74972,
+		"lon": 13.91852
+	},
+	{
+		"nome": "Albergo Terme Italia",
+		"lat": 40.75055,
+		"lon": 13.91884
+	},
+	{
+		"nome": "Hotel Grifo the Charme",
+		"lat": 40.74828,
+		"lon": 13.92099
+	},
+	{
+		"nome": "Hotel Gemma",
+		"lat": 40.74958,
+		"lon": 13.922
+	},
+	{
+		"nome": "Oasi Castiglione Terme",
+		"lat": 40.74747,
+		"lon": 13.92657
+	},
+	{
+		"nome": "Hotel Querce Terme & Spa",
+		"lat": 40.74532,
+		"lon": 13.93111
+	},
+	{
+		"nome": "Hotel le Querce",
+		"lat": 40.7452,
+		"lon": 13.9313
+	},
+	{
+		"nome": "Hotel Don Pedro",
+		"lat": 40.74387,
+		"lon": 13.93126
+	},
+	{
+		"nome": "Hotel Pagoda Residence",
+		"lat": 40.7465,
+		"lon": 13.9385
+	},
+	{
+		"nome": "Stazione Zoologica Anton Dohrn",
+		"lat": 40.7464,
+		"lon": 13.94377
+	},
+	{
+		"nome": "Hotel Villa Ireos",
+		"lat": 40.74261,
+		"lon": 13.93841
+	},
+	{
+		"nome": "Hotel La Marticana",
+		"lat": 40.74193,
+		"lon": 13.93811
+	},
+	{
+		"nome": "Terme Aragona Palace",
+		"lat": 40.7433,
+		"lon": 13.94241
+	},
+	{
+		"nome": "Hotel Aragona Palace",
+		"lat": 40.74313,
+		"lon": 13.94253
+	},
+	{
+		"nome": "Hotel Villa Maria",
+		"lat": 40.74276,
+		"lon": 13.94292
+	},
+	{
+		"nome": "Hotel Punta Molino Resort & Spa",
+		"lat": 40.74279,
+		"lon": 13.9431
+	},
+	{
+		"nome": "Hotel COnte Ischia",
+		"lat": 40.74288,
+		"lon": 13.94469
+	},
+	{
+		"nome": "Hotel Oriente & Terme",
+		"lat": 40.74048,
+		"lon": 13.94349
+	},
+	{
+		"nome": "Hotel Rosetta",
+		"lat": 40.7417,
+		"lon": 13.945
+	},
+	{
+		"nome": "Hotel Bristol",
+		"lat": 40.74243,
+		"lon": 13.94663
+	},
+	{
+		"nome": "Bristol Terme Hotel",
+		"lat": 40.74246,
+		"lon": 13.94685
+	},
+	{
+		"nome": "Hotel Solemar Terme",
+		"lat": 40.74216,
+		"lon": 13.94767
+	},
+	{
+		"nome": "Hotel Rivamare",
+		"lat": 40.74243,
+		"lon": 13.94899
+	},
+	{
+		"nome": "Parrocchia Santa Maria Delle Grazie in San Pietro",
+		"lat": 40.7418,
+		"lon": 13.94757
+	},
+	{
+		"nome": "Hotel del Postiglione",
+		"lat": 40.74095,
+		"lon": 13.94741
+	},
+	{
+		"nome": "Hotel Best Western Regina Palace Ter",
+		"lat": 40.74085,
+		"lon": 13.9474
+	},
+	{
+		"nome": "Hotel Terme Floridiana",
+		"lat": 40.74118,
+		"lon": 13.94883
+	},
+	{
+		"nome": "Hotel Villas Diana",
+		"lat": 40.7411,
+		"lon": 13.9488
+	},	
+	{
+		"nome": "Hotel Villa Durrueli Resort & Spa",
+		"lat": 40.74158,
+		"lon": 13.9515
+	},
+	{
+		"nome": "Hotel Parco Aurora Terme",
+		"lat": 40.74175,
+		"lon": 13.95191
+	},
+	{
+		"nome": "Grand Hotel Il Moresco Therme & Spa",
+		"lat": 40.74126,
+		"lon": 13.95357
+	},
+	{
+		"nome": "La Villarosa Terme",
+		"lat": 40.74,
+		"lon": 13.95
+	},
+	{
+		"nome": "Best Western Hotel Regina Palace Terme",
+		"lat": 40.73918,
+		"lon": 13.94974
+	},
+	{
+		"nome": "Hotel Regina Palace",
+		"lat": 40.7388,
+		"lon": 13.9494
+	},
+	{
+		"nome": "Hotel San Giovanni Terme",
+		"lat": 40.73788,
+		"lon": 13.94887
+	},
+	{
+		"nome": "Villa Tina",
+		"lat": 40.73793,
+		"lon": 13.94862
+	},
+	{
+		"nome": "Central Park Hotel Terme",
+		"lat": 40.73857,
+		"lon": 13.94811
+	},
+	{
+		"nome": "Hotel Vittoria",
+		"lat": 40.73911,
+		"lon": 13.94673
+	},
+	{
+		"nome": "Jolly Hotel Delle Terme",
+		"lat": 40.7396,
+		"lon": 13.9477
+	},
+	{
+		"nome": "Hotel Ulisse",
+		"lat": 40.73909,
+		"lon": 13.95455
+	},
+	{
+		"nome": "Grand Hotel Punta Molino Beach Resort and Spa",
+		"lat": 40.73758,
+		"lon": 13.95505
+	},
+	{
+		"nome": "Teatro Polifunzionale Ischia",
+		"lat": 40.73399,
+		"lon": 13.9411
+	},
+	{
+		"nome": "Hotel Continental Terme",
+		"lat": 40.7317,
+		"lon": 13.9445
+	},
+	{
+		"nome": "Tennis Club Stadio",
+		"lat": 40.7351,
+		"lon": 13.94269
+	},
+	{
+		"nome": "Hotel Cleopatra",
+		"lat": 40.7353,
+		"lon": 13.94448
+	},
+	{
+		"nome": "Hotel Parcoverde Terme",
+		"lat": 40.73536,
+		"lon": 13.94664
+	},
+	{
+		"nome": "Punta Molino Beach & Resort Spa",
+		"lat": 40.73519,
+		"lon": 13.94824
+	},
+	{
+		"nome": "Hotel Hermitage and Park Terme",
+		"lat": 40.7323,
+		"lon": 13.9474
+	},
+	{
+		"nome": "Parrocchia di Gesu Buon Pastore",
+		"lat": 40.73289,
+		"lon": 13.9481
+	},
+	{
+		"nome": "Terme San Valentino",
+		"lat": 40.73284,
+		"lon": 13.94844
+	},
+	{
+		"nome": "Clarion Hotel Hermitage Park Terme Ischia",
+		"lat": 40.734,
+		"lon": 13.9494
+	},
+	{
+		"nome": "Gran Hotel Excelsior Terme ",
+		"lat": 40.7333,
+		"lon": 13.95
+	},
+	{
+		"nome": "Nh Ischia Thermal Spa Resort",
+		"lat": 40.73334,
+		"lon": 13.95264
+	},
+	{
+		"nome": "Ischia Termal Spa Resort",
+		"lat": 40.73364,
+		"lon": 13.95264
+	},
+	{
+		"nome": "Villa Durrueli Resort & Spa",
+		"lat": 40.73624,
+		"lon": 13.95372
+	},
+	{
+		"nome": "Hotel Villa Durrueli",
+		"lat": 40.7355,
+		"lon": 13.9546
+	},
+	{
+		"nome": "Hotel Mare Blu",
+		"lat": 40.7358,
+		"lon": 13.9556
+	},
+	{
+		"nome": "Hotel Villa Panoramica",
+		"lat": 40.73561,
+		"lon": 13.9557
+	},
+	{
+		"nome": "Hotel Europa",
+		"lat": 40.7343,
+		"lon": 13.9542
+	},
+	{
+		"nome": "Hotel Noris",
+		"lat": 40.7339,
+		"lon": 13.9554
+	},
+	{
+		"nome": "Pensione Noris",
+		"lat": 40.73389,
+		"lon": 13.95559
+	},
+	{
+		"nome": "Villa Carolina",
+		"lat": 40.73341,
+		"lon": 13.95712
+	},
+	{
+		"nome": "Hotel St Leonard",
+		"lat": 40.73302,
+		"lon": 13.95795
+	},
+	{
+		"nome": "Hotel Miramare e Castello",
+		"lat": 40.73282,
+		"lon": 13.95899
+	},
+	{
+		"nome": "Associazione Amici Del Museo Del Mare Isola Ischia",
+		"lat": 40.73207,
+		"lon": 13.95912
+	},
+	{
+		"nome": "Castello Aragonese",
+		"lat": 40.73145,
+		"lon": 13.96405
+	},
+	{
+		"nome": "Hotel La Ninfea",
+		"lat": 40.72977,
+		"lon": 13.95613
+	},
+	{
+		"nome": "Hotel Parco Carta Romana",
+		"lat": 40.7298,
+		"lon": 13.956
+	},
+	{
+		"nome": "Hotel Terme Alexander",
+		"lat": 40.72798,
+		"lon": 13.94712
+	},
+	{
+		"nome": "Hotel Hermitage & Park Terme",
+		"lat": 40.72773,
+		"lon": 13.94685
+	},
+	{
+		"nome": "Hotel Don Felipe",
+		"lat": 40.7278,
+		"lon": 13.95884
+	},
+	{
+		"nome": "Hotel Giardino Eden",
+		"lat": 40.72739,
+		"lon": 13.95905
+	},
+	{
+		"nome": "Strand Hotel Delfini",
+		"lat": 40.72634,
+		"lon": 13.95923
+	},
+	{
+		"nome": "Delfini Strand Hotel Terme",
+		"lat": 40.72623,
+		"lon": 13.95893
+	},
+	{
+		"nome": "Hotel Giardino Delle Ninfe e La Fenice",
+		"lat": 40.72604,
+		"lon": 13.95875
+	},
+	{
+		"nome": "Panorama del Belvedere di Cartaromana",
+		"lat": 40.72633,
+		"lon": 13.95763
+	},
+	{
+		"nome": "Hotel Internazionale",
+		"lat": 40.724,
+		"lon": 13.9511
+	},
+	{
+		"nome": "Hotel La Capannina",
+		"lat": 40.7235,
+		"lon": 13.95453
+	},
+	{
+		"nome": "Albergo Da Maria",
+		"lat": 40.72328,
+		"lon": 13.95879
+	}]
+}

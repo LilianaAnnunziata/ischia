@@ -31,7 +31,7 @@ angular.module('app.controllers', [])
         }
       });
       //visualizzazione del poi
-      var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      var geosec = Layer.posizionaPunto(poiArr,'icon/geosec.png');
       map.addLayer(geosec);
       shareData.setData(poi);
       $scope.closeModal()
@@ -88,25 +88,22 @@ angular.module('app.controllers', [])
       $scope.deletePath = function (myPath) {
         console.log("del")
         var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
-       console.log(myPathLocalStorage)
-
+        console.log(myPathLocalStorage)
         myPathLocalStorage.forEach(function (path) {
-          console.log("all "+path.id)
-
           if(path.id == myPath.id){
             console.log("delete "+path.id)
             var index = myPathLocalStorage.indexOf(path.id);
             console.log(index)
-            var value = myPathLocalStorage.splice(index, 1 )[0];
+            if(index != -1)
+              myPathLocalStorage.splice(index,1);
           }
         });
-       console.log("nuovo")
         console.log(myPathLocalStorage)
-        //localStorage.setItem('personalPOI',JSON.stringify(allPoiPersonalArray));
+        //localStorage.setItem('personalPOI',JSON.stringify(myPathLocalStorage));
 
 
       }
-      $scope.editPath = function () {
+      $scope.editPath = function (path) {
         console.log("edit")
       };
 
@@ -132,13 +129,12 @@ angular.module('app.controllers', [])
 function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           $ionicPopup,dati,Layer,datiJson,shareData,$rootScope) {
 
-
   dati.setInfo($http,$ionicPopup,$window);
   datiJson.load($http);
   map;
   geosec;
-  var view,vectorLayer,layer,poispiaggia,poigeosec,poivari,feature,
-  geosec,array;
+  var view,vectorLayer,layer,feature,geosec,array,
+    poiPersonal,poispiaggia,poigeosec,poivari,poihotel;
 
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
@@ -195,13 +191,20 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
         if(!poivari){
             poivari=Layer.posizionaPunto(window.myJson[1],'icon/montagna.png');
             map.addLayer(poivari);
-        }else{
-            Layer.viewLayer(poivari);
-        }        
+        }else
+          Layer.viewLayer(poivari);
     }
 
+  //visualizza i "poi hotel" locali
+  $scope.poiHotel = function(){
+    if(!poihotel){
+      poihotel=Layer.posizionaPunto(window.myJson[2],'icon/hotel.png');
+      map.addLayer(poihotel);
+    }else
+      Layer.viewLayer(poihotel);
+  }
+
   //visualizza i "poi personali
-  var poiPersonal;
   $scope.poiPersonali = function(){
     if(!poiPersonal){
       var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
@@ -231,8 +234,8 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
    //Trova le feature mentre si naviga sulla mappa
    map.on('pointermove', function(evt) {
         if(view.getCenter()!=ol.proj.fromLonLat([13.905190,40.722581])){
-            document.getElementById('resetPosizione').style.display="block";  
-        }      
+            document.getElementById('resetPosizione').style.display="block";
+        }
         feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
                   return feature;
         })
@@ -242,11 +245,13 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     map.getViewport().addEventListener("click", function(e) {
         if (feature && feature.get('nom_poi')) {
             var stringa="";
+            if(feature.get('src'))
+                 stringa+="<br><img  width='100%' height='100%'  src='"+feature.get('src')+"'><br>";
             if(feature.get('nom_itiner'))
-                 stringa="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
+                 stringa+="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
             var createPOIPopup = $ionicPopup.show({
               title: "<h4>"+feature.get('nom_poi')+"</h2>",
-              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ stringa,
+              content: stringa+"<br><b>Coordinate punto:</b><br>"+ feature.get('coordinates'),
               buttons: [{
                 text: 'OK',
                 type: 'button-positive',
@@ -311,15 +316,20 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     for(var i = map.getLayers().getLength() - 1; i >= 0; i--){
         if(arrLayer[i] != osm && arrLayer[i] != bing)
           map.removeLayer(arrLayer[i]);
-      }
+    }
+    poihotel = undefined;
+    poispiaggia = undefined;
+    poiPersonal = undefined;
+    poigeosec = undefined;
+    poivari = undefined;
   }
 
   $scope.show = function() {
-    $ionicLoading.show();
+    //$ionicLoading.show();
   };
 
   $scope.hide = function(){
-    $ionicLoading.hide();
+    //$ionicLoading.hide();
   };
 
   $scope.addPOI = function () {
@@ -327,19 +337,17 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     var path = shareData.getData();
 
     $scope.showError = false;
-    var options = {timeout: 10000, enableHighAccuracy: true};
-    var temp = 0;
+    var options = { enableHighAccuracy: true};
 
-
-    $scope.show();
+    //$scope.show();
+    $scope.showLoading = 1;
     $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
-
-      $scope.hide();
+      $scope.showLoading = 0;
+      //$scope.hide();
       $scope.newPoi = {
-        coordinates:[position.coords.latitude, position.coords.longitude],
+        coordinates:[position.coords.longitude,position.coords.latitude],
       }
       console.log(" "+position.coords.latitude + "  "+ position.coords.longitude)
-
 
       var createPOIPopup = $ionicPopup.show({
         scope: $scope,
@@ -356,7 +364,6 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           type: 'button-positive',
           attr: 'data-ng-disabled="!newPoi.nom_poi"',
           onTap: function (e) {
-
             if (!$scope.newPoi.nom_poi) {
               //don't allow the user to close unless he enters wifi password
               e.preventDefault();
@@ -364,15 +371,21 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
 
               $scope.showError = true;
             } else {
-
               //formato del localStorage:
               //localstorage[{id,POIs:[{nom_poi,coordinates:[][],...},{nom_poi,coordinates:[][],...}]}]
-              var allPoiPersonalArray, poi;//array che sarà inserito in localStorage
+              var allPoiPersonalArray, poi;
+              var poiArr = new Array();
+
+              //array che sarà inserito in localStorage
               var idPath = 'personalPOI';//id del local storage
               if(!localStorage.getItem(idPath)) {//se localStorage non è definito
                 allPoiPersonalArray = new Array();
                 //inserimento di un nuovo percorso e dei POI relativi
-                allPoiPersonalArray.push(insertPOIPath(path));
+                var poiTemp = insertPOIPath(path);
+                allPoiPersonalArray.push(poiTemp);
+                poi = poiTemp.POIs;
+                console.log(poi)
+               // allPoiPersonalArray.push(insertPOIPath(path));
               }else {//se localStorage era già definito
                 allPoiPersonalArray = JSON.parse(localStorage.getItem(idPath));
                 //flag per verificare se il percorso esisteva gia
@@ -382,14 +395,18 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
                   if(percorso.id == path.id ){
                     //se il path esiste già allora inserisco solo i POI
                     var index = percorso.POIs.push(insertPOI(path)) - 1;
-                    poi = percorso.POIs[index];
+                    poi = new Array()
+                    poi.push(percorso.POIs[index]);
                     flag = false;
                     return;
                   }
-                })
+                });
                 if(flag){
                   //se il path non esiste allora inserisco path + OI
-                  allPoiPersonalArray.push(insertPOIPath(path));
+                  var poiTemp = insertPOIPath(path);
+                  allPoiPersonalArray.push(poiTemp);
+                  poi = poiTemp.POIs;
+                  console.log(poi)
                 }
               }
 
@@ -397,9 +414,8 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
               localStorage.setItem(idPath,JSON.stringify(allPoiPersonalArray));
 
               //Visualizza il poi appena inserito
-              var poiArr = new Array();
-              poiArr.push(poi);
-              var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+             // poiArr.push(poi);
+              var geosec = Layer.posizionaPunto(poi,'icon/personali.png');
               map.addLayer(geosec);
             }
             return $scope.newPoi;
@@ -488,14 +504,14 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
           features: [accuracyFeature, positionFeature]
         })
       });
-      
+
     //Riposiziona la Mappa
     $scope.resetPosizione = function (){
        view.setCenter(ol.proj.fromLonLat([13.905190,40.722581]));
        view.setZoom(12);
-       map.setView(view);  
-       document.getElementById('resetPosizione').style.display="none"; 
-    }   
+       map.setView(view);
+       document.getElementById('resetPosizione').style.display="none";
+    }
 
 }])
 

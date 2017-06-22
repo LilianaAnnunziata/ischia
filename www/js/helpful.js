@@ -16,7 +16,8 @@ function setOptionsCamera(srcType, width, height) {
       targetHeight: height,
       mediaType: Camera.PICTURE, //setta il tipo di media da selezionare
       saveToPhotoAlbum: true, //salva img nell'album
-      cameraDiretion: Camera.FRONT
+      cameraDiretion: Camera.FRONT,
+      correctOrientation: true
     };
   } else {
     console.log("heigth non settato")
@@ -28,7 +29,8 @@ function setOptionsCamera(srcType, width, height) {
       encodingType: Camera.EncodingType.JPEG, //formato di codifica della foto
       mediaType: Camera.PICTURE, //setta il tipo di media da selezionare
       saveToPhotoAlbum: true, //salva img nell'album
-      cameraDiretion: Camera.FRONT
+      cameraDiretion: Camera.FRONT,
+      correctOrientation: true
     };
   }
 
