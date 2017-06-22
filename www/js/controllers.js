@@ -251,7 +251,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
                  stringa+="<br><b>Nome percorso:<br></b>"+ feature.get('percorso')+"<br><b>Nome itinerario:<br></b>"+ feature.get('nom_itiner');
             var createPOIPopup = $ionicPopup.show({
               title: "<h4>"+feature.get('nom_poi')+"</h2>",
-              content: "<b>Coordinate punto:</b><br>"+ feature.get('coordinates')+ stringa,
+              content: stringa+"<br><b>Coordinate punto:</b><br>"+ feature.get('coordinates'),
               buttons: [{
                 text: 'OK',
                 type: 'button-positive',
@@ -415,7 +415,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
 
               //Visualizza il poi appena inserito
              // poiArr.push(poi);
-              var geosec = Layer.posizionaPunto(poi,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+              var geosec = Layer.posizionaPunto(poi,'icon/personali.png');
               map.addLayer(geosec);
             }
             return $scope.newPoi;
