@@ -14,7 +14,8 @@ angular.module('app.controllers', [])
       //POI
     $scope.poiList = window.infoPois;
 
-    $scope.visualizzaPOI = function (poi,personal,difficolta) {
+    $scope.visualizzaPOI = function (poi,personal,difficolta,img) {
+      console.log(img)
       var poiArr;
       if(!personal) {//creazione array per mandarlo in posizionaPunto
         poiArr = new Array();
@@ -31,9 +32,9 @@ angular.module('app.controllers', [])
         }
       });
       //visualizzazione del poi
-      var geosec = Layer.posizionaPunto(poiArr,'icon/geosec.png');
+      var geosec = Layer.posizionaPunto(poiArr,img);
       map.addLayer(geosec);
-      shareData.setData(poi);
+     // shareData.setData(poi);
       $scope.closeModal()
     }
 
@@ -79,7 +80,8 @@ angular.module('app.controllers', [])
         window.infoPaths.forEach(function (path) {
           if(path.id == pathPersonal.id){
             $scope.visualizzaPercorso(path,path.cod_tipo);
-            $scope.visualizzaPOI(pathPersonal.POIs,true)
+            console.log()
+            $scope.visualizzaPOI(pathPersonal.POIs,true,path.cod_tipo,'icon/personali.png')
           }
         });
         $scope.closeModal()
@@ -268,7 +270,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
         }else{
              $scope.attivoE = "";
         }
-    }    
+    }
   }
 
     //nome della pagina html che viene prodotta nel modal
@@ -477,7 +479,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     }, function (error) {
       $ionicPopup.alert({
         title: 'Error',
-        template: 'Activate the GPS sensor.'
+        template: 'GPS momentaneamente non disponibile'
       });
 
     });

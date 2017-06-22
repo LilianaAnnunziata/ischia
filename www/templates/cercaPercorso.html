@@ -48,7 +48,7 @@
                 <ion-list id="searchPOI-list">
                    <ion-item class="item-icon-right positive" id="searchPOI-item"
                           ng-repeat="poi in poiList | filter: {nom_poi:nomePOI} | filter:{cod_tipo : slideChange(difficolta)}:true "
-                          ng-click="visualizzaPOI(poi,null,poi.cod_tipo)">{{poi.nom_poi}}</ion-item>
+                          ng-click="visualizzaPOI(poi,null,poi.cod_tipo,'icon/geosec.png')">{{poi.nom_poi}}</ion-item>
                 </ion-list>
               </div>
 
@@ -80,7 +80,7 @@
       <!-- Contenuto I miei Percorsi -->
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
-          <ion-item class="listItem" id="home-list-item9" ng-click="goToMyPersonalPath('{{path}}')" ng-repeat="path in myPathList">    
+          <ion-item class="listItem" id="home-list-item9" ng-click="goToMyPersonalPath('{{path}}')" ng-repeat="path in myPathList">
                 <span class="textMyPersonali">{{path.percorso}}</span>
                 <div style="margin-top: 9px;">
                     <span>
@@ -90,7 +90,7 @@
                     </span>
                     <span id="feedbackPersonali">
                         <i class="ion-pin pin"></i>
-                        <span class="textMyPersonali" style="color:black;">{{path.num_poi_add}}</span>                        
+                        <span class="textMyPersonali" style="color:black;">{{path.num_poi_add}}</span>
                     </span>
                 </div>
             <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-close" ng-click="deletePath()" ></ion-option-button>

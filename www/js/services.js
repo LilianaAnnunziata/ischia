@@ -43,7 +43,7 @@ angular.module('app.services', [])
 
     this.lineLayer=function(array,difficolta){
       if(difficolta == 'T')
-        colore = 'green';
+        colore = 'lightgreen';
         else if(difficolta == 'E' )
           colore = 'yellow';
           else if(difficolta == 'EE' )
