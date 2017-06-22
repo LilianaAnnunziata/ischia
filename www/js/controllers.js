@@ -8,8 +8,8 @@ angular.module('app.controllers', [])
 
 .controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     function ($scope, shareData,Layer) {
-    $scope.difficoltaPOI = 1;
-    $scope.difficoltaPATH = 1;
+    $scope.difficoltaPOI = 0;
+    $scope.difficoltaPATH = 0;
 
       //POI
     $scope.poiList = window.infoPois;
