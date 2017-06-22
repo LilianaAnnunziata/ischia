@@ -30,7 +30,7 @@
             <div ng-switch-when="cercaPOI">
                 <!-- ricerca per nome del poi-->
                 <!-- nomePoi usato sotto per filter -->
-                <ion-item class="range range-positive noBorder" id="difficoltaPOIRange">
+                <ion-item class="range range-positive noBorder">
                     <span><b>Difficoltà:</b></span>
                   <input type="range" min="1" max="3" step="1" ng-model="difficoltaPOI">
                    <img src="img/1.png" class="scala" ng-if="difficoltaPOI == 1" height="35"></img>
@@ -54,7 +54,7 @@
 
               <div ng-switch-when="cercaNomePath">
 
-                <ion-item class="range range-positive noBorder" id="difficoltaPOIRange">
+                <ion-item class="range range-positive noBorder">
                     <span><b>Difficoltà:</b></span>
                   <input type="range" min="1" max="3" step="1" ng-model="difficoltaPATH">
                    <img src="img/1.png" class="scala" ng-if="difficoltaPATH == 1" height="35"></img>
@@ -80,23 +80,19 @@
       <!-- Contenuto I miei Percorsi -->
       <ion-list ng-switch-when="myPath">
         <ion-list id="percorsoMyPath-list" class="list">
-          <ion-item class="listItem" id="home-list-item9" ng-click="goToMyPersonalPath('{{path}}')" ng-repeat="path in myPathList">
-                <div>
-                    <i style="font-size: 30px; color:black;" class="icon ion-map"></i>
-                    <spam class="nomePercorsoPersonale">:</spam>
-                    <spam class="nomePercorsoPersonale" style="margin-left: 15px;">{{path.percorso}}</spam> 
+          <ion-item class="listItem" id="home-list-item9" ng-click="goToMyPersonalPath('{{path}}')" ng-repeat="path in myPathList">    
+                <span class="textMyPersonali">{{path.percorso}}</span>
+                <div style="margin-top: 9px;">
+                    <span>
+                        <img src="img/1.png" class="mySc" ng-if="path.cod_tipo == 'T'" height="28"></img>
+                        <img src="img/2.png" class="mySsc" ng-if="path.cod_tipo == 'E'" height="28"></img>
+                        <img src="img/3.png" class="mySca" ng-if="path.cod_tipo == 'EE'" height="28"></img>
+                    </span>
+                    <span id="feedbackPersonali">
+                        <i class="ion-pin pin"></i>
+                        <span class="textMyPersonali" style="color:black;">{{path.num_poi_add}}</span>                        
+                    </span>
                 </div>
-                <div>
-                    <i style="font-size: 24px;" class="icon ion-arrow-graph-up-right"></i>
-                    <img src="img/1.png" class="myScala" ng-if="path.cod_tipo == 'T'" height="35"></img>
-                    <img src="img/2.png" class="mySscala" ng-if="path.cod_tipo == 'E'" height="35"></img>
-                    <img src="img/3.png" class="myScala" ng-if="path.cod_tipo == 'EE'" height="35"></img>
-                </div>
-                <div>
-                   <i style="font-size: 24px; color:red;" class="icon ion-pin"></i>
-                   <h3>{{path.num_poi_add}}</h3>
-                </div>
-                 <h2  ng-class="{'color-green': path.cod_tipo == 'T', 'color-yellow': path.cod_tipo == 'E', 'color-red': path.cod_tipo == 'EE'}">{{path.tipo_perc}}</h2>      
             <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-close" ng-click="deletePath()" ></ion-option-button>
             <!-- <ion-option-button class="button-positive" ng-click="editPath()" >Modifica</ion-option-button> -->
           </ion-item>
