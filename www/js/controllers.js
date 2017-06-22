@@ -31,18 +31,29 @@ angular.module('app.controllers', [])
          $scope.visualizzaPercorso(path, path.cod_tipo)
         }
       });
+      //centra la mappa sul poi
+      $scope.centraMappa(poi.coordinates);
       //visualizzazione del poi
       var geosec = Layer.posizionaPunto(poiArr,img);
       map.addLayer(geosec);
      // shareData.setData(poi);
       $scope.closeModal()
     }
-
-
+    
+    // Centra la mappa sul percorso o il poi selezionato
+    $scope.centraMappa = function (x) {
+        var view = new ol.View({
+        center: ol.proj.fromLonLat(x),
+        zoom: 15
+        });
+        map.setView(view);
+    }
     //PERCORSI
     $scope.pathList = window.infoPaths;
 
     $scope.visualizzaPercorso = function (path,difficolta) {
+      //centra la mappa sul percorso
+      $scope.centraMappa(path.coordinates[0]);
       document.getElementById('range_Map').style.bottom = "7px";
       Layer.lineLayer(path.coordinates,difficolta);
       shareData.setData(path);
@@ -521,11 +532,6 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
 
       geolocation.setTracking(true);
 
-      geolocation.on('error', function(error) {
-        var info = document.getElementById('info');
-        info.innerHTML = error.message;
-        info.style.display = '';
-      });
 
       var accuracyFeature = new ol.Feature();
       geolocation.on('change:accuracyGeometry', function() {
