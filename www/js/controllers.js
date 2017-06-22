@@ -31,7 +31,7 @@ angular.module('app.controllers', [])
         }
       });
       //visualizzazione del poi
-      var geosec = Layer.posizionaPunto(poiArr,'https://openlayers.org/en/v4.2.0/examples/data/icon.png');
+      var geosec = Layer.posizionaPunto(poiArr,'icon/geosec.png');
       map.addLayer(geosec);
       shareData.setData(poi);
       $scope.closeModal()
