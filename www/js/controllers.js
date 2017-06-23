@@ -426,7 +426,6 @@ angular.module('app.controllers', [])
       $scope.exit = function () {
         document.getElementById('range_Map').style.bottom = "6%";
         $scope.showLoading = 0;
-        $scope.blockGPSExecution = 0;
         $scope.inNavigazione = 0;
         shareData.setData(null);
         $scope.path = shareData.getData();
@@ -450,107 +449,109 @@ angular.module('app.controllers', [])
         //$ionicLoading.hide();
       };
 
+      $scope.activeButtonAddPOI = false;
       $scope.addPOI = function () {
         //informazioni del percorso selezionato
         var path = shareData.getData();
 
         $scope.showError = false;
-        var options = {enableHighAccuracy: true};
+        var options = {enableHighAccuracy: true, timeout: 10000};
 
         $scope.showLoading = 1;
+        $scope.activeButtonAddPOI = true;
         $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+          $scope.activeButtonAddPOI = false;
           $scope.showLoading = 0;
-          $scope.blockGPSExecution = 1;
 
           $scope.newPoi = {
             coordinates: [position.coords.longitude, position.coords.latitude],
           }
-          console.log(" " + position.coords.latitude + "  " + position.coords.longitude)
+          console.log(" " + position.coords.latitude + "  " + position.coords.longitude + " " + $scope.blockGPSExecution)
 
-          if ($scope.blockGPSExecution) {
-            var createPOIPopup = $ionicPopup.show({
-              scope: $scope,
-              title: 'Aggiungi POI',
-              subTitle: 'Inserisci le informazioni',
-              templateUrl: 'templates/addPOI.html',
-              buttons: [{
-                text: 'Cancel',
-                type: 'button-positive',
-                onTap: function (e) {
-                }
-              }, {
-                text: '<b>Save</b>',
-                type: 'button-positive',
-                attr: 'data-ng-disabled="!newPoi.nom_poi"',
-                onTap: function (e) {
-                  if (!$scope.newPoi.nom_poi) {
-                    //don't allow the user to close unless he enters wifi password
-                    e.preventDefault();
-                    $scope.submitted = true;
+          var createPOIPopup = $ionicPopup.show({
+            scope: $scope,
+            title: 'Aggiungi POI',
+            subTitle: 'Inserisci le informazioni',
+            templateUrl: 'templates/addPOI.html',
+            buttons: [{
+              text: 'Cancel',
+              type: 'button-positive',
+              onTap: function (e) {
+              }
+            }, {
+              text: '<b>Save</b>',
+              type: 'button-positive',
+              attr: 'data-ng-disabled="!newPoi.nom_poi"',
+              onTap: function (e) {
+                if (!$scope.newPoi.nom_poi) {
+                  //don't allow the user to close unless he enters wifi password
+                  e.preventDefault();
+                  $scope.submitted = true;
 
-                    $scope.showError = true;
-                  } else {
-                    //formato del localStorage:
-                    //localstorage[{id,POIs:[{nom_poi,coordinates:[][],...},{nom_poi,coordinates:[][],...}]}]
-                    var allPoiPersonalArray, poi;
-                    var poiArr = new Array();
+                  $scope.showError = true;
+                } else {
+                  //formato del localStorage:
+                  //localstorage[{id,POIs:[{nom_poi,coordinates:[][],...},{nom_poi,coordinates:[][],...}]}]
+                  var allPoiPersonalArray, poi;
+                  var poiArr = new Array();
 
-                    //array che sarà inserito in localStorage
-                    var idPath = 'personalPOI';//id del local storage
-                    if (!localStorage.getItem(idPath)) {//se localStorage non è definito
-                      allPoiPersonalArray = new Array();
-                      //inserimento di un nuovo percorso e dei POI relativi
+                  //array che sarà inserito in localStorage
+                  var idPath = 'personalPOI';//id del local storage
+                  if (!localStorage.getItem(idPath)) {//se localStorage non è definito
+                    allPoiPersonalArray = new Array();
+                    //inserimento di un nuovo percorso e dei POI relativi
+                    var poiTemp = insertPOIPath(path);
+                    allPoiPersonalArray.push(poiTemp);
+                    poi = poiTemp.POIs;
+                    console.log(poi)
+                    // allPoiPersonalArray.push(insertPOIPath(path));
+                  } else {//se localStorage era già definito
+                    allPoiPersonalArray = JSON.parse(localStorage.getItem(idPath));
+                    //flag per verificare se il percorso esisteva gia
+                    var flag = true;
+                    //itero su array esterno del localStorage per vedere se il path è già inserito
+                    allPoiPersonalArray.forEach(function (percorso) {
+                      if (percorso.id == path.id) {
+                        //se il path esiste già allora inserisco solo i POI
+                        var index = percorso.POIs.push(insertPOI(path)) - 1;
+                        poi = new Array()
+                        poi.push(percorso.POIs[index]);
+                        flag = false;
+                        return;
+                      }
+                    });
+                    if (flag) {
+                      //se il path non esiste allora inserisco path + OI
                       var poiTemp = insertPOIPath(path);
                       allPoiPersonalArray.push(poiTemp);
                       poi = poiTemp.POIs;
                       console.log(poi)
-                      // allPoiPersonalArray.push(insertPOIPath(path));
-                    } else {//se localStorage era già definito
-                      allPoiPersonalArray = JSON.parse(localStorage.getItem(idPath));
-                      //flag per verificare se il percorso esisteva gia
-                      var flag = true;
-                      //itero su array esterno del localStorage per vedere se il path è già inserito
-                      allPoiPersonalArray.forEach(function (percorso) {
-                        if (percorso.id == path.id) {
-                          //se il path esiste già allora inserisco solo i POI
-                          var index = percorso.POIs.push(insertPOI(path)) - 1;
-                          poi = new Array()
-                          poi.push(percorso.POIs[index]);
-                          flag = false;
-                          return;
-                        }
-                      });
-                      if (flag) {
-                        //se il path non esiste allora inserisco path + OI
-                        var poiTemp = insertPOIPath(path);
-                        allPoiPersonalArray.push(poiTemp);
-                        poi = poiTemp.POIs;
-                        console.log(poi)
-                      }
                     }
-
-                    //iserisco la nuova variabile modificata
-                    localStorage.setItem(idPath, JSON.stringify(allPoiPersonalArray));
-
-                    //Visualizza il poi appena inserito
-                    // poiArr.push(poi);
-                    var geosec = Layer.posizionaPunto(poi, 'icon/personali.png');
-                    map.addLayer(geosec);
                   }
-                  return $scope.newPoi;
+
+                  //iserisco la nuova variabile modificata
+                  localStorage.setItem(idPath, JSON.stringify(allPoiPersonalArray));
+
+                  //Visualizza il poi appena inserito
+                  // poiArr.push(poi);
+                  var geosec = Layer.posizionaPunto(poi, 'icon/personali.png');
+                  map.addLayer(geosec);
                 }
-              }]
-            });
-            createPOIPopup.then(function (res) {
-              $scope.showError = false;
-            });
-          }
+                return $scope.newPoi;
+              }
+            }]
+          });
+          createPOIPopup.then(function (res) {
+            $scope.showError = false;
+          });
+
         }, function (error) {
           $ionicPopup.alert({
             title: 'Error',
             template: 'GPS momentaneamente non disponibile'
           });
-
+          $scope.showLoading = 0;
+          $scope.activeButtonAddPOI = false;
         });
       };
 
