@@ -1,13 +1,18 @@
 .submitted .ng-invalid{
   border: 1px solid red;
 }
-
 .myPopup .popup{
   background: rgba(255,255,255,0.3)!important;
 }
-
 .popup-container .popup {
   width: 350px;
+}
+.myTitle .popup-title{
+    color:black;
+    font-weight: bold;    
+}
+.mySubTitle .popup-sub-title{
+    font-size: 15px;
 }
 #home{
     position: fixed;

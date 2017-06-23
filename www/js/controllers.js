@@ -49,15 +49,15 @@ angular.module('app.controllers', [])
           $scope.closeModal();
           var listPopup = $ionicPopup.show({
             scope: $scope,
-            template: '<ion-list class="myPopup">' +
-            '  <ion-item style="opacity: 0.5!important;" ' +
-            '           ng-repeat="item in listPaths" ng-click="visualizzaListaPercorsiPOI(item)"> ' +
-            '    Alternativa {{$index+1}}                            ' +
-            '  </ion-item>                             ' +
+            template: '<ion-list class="myPopup">'+
+            '  <ion-item style="opacity: 0.5!important;color:#387EF5;font-weight: bold;" ' +
+            '           ng-repeat="item in listPaths" ng-click="visualizzaListaPercorsiPOI(item)"> '+
+            '    Percorso {{$index+1}}                            '+
+            '  </ion-item>                             '+
             '</ion-list>                               ',
-            title: 'Seleziona percorso',
-            subTitle: $scope.listPaths[0].percorso,
-            cssClass: 'myPopup',
+            title: $scope.listPaths[0].percorso,
+            subTitle: 'Seleziona Alternativa',
+            cssClass: 'myPopup myTitle mySubTitle',
             buttons: [{
               text: 'Cancel',
               type: 'button-positive',
