@@ -39,7 +39,7 @@ angular.module('app.controllers', [])
      // shareData.setData(poi);
       $scope.closeModal()
     }
-    
+
     // Centra la mappa sul percorso o il poi selezionato
     $scope.centraMappa = function (x) {
         var view = new ol.View({
@@ -65,23 +65,22 @@ angular.module('app.controllers', [])
     $scope.visualizzaListaIMieiPercorsi = function () {
       //stampa la lista dei percorsi personali
         var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
-
         if(myPathLocalStorage){//se localStorage è pieno
-        var obj;
-        var myPathListArray = new Array();
-        myPathLocalStorage.forEach(function (path) {
+          var obj;
+          var myPathListArray = new Array();
+          myPathLocalStorage.forEach(function (path) {
 
-          obj = {
-            id:path.id,
-            percorso:path.POIs[0].percorso,
-            tipo_perc:path.POIs[0].tipo_perc,
-            cod_tipo:path.POIs[0].cod_tipo,
-            num_poi_add: path.POIs.length,
-            POIs:path.POIs
-          };
-          myPathListArray.push(obj)
-        });
-        $scope.myPathList = myPathListArray;
+            obj = {
+              id:path.id,
+              percorso:path.POIs[0].percorso,
+              tipo_perc:path.POIs[0].tipo_perc,
+              cod_tipo:path.POIs[0].cod_tipo,
+              num_poi_add: path.POIs.length,
+              POIs:path.POIs
+            };
+            myPathListArray.push(obj)
+          });
+          $scope.myPathList = myPathListArray;
       }else{
         $scope.myPathList = new Array();
       }
@@ -103,22 +102,17 @@ angular.module('app.controllers', [])
       };
 
       $scope.deletePath = function (myPath) {
-        console.log("del")
         var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
-        console.log(myPathLocalStorage)
-        myPathLocalStorage.forEach(function (path) {
-          if(path.id == myPath.id){
-            console.log("delete "+path.id)
-            var index = myPathLocalStorage.indexOf(path.id);
-            console.log(index)
-            if(index != -1)
-              myPathLocalStorage.splice(index,1);
+        for (var i=0; i < myPathLocalStorage.length; i++) {
+          if (myPathLocalStorage[i].id === myPath.id) {
+            myPathLocalStorage[i].POIs.forEach(function (poi) {
+              map.removeLayer(poi);
+            });
+            myPathLocalStorage.splice(i,1);
           }
-        });
-        console.log(myPathLocalStorage)
-        //localStorage.setItem('personalPOI',JSON.stringify(myPathLocalStorage));
-
-
+        }
+        localStorage.setItem('personalPOI',JSON.stringify(myPathLocalStorage));
+        $scope.visualizzaListaIMieiPercorsi();
       }
       $scope.editPath = function (path) {
         console.log("edit")

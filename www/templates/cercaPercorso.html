@@ -48,8 +48,8 @@
 
                 <ion-list id="searchPOI-list">
                    <ion-item class="item-icon-right positive" id="searchPOI-item"
-                          ng-repeat="poi in poiList | filter: {nom_poi:nomePOI} | filter:{cod_tipo : slideChange(difficolta)}:true "
-                          ng-click="visualizzaPOI(poi,null,poi.cod_tipo,'icon/geosec.png')">{{poi.nom_poi}}</ion-item>
+                          ng-repeat="poi in poiList | filter: {nom_poi:nomePOI} | filter:{cod_tipo : slideChange(difficolta) || cod_tipo}:true "
+                          ng-click="visualizzaPOI(poi,null,poi.cod_tipo,'icon/geosec.png')">{{poi.nom_poi}}{{poi.percorso}}</ion-item>
                 </ion-list>
               </div>
 
@@ -72,7 +72,7 @@
 
                 <ion-list id="searchPath-list">
                   <ion-item class="item-icon-right positive" id="searchPath-item"
-                            ng-repeat="path in pathList | filter:{percorso:nomePath} | filter:{cod_tipo : slideChange(difficolta)}:true"
+                            ng-repeat="path in pathList | filter:{percorso:nomePath} | filter:{cod_tipo : slideChange(difficolta)|| cod_tipo}:true"
                             ng-click="visualizzaPercorso(path,path.cod_tipo)">{{path.percorso}}</ion-item>
                 </ion-list>
               </div>
@@ -95,7 +95,7 @@
                         <span class="textMyPersonali" style="color:black;">{{path.num_poi_add}}</span>
                     </span>
                 </div>
-            <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-close" ng-click="deletePath()" ></ion-option-button>
+            <ion-option-button style="border-radius:5px;font-size:1.3em;" class="button-assertive ion-close" ng-click="deletePath(path)" ></ion-option-button>
             <!-- <ion-option-button class="button-positive" ng-click="editPath()" >Modifica</ion-option-button> -->
           </ion-item>
         </ion-list>
