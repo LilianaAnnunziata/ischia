@@ -168,19 +168,21 @@ angular.module('app.controllers', [])
         var myPathLocalStorage = JSON.parse(localStorage.getItem('personalPOI'));
         for (var i = 0; i < myPathLocalStorage.length; i++) {
           if (myPathLocalStorage[i].id === myPath.id) {
-            myPathLocalStorage[i].POIs.forEach(function (poi) {
-              map.removeLayer(poi);
-            });
-            myPathLocalStorage.splice(i, 1);
+           $scope.exit() ;
+           myPathLocalStorage.splice(i, 1);
           }
         }
-        localStorage.setItem('personalPOI', JSON.stringify(myPathLocalStorage));
+        if(myPathLocalStorage.length == 0) {
+          localStorage.removeItem('personalPOI');
+        }
+        else
+          localStorage.setItem('personalPOI', JSON.stringify(myPathLocalStorage));
         $scope.visualizzaListaIMieiPercorsi();
       }
+
       $scope.editPath = function (path) {
         console.log("edit")
       };
-
 
       var difficoltaPercorso = "";
       $scope.slideChange = function (difficolta) {
@@ -439,6 +441,11 @@ angular.module('app.controllers', [])
         poiPersonal = undefined;
         poigeosec = undefined;
         poivari = undefined;
+        $scope.attivoA='';
+        $scope.attivoB='';
+        $scope.attivoC='';
+        $scope.attivoD='';
+        $scope.attivoE='';
       }
 
       $scope.show = function () {
