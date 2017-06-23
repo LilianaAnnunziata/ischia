@@ -2,53 +2,109 @@ angular.module('app.controllers', [])
 
 .controller('percorsoCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
-
-
     }])
 
-.controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    function ($scope, shareData,Layer) {
+.controller('cercaPercorsoCtrl', ['$scope', 'shareData','Layer','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    function ($scope, shareData,Layer,$ionicPopup) {
     $scope.difficoltaPOI = 0;
     $scope.difficoltaPATH = 0;
-   
+
       //POI
     $scope.poiList = window.infoPois;
 
     $scope.visualizzaPOI = function (poi,personal,difficolta,img) {
       console.log(img)
-      var poiArr;
+      $scope.poiArr;
       if(!personal) {//creazione array per mandarlo in posizionaPunto
-        poiArr = new Array();
-        poiArr.push(poi);
+        $scope.poiArr = new Array();
+        $scope.poiArr.push(poi);
       }else
-        poiArr = poi;
+        $scope.poiArr = poi;
 
       //visualizzazione anche del percorso
       var myPathListArray = window.infoPaths;
+
+      $scope.listPaths = new Array();// PDNS: problema di dati non standardizzati
+
       myPathListArray.forEach(function (path) {
         if (path.percorso == poi.percorso && path.cod_tipo == difficolta) {
-          console.log(path)
-         $scope.visualizzaPercorso(path, path.cod_tipo)
+          /*da decommentare se PDNS risolto*/
+         //$scope.visualizzaPercorso(path, path.cod_tipo);
+         $scope.listPaths.push(path)//PDNS
         }
       });
       //centra la mappa sul poi
       $scope.centraMappa(poi.coordinates);
-      //visualizzazione del poi
-      var geosec = Layer.posizionaPunto(poiArr,img);
-      map.addLayer(geosec);
-     // shareData.setData(poi);
-      $scope.closeModal()
+
+      /*PDNS risolta allora visualizza un solo poi
+       //visualizzazione del poi
+       var geosec = Layer.posizionaPunto(poiArr,img);
+       map.addLayer(geosec);
+       // shareData.setData(poi);
+       $scope.closeModal();
+       */
+
+      //PDNS-inizio: CONTROLLO SU PIU PERCORSI
+      if($scope.listPaths.length > 1){
+        $scope.closeModal();
+        var listPopup = $ionicPopup.show({
+          scope: $scope,
+          template: '<ion-list class="myPopup">'+
+          '  <ion-item style="opacity: 0.5!important;" ' +
+          '           ng-repeat="item in listPaths" ng-click="visualizzaListaPercorsiPOI(item)"> '+
+          '    Alternativa {{$index+1}}                            '+
+          '  </ion-item>                             '+
+          '</ion-list>                               ',
+          title: 'Seleziona percorso',
+          subTitle: $scope.listPaths[0].percorso,
+          cssClass: 'myPopup',
+          buttons: [{
+            text: 'Cancel',
+            type: 'button-positive',
+            onTap: function(e) {
+              $scope.openModal();
+              $scope.exit();
+              return;
+            }
+          }, {
+            text: 'Visualizza',
+            type: 'button-positive',
+            onTap: function(e) {
+              viewPOIandPath($scope.path);
+            }},
+          ]
+        });
+      }else {
+        viewPOIandPath($scope.listPaths.pop());
+      }
+      //PDNS-fine
     }
 
-    // Centra la mappa sul percorso o il poi selezionato
-    $scope.centraMappa = function (x) {
+    //PDNS-Inizio: visualizzazione percorso e poi
+      $scope.visualizzaListaPercorsiPOI = function (path) {
+        $scope.exit()
+        viewPOIandPath(path);
+       // $scope.centraMappa(path[0].coordinates);
+      }
+
+      function viewPOIandPath(path) {
+        $scope.visualizzaPercorso(path, path.cod_tipo)
+        //visualizzazione del poi
+        var geosec = Layer.posizionaPunto($scope.poiArr, 'icon/geosec.png');
+        map.addLayer(geosec);
+      }
+    //PDNS-fine
+
+      // Centra la mappa sul percorso o il poi selezionato
+      $scope.centraMappa = function (x) {
         var view = new ol.View({
-        center: ol.proj.fromLonLat(x),
-        zoom: 13.5
+          center: ol.proj.fromLonLat(x),
+          zoom: 13.5
         });
         map.setView(view);
-    }
-    //PERCORSI
+      }
+
+      //PERCORSI
     $scope.pathList = window.infoPaths;
 
     $scope.visualizzaPercorso = function (path,difficolta) {
@@ -568,18 +624,18 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
        map.setView(view);
        document.getElementById('resetPosizione').style.display="none";
     }
-    
+
     //Gestisce la selezione dei percorsi prima della Navigazione
     $scope.gestisciPercorso = function (scelta){
         if(scelta)
         {
-            $scope.inNavigazione = 1;            
+            $scope.inNavigazione = 1;
         }
         else
         {
             $scope.openModal();
             $scope.exit();
-        }        
+        }
     }
 
 }])

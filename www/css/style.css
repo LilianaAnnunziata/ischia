@@ -2,6 +2,10 @@
   border: 1px solid red;
 }
 
+.myPopup .popup{
+  background: rgba(255,255,255,0.3)!important;
+}
+
 .popup-container .popup {
   width: 350px;
 }
@@ -151,7 +155,7 @@ ul#ion-segment li{
     max-width: 30px!important;
     background-color: green;
     opacity: 0.85;
-    border-radius: 12px;    
+    border-radius: 12px;
 }
 #avviaPercorso:active {
     background-color: lightgreen;
