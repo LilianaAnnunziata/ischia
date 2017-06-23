@@ -128,3 +128,31 @@ ul#ion-segment li{
 #feedbackPersonali:nth-child(2){
     right: 5%;
 }
+#cambiaPercorso{
+    position: absolute;
+    z-index: 2;
+    right: 8px;
+    bottom: 60px;
+    max-height: 30px!important;
+    max-width: 30px!important;
+    background-color: red;
+    opacity: 0.85;
+    border-radius: 12px;
+}
+#cambiaPercorso:active {
+    background-color: lightcoral;
+}
+#avviaPercorso{
+    position: absolute;
+    z-index: 2;
+    right: 8px;
+    bottom: 115px;
+    max-height: 30px!important;
+    max-width: 30px!important;
+    background-color: green;
+    opacity: 0.85;
+    border-radius: 12px;    
+}
+#avviaPercorso:active {
+    background-color: lightgreen;
+}

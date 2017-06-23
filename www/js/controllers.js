@@ -10,7 +10,7 @@ angular.module('app.controllers', [])
     function ($scope, shareData,Layer) {
     $scope.difficoltaPOI = 0;
     $scope.difficoltaPATH = 0;
-
+   
       //POI
     $scope.poiList = window.infoPois;
 
@@ -44,7 +44,7 @@ angular.module('app.controllers', [])
     $scope.centraMappa = function (x) {
         var view = new ol.View({
         center: ol.proj.fromLonLat(x),
-        zoom: 15
+        zoom: 13.5
         });
         map.setView(view);
     }
@@ -146,7 +146,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
   geosec;
   var view,vectorLayer,layer,feature,geosec,array,
     poiPersonal,poispiaggia,poigeosec,poivari,poihotel;
-
+    $scope.inNavigazione = 0;
     view = new ol.View({
       center: ol.proj.fromLonLat([13.905190,40.722581]),
       zoom: 12,
@@ -369,6 +369,7 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
   //delete all layer
   $scope.exit = function () {
     document.getElementById('range_Map').style.bottom = "6%";
+    $scope.inNavigazione = 0;
     shareData.setData(null);
     $scope.path = shareData.getData();
     var arrLayer = map.getLayers().getArray();
@@ -563,8 +564,22 @@ function ($scope,$ionicModal,$http,$window, $cordovaGeolocation,$ionicLoading,
     $scope.resetPosizione = function (){
        view.setCenter(ol.proj.fromLonLat([13.905190,40.722581]));
        view.setZoom(12);
+       view.rotate(0);
        map.setView(view);
        document.getElementById('resetPosizione').style.display="none";
+    }
+    
+    //Gestisce la selezione dei percorsi prima della Navigazione
+    $scope.gestisciPercorso = function (scelta){
+        if(scelta)
+        {
+            $scope.inNavigazione = 1;            
+        }
+        else
+        {
+            $scope.openModal();
+            $scope.exit();
+        }        
     }
 
 }])
