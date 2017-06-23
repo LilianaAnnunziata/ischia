@@ -98,8 +98,10 @@ angular.module('app.controllers', [])
       // Centra la mappa sul percorso o il poi selezionato
       $scope.centraMappa = function (x) {
         var view = new ol.View({
-          center: ol.proj.fromLonLat(x),
-          zoom: 13.5
+        center: ol.proj.fromLonLat(x),
+        zoom: 13.5,
+        minZoom: 11,
+        maxZoom: 19
         });
         map.setView(view);
       }

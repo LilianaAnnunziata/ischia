@@ -160,3 +160,11 @@ ul#ion-segment li{
 #avviaPercorso:active {
     background-color: lightgreen;
 }
+#loading{
+    position:absolute;
+    height: auto;
+    width: 100%;
+    top: 30%;
+    left: 0%;
+    text-align: center;
+}

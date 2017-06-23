@@ -22,7 +22,7 @@
                 <span class="text">Per POI</span>
            </ion-segment-button>
            <ion-segment-button value="cercaNomePath" style="padding:4px!important;">
-                <span class="text">Per Percorso</span>
+                <span class="text">Per Nome</span>
            </ion-segment-button>
         </ion-segment>
 
@@ -47,9 +47,11 @@
 
 
                 <ion-list id="searchPOI-list">
-                   <ion-item class="item-icon-right positive" id="searchPOI-item"
-                          ng-repeat="poi in poiList | filter: {nom_poi:nomePOI} | filter:{cod_tipo : slideChange(difficolta) || cod_tipo}:true "
-                          ng-click="visualizzaPOI(poi,null,poi.cod_tipo,'icon/geosec.png')">{{poi.nom_poi}}{{poi.percorso}}</ion-item>
+                   <ion-item class="item-icon-right positive" id="searchPOI-item" ng-repeat="poi in poiList | filter: {nom_poi:nomePOI} | filter:{cod_tipo : slideChange(difficolta) || cod_tipo}:true"
+                                    ng-click="visualizzaPOI(poi,null,poi.cod_tipo,'icon/geosec.png')">
+                        {{poi.nom_poi}}
+                        <p>{{poi.percorso}}</p>
+                   </ion-item>
                 </ion-list>
               </div>
 
